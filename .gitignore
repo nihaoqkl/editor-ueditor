@@ -10,6 +10,7 @@ asp/upload
 node/upload
 node_modules
 ErrorFiles
+dist
 
 
 ###############

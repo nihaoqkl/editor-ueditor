@@ -189,7 +189,7 @@
                     } else {
                         UE.dom.domUtils.findParent(nowNode, function (node) {
                             if (UE.dom.domUtils.hasClass(node, 'wxqq')) {
-                                node.removeChild(nowNode);
+                                node.parentNode.removeChild(node);
                             } else {
                                 return false;
                             }
@@ -209,8 +209,6 @@
                         if(before){
                             nowNode.parentNode.insertBefore(newP,nowNode);
                         } else {
-                            console.log(nowNode.parentNode);
-                            console.log(nowNode.nextSibling);
                             UE.dom.domUtils.insertAfter(nowNode,newP);
                         }
 
@@ -218,9 +216,9 @@
                         UE.dom.domUtils.findParent(nowNode, function (node) {
                             if (UE.dom.domUtils.hasClass(node, 'wxqq')) {
                                 if(before){
-                                    node.parentNode.insertBefore(newP,nowNode);
+                                    node.parentNode.insertBefore(newP,node);
                                 } else {
-                                    UE.dom.domUtils.insertAfter(nowNode.parentNode,newP);
+                                    UE.dom.domUtils.insertAfter(node,newP);
                                 }
                             } else {
                                 return false;
