@@ -190,7 +190,8 @@ module.exports = function (grunt) {
                     },
                     {
                         from: 'editor_api.js',
-                        to: packageJson.name + '.all.min.js'
+                        //to: packageJson.name + '.all.min.js'
+                        to: packageJson.name + '.all.js'
                     }
                 ]
             },

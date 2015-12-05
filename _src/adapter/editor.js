@@ -24,6 +24,8 @@
             var editor = this.editor,
                 me = this;
 
+            console.log(editor.ui._dialogs);
+
             editor.addListener('ready', function () {
                 //提供getDialog方法
                 editor.getDialog = function (name) {
@@ -66,7 +68,6 @@
 
                 if (!editor.selection.isFocus())return;
                 editor.fireEvent('selectionchange', false, true);
-
 
             });
 
@@ -178,6 +179,21 @@
                     this.hide();
                     editor.ui._dialogs[name] && editor.ui._dialogs[name].open();
 
+                },
+                _onSelect:function () {
+                    var range=editor.selection.getRange();
+                    var nowNode=editor.selection.getRange().startContainer.nodeType!=1?editor.selection.getRange().startContainer.parentNode:editor.selection.getRange().startContainer;
+                    if(UE.dom.domUtils.hasClass(nowNode,'wxqq')){
+                        range.selectNodeContents(nowNode);
+                        range.select();
+                    } else {
+                        UE.dom.domUtils.findParent(nowNode, function (node) {
+                            if (UE.dom.domUtils.hasClass(node, 'wxqq')) {
+                                range.selectNodeContents(node);
+                                range.select();
+                            }
+                        });
+                    }
                 },
                 //删除带有wxqq的节点
                 _onDeleteNode:function () {
@@ -297,6 +313,9 @@
                     var html = '', str = "",
                         img = editor.selection.getRange().getClosedNode(),
                         dialogs = editor.ui._dialogs;
+                    var hasBackground=false;
+                    var firstNode=editor.selection.getRange().startContainer.nodeType!=1?editor.selection.getRange().startContainer.parentNode:editor.selection.getRange().startContainer;
+
                     if (img && img.tagName == 'IMG') {
                         var dialogName = 'insertimageDialog';
                         if (img.className.indexOf("edui-faked-video") != -1 || img.className.indexOf("edui-upload-video") != -1) {
@@ -331,6 +350,7 @@
                         if (!dialogs[dialogName]) {
                             return;
                         }
+
                         str = '<nobr>' + editor.getLang("property") + ': '+
                             '<span onclick=$$._onImgSetFloat("none") class="edui-clickable">' + editor.getLang("default") + '</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onDeleteNode() class="edui-clickable">删除</span>&nbsp;&nbsp;' +
@@ -363,10 +383,47 @@
                         }
                     }
 
+                    if(!html){
+                        str = '<nobr>' + editor.getLang("property") + ': '+
+                            '<span onclick="$$._onSelect();" class="edui-clickable">选中</span>&nbsp;&nbsp;' +
+                            '<span onclick="wxqqCopy()" class="edui-clickable">复制</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onDeleteNode() class="edui-clickable">剪切</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onDeleteNode() class="edui-clickable">选中</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onInsertNewNode(true) class="edui-clickable">前插空行</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onInsertNewNode(false) class="edui-clickable">后插空行</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onImgSetFloat("left") class="edui-clickable">' + editor.getLang("justifyleft") + '</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onImgSetFloat("right") class="edui-clickable">' + editor.getLang("justifyright") + '</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onImgSetFloat("center") class="edui-clickable">' + editor.getLang("justifycenter") + '</span>&nbsp;&nbsp;'+
+                            '<span onclick="$$._onImgEditButtonClick(\'' + dialogName + '\');" class="edui-clickable">' + editor.getLang("modify") + '</span>&nbsp;&nbsp;';
+
+                        //处理有背景的class="wxqq-bg"
+                        if(UE.dom.domUtils.hasClass(firstNode, 'wxqq-bg')){
+                            hasBackground=true;
+                        } else {
+                            UE.dom.domUtils.findParent(firstNode, function(node) {
+                                if (UE.dom.domUtils.hasClass(node, 'wxqq-bg')) {
+                                    hasBackground=true;
+                                } else {
+                                    hasBackground=false
+                                }
+                            });
+                        }
+                        if(hasBackground){
+                            str+='<span onclick="$$._onImgEditButtonClick(\'insertbackgroundDialog\');" class="edui-clickable">背景图</span>';
+                        }
+                        str+='</nobr>';
+
+                        html = popup.formatHtml(str);
+
+                    }
+
                     if (html) {
                         popup.getDom('content').innerHTML = html;
                         popup.anchorEl = img || link;
-                        popup.showAnchor(popup.anchorEl);
+                        if( typeof img == 'undefined'){
+                            popup.showAnchor(firstNode);
+                        } else
+                            popup.showAnchor(popup.anchorEl);
                     } else {
                         popup.hide();
                     }
@@ -381,6 +438,7 @@
             var extraUIs = [];
             for (var i = 0; i < toolbars.length; i++) {
                 var toolbar = toolbars[i];
+                console.log(editor.options);
                 var toolbarUi = new baidu.editor.ui.Toolbar({theme:editor.options.theme});
                 for (var j = 0; j < toolbar.length; j++) {
                     var toolbarItem = toolbar[j];
