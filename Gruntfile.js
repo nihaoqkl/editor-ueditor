@@ -126,7 +126,7 @@ module.exports = function (grunt) {
             demo: {
                 files: [
                     {
-                        src: '_examples/completeDemo.html',
+                        src: '_examples/customToolbarDemo.html',
                         dest: disDir + 'index.html'
                     }
                 ]

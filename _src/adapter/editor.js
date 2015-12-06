@@ -24,8 +24,6 @@
             var editor = this.editor,
                 me = this;
 
-            console.log(editor.ui._dialogs);
-
             editor.addListener('ready', function () {
                 //提供getDialog方法
                 editor.getDialog = function (name) {
@@ -438,7 +436,6 @@
             var extraUIs = [];
             for (var i = 0; i < toolbars.length; i++) {
                 var toolbar = toolbars[i];
-                console.log(editor.options);
                 var toolbarUi = new baidu.editor.ui.Toolbar({theme:editor.options.theme});
                 for (var j = 0; j < toolbar.length; j++) {
                     var toolbarItem = toolbar[j];
