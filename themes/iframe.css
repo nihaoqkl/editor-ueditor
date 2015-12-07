@@ -1,1 +1,7 @@
 /*可以在这里添加你自己的css*/
+body {
+    padding:10px;
+    background:#fff;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

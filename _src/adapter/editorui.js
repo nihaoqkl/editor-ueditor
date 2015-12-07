@@ -180,6 +180,43 @@
         }(ci);
     }
 
+    //文本的shadow
+    for (var i = 0, ci; ci = ['txtshadow'][i++];) {
+        editorui[ci] = function (cmd) {
+            return function (editor) {
+                var ui = new editorui.ColorButton({
+                    className:'edui-for-' + cmd,
+                    color:'default',
+                    title:editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd) || '',
+                    editor:editor,
+                    onpickcolor:function (t, color) {
+                        var range=editor.selection.getRange(),
+                            txt=range.toString();
+
+                        var newNode=range.cloneRange();
+                        var div = editor.document.createElement('span');
+                        div.className="wxqq-ts";
+                        div.style.cssText='text-shadow: 0 0 5px '+color;
+                        div.appendChild(editor.document.createTextNode(txt));
+                        range.deleteContents();
+                        range.insertNode(div);
+                    },
+                    onpicknocolor:function () {
+                    },
+                    onbuttonclick:function () {
+                        console.log(editor.document.getSelection());
+                        editor.execCommand(cmd, this.color);
+                    }
+                });
+                editorui.buttons[cmd] = ui;
+                editor.addListener('selectionchange', function () {
+                    ui.setDisabled(editor.queryCommandState(cmd) == -1);
+                });
+                return ui;
+            };
+        }(ci);
+    }
+
 
     var dialogBtns = {
         noOk:['searchreplace', 'help', 'spechars', 'webapp','preview'],
