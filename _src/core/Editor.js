@@ -1015,7 +1015,6 @@
 //                return;
 //            }
 
-
             var hackForMouseUp = false;
             var mouseX, mouseY;
             if (browser.ie && browser.version < 9 && evt && evt.type == 'mouseup') {
@@ -1076,6 +1075,9 @@
                 cmd, cmdFn;
             cmd = this.commands[cmdName] || UE.commands[cmdName];
             cmdFn = cmd && cmd[fnName];
+            //console.log(this.commands)
+            //console.log(cmdName)
+            //console.log(fnName)
             //没有querycommandstate或者没有command的都默认返回0
             if ((!cmd || !cmdFn) && fnName == 'queryCommandState') {
                 return 0;

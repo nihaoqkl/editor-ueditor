@@ -952,7 +952,6 @@
             delete instances[id]
         }
     };
-
     UE.registerUI = function(uiName,fn,index,editorId){
         utils.each(uiName.split(/\s+/), function (name) {
            baidu.editor.ui[name] = {

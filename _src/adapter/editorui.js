@@ -191,21 +191,43 @@
                     editor:editor,
                     onpickcolor:function (t, color) {
                         var range=editor.selection.getRange(),
-                            txt=range.toString();
+                            newNode=range.cloneRange();
+                        if(newNode.startContainer.nodeType==3){
 
-                        var newNode=range.cloneRange();
-                        var div = editor.document.createElement('span');
-                        div.className="wxqq-ts";
-                        div.style.cssText='text-shadow: 0 0 5px '+color;
-                        div.appendChild(editor.document.createTextNode(txt));
-                        range.deleteContents();
-                        range.insertNode(div);
+                            if(!range.collapsed) {
+                                var txt = newNode.startContainer.nodeValue.substring(newNode.startOffset, newNode.endOffset);
+                                var div = editor.document.createElement('span');
+                                div.className = "wxqq-ts";
+                                div.style.cssText = 'text-shadow: 0 0 5px ' + color;
+                                div.appendChild(editor.document.createTextNode(txt));
+                                range.deleteContents();
+                                range.insertNode(div);
+                            }
+                        }
                     },
                     onpicknocolor:function () {
+                        this.color = 'default';
                     },
                     onbuttonclick:function () {
-                        console.log(editor.document.getSelection());
-                        editor.execCommand(cmd, this.color);
+                        var range=editor.selection.getRange(),
+                            newNode=range.cloneRange();
+                        if(newNode.startContainer.nodeType==3){
+                            if(UE.dom.domUtils.hasClass(newNode.startContainer.parentNode,'wxqq-ts')){
+                                console.log(newNode.startContainer.parentNode);
+                                UE.dom.domUtils.remove(newNode.startContainer.parentNode,true);
+                            } else {
+                                if(!range.collapsed) {
+                                    var txt=newNode.startContainer.nodeValue.substring(newNode.startOffset,newNode.endOffset);
+                                    var div = editor.document.createElement('span');
+                                    div.className="wxqq-ts";
+                                    div.style.cssText='text-shadow: 0 0 5px '+this.color;
+                                    div.appendChild(editor.document.createTextNode(txt));
+                                    range.deleteContents();
+                                    range.insertNode(div);
+                                }
+                            }
+
+                        }
                     }
                 });
                 editorui.buttons[cmd] = ui;

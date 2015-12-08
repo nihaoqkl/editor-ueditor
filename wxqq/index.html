@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <base target="_top"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -1939,34 +1938,14 @@
 <div style="position:fixed;z-index:10000;bottom:0px;width:100%;height:36px;background:rgba(45,45,45,0.5);color:#999;line-height:36px;">
     <div style="position:relative;max-width: 1200px; margin: 0px auto;">
         <div style="float:right;margin-right:5px;top:0px;">
-            <a target="_blank" href="/feed_backs/add" class="btn btn-default btn-xs">反馈意见</a>
+            <a target="_blank" href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" class="btn btn-default btn-xs">反馈意见</a>
         </div>
         <div id="ajaxestatus" style="line-height:32px;display:none;margin-top: 6px;margin-right:10px;width:100px;height:20px; background:url('http://static.135editor.com/img/pbar-ani.gif') repeat-x 0 0;float:right;margin-left:5px;"></div>
 
         <div class="ifo" style="width:1120px;margin:0 auto;">
             <p  style="font-size:12px;clear:none;color:#999;padding: 0;display:inline-block;">
-                Powered By 提子科技(北京)有限公司. <a href="http://www.135editor.com/books/chapter/1/21" target="_blank">加入QQ交流群</a>
+                Powered By qklinSoft. <a href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank">联系客服</a>
             </p>
-            <!--
-            <p  style="font-size:12px;clear:none;padding: 0;display:inline-block;margin-left:50px;color:#ccc;">
-                广告：<a href="http://www.zhichiwangluo.com/zhichi/index.php?r=pc/Index/invitationTpl&site=135bianji" style="color:#ccc;" target="_blank">微场景制作平台--咫尺微页， 点此-免费制作</a>
-            </p> -->
-
-            <div class="hide"><script type="text/javascript">
-                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-                document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fa45d300ba492e76b86f8df75cbecaf38' type='text/javascript'%3E%3C/script%3E"));
-            </script>
-                <script>
-                    var _hmt = _hmt || [];
-                    (function() {
-                        var hm = document.createElement("script");
-                        hm.src = "//hm.baidu.com/hm.js?a21ff670603611605ffb0cf03a7643a7";
-                        var s = document.getElementsByTagName("script")[0];
-                        s.parentNode.insertBefore(hm, s);
-                    })();
-                </script>
-
-            </div>
         </div>
     </div>
 </div>
@@ -1977,7 +1956,7 @@
 <script src="../dist/utf8-php/ueditor.all.min.js"></script>
 <script src="http://static.135editor.com/js/jquery/jquery.Jcrop.js"></script>
 <link rel="stylesheet" href="http://static.135editor.com/css/jquery.Jcrop.css" type="text/css" />
-
+<script type="text/javascript" src="./js/ZeroClipboard/ZeroClipboard.js"></script>
 <script src="./js/index.js" type="text/javascript"></script>
 
 
@@ -2319,7 +2298,7 @@
         autoHeightEnabled:false,
         elementPathEnabled:false, //是否启用元素路径，默认是显示
         wordCount:false, //是否开启字数统计
-        allowDivTransToP:false
+//        allowDivTransToP:false
     });
 
     current_editor.ready(function(){
@@ -2528,7 +2507,7 @@
 
 <script src="http://static.135editor.com/cache/82e97d8f1b.js" type="text/javascript"></script>
 <script>
-    ZeroClipboard.config( { swfPath: "/js/ZeroClipboard/ZeroClipboard.swf" } );
+    ZeroClipboard.config( { swfPath: "./js/ZeroClipboard/ZeroClipboard.swf" } );
     $(function(){
 
 
@@ -3117,16 +3096,9 @@
             $('#custom-color-text').val(bgcolor).css('backgroundColor',bgcolor);
 
             if(!color)  color = '#FFF';
-            setBackgroundColor(bgcolor,color, true);
-            if( replace_full_color == false && ! current_editor.currentActive135Item()  ) {
-                showErrorMessage("请在内容中选择要换色的样式，<br/>或者勾选全文换色后操作");
-                //parseObject($('.editor-template-list'),bgcolor,color);
-                // $('#editor-template-list > li').each(function(){
-                // 	var obj = $(this);
-                // 	parseObject(obj,bgcolor,color);
-                // 	//$(this).attr('data-color',bgcolor);
-                // });
-            }
+//            setBackgroundColor(bgcolor,color, true);
+            //replace_full_color
+            $(current_editor.document.body).find('.wxqq-bg').css({backgroundColor:'#f00'});
         });
         /*var default_color = $('.default-color').css('backgroundColor');
          $('#editor-template-list li > .wxqq').each(function(){
@@ -3135,13 +3107,13 @@
          });*/
 
         $(document).on('click','#135-random-transform',function(){
-            current_active_135item = current_editor.currentActive135Item();
-            if(current_active_135item){
+            var range=current_editor.selection.getRange();
+            if($(range.startContainer).parents('.wxqq')){
                 var deg = parseInt(Math.random()*8); // 正负8度
                 var f = Math.random()*10 > 5 ? '' : '-';
-                var transform = 'rotateZ('+f+deg+'deg)';
+                var transform = 'rotate('+f+deg+'deg)';
 
-                setElementTransform($(current_active_135item).get(0),transform);
+                setElementTransform($(range.startContainer).parents('.wxqq').get(0),transform);
             }
             else{
                 showErrorMessage("请在内容中选择要倾斜的样式");
@@ -3236,13 +3208,13 @@
             this.form.action = '/downloads/htmlToImage';
             this.form.submit();
         });
+
         var client = new ZeroClipboard( $('#copy-editor-html') );
         client.on( 'ready', function(event) {
             client.on( 'copy', function(event) {
                 clean_135helper();
                 var html = getEditorHtml();
                 event.clipboardData.setData('text/html',html );
-                event.clipboardData.setData('text/plain', html );
                 showSuccessMessage("已成功复制到剪切板");
             });
         });
