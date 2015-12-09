@@ -23,6 +23,7 @@ UE.plugin = function(){
         load : function(editor){
             utils.each(_plugins,function(plugin){
                 var _export = plugin.execFn.call(editor);
+                // editor.options[plugin.optionName]===undefined 反正条件都会成立  这里用 !==false 不合理的地方
                 if(editor.options[plugin.optionName] !== false){
                     if(_export){
                         //后边需要再做扩展
@@ -66,7 +67,8 @@ UE.plugin = function(){
                 }
 
             });
-            //向下兼容
+
+            //向下兼容  可能是之前旧版本的插件模式，加载一些旧版本的插件如autoheight  UE.plugins['autoheight'] 这样注册的插件
             utils.each(UE.plugins,function(plugin){
                 plugin.call(editor);
             });

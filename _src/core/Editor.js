@@ -228,7 +228,10 @@
     var Editor = UE.Editor = function (options) {
         var me = this;
         me.uid = uid++;
+
+        //让editor实例拥有自定义的事件处理
         EventBase.call(me);
+
         me.commands = {};
         me.options = utils.extend(utils.clone(options || {}), UEDITOR_CONFIG, true);
         me.shortcutkeys = {};

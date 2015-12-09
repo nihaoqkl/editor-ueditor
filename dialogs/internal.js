@@ -1,3 +1,5 @@
+//"use strict";
+//不是严格模式，不用var 默认定义的都是全局的 如果用var是局部的
 (function () {
     var parent = window.parent;
     //dialog对象

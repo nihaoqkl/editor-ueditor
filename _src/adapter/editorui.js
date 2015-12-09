@@ -213,7 +213,6 @@
                             newNode=range.cloneRange();
                         if(newNode.startContainer.nodeType==3){
                             if(UE.dom.domUtils.hasClass(newNode.startContainer.parentNode,'wxqq-ts')){
-                                console.log(newNode.startContainer.parentNode);
                                 UE.dom.domUtils.remove(newNode.startContainer.parentNode,true);
                             } else {
                                 if(!range.collapsed) {
@@ -254,6 +253,13 @@
                     continue;
                 }
                 (function (cmd) {
+                    /**
+                     * 该函数在editor的_initToolbars下实例化运行 run at: toolbarItemUi = new baidu.editor.ui[toolbarItem](editor);
+                     * @param editor
+                     * @param iframeUrl
+                     * @param title
+                     * @returns {baidu.editor.ui.Button}
+                     */
                     editorui[cmd] = function (editor, iframeUrl, title) {
                         iframeUrl = iframeUrl || (editor.options.iframeUrlMap || {})[cmd] || iframeUrlMap[cmd];
                         title = editor.options.labelMap[cmd] || editor.getLang("labelMap." + cmd) || '';

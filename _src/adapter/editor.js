@@ -9,6 +9,14 @@
         domUtils = baidu.editor.dom.domUtils;
     var nodeStack = [];
 
+    /**
+     * options是editor对象上获取到的所有options传入的
+     * 该类用于初始化工具条和editor对象注册监听各类事件
+     * 常用监听事件：ready mousedown delcells afterpaste contextmenu keydown wordcount selectionchange
+     * 如果editor.options.imagePopup=true  再监听mouseover 和 selectionchange
+      * @param options
+     * @constructor
+     */
     function EditorUI(options) {
         this.initOptions(options);
         this.initEditorUI();
@@ -451,11 +459,13 @@
                         var ui = baidu.editor.ui[toolbarItem];
                         if (ui) {
                             if(utils.isFunction(ui)){
+                                //editorui.js 下的btnDialogs下的在这里运行并返回ui给toolbarItemUi
                                 toolbarItemUi = new baidu.editor.ui[toolbarItem](editor);
                             }else{
                                 if(ui.id && ui.id != editor.key){
                                     continue;
                                 }
+                                //返回的itemUI 是一个按钮，combox，dialog,等baidu.editor.ui下的几种对象
                                 var itemUI = ui.execFn.call(editor,editor,toolbarItem);
                                 if(itemUI){
                                     if(ui.index === undefined){
@@ -491,12 +501,16 @@
             }
 
             //接受外部定制的UI
-
             utils.each(extraUIs,function(obj){
                 toolbarUi.add(obj.itemUI,obj.index)
             });
-            this.toolbars = toolbarUis;
+            this.toolbars = toolbarUis;  //toolbarUis是一个baidu.editor.ui.Toolbar类的实例
         },
+
+        /**
+         * 获取整个编辑器的包裹的html
+         * @returns {string}
+         */
         getHtmlTpl:function () {
             return '<div id="##" class="%%">' +
                 '<div id="##_toolbarbox" class="%%-toolbarbox">' +
@@ -526,6 +540,11 @@
         showWordImageDialog:function () {
             this._dialogs['wordimageDialog'].open();
         },
+
+        /**
+         * 处理并获取根据editorUi实例的toolbars对象生成的html
+         * @returns {string}
+         */
         renderToolbarBoxHtml:function () {
             var buff = [];
             for (var i = 0; i < this.toolbars.length; i++) {
@@ -814,8 +833,13 @@
 
 
     UE.ui.Editor = function (options) {
+
+        //实例化core下面的UE.Editor  不是adapter下的editor
+        //editor是core下面的Editor实例
         var editor = new UE.Editor(options);
         editor.options.editor = editor;
+
+        //动态加载ueditor的样式
         utils.loadFile(document, {
             href:editor.options.themePath + editor.options.theme + "/_css/ueditor.css",
             tag:"link",
@@ -823,19 +847,32 @@
             rel:"stylesheet"
         });
 
+        //存储旧的render，使用新的的render
+        //不明白为什么要这样弄 可能是因为适应不同的版本，或者是不想剔除原来的渲染render，下面还是会调用旧的render的
         var oldRender = editor.render;
+
         editor.render = function (holder) {
+
+            //判断如果传入的是函数的引用，直接复制引用给实例
             if (holder.constructor === String) {
                 editor.key = holder;
                 instances[holder] = editor;
             }
+
+            //在文档加载完毕后执行的函数，如同jquery的ready
             utils.domReady(function () {
+
                 editor.langIsReady ? renderUI() : editor.addListener("langReady", renderUI);
+
                 function renderUI() {
+                    //setOpt是直接覆盖原有的options对象里的属性的 或者让getLange从 UE.I18N的语言包上取
                     editor.setOpt({
                         labelMap:editor.options.labelMap || editor.getLang('labelMap')
                     });
+
+                    //实例化EditorUI对象 传入editor的options配置
                     new EditorUI(editor.options);
+
                     if (holder) {
                         if (holder.constructor === String) {
                             holder = document.getElementById(holder);
@@ -932,12 +969,13 @@
      *  UE.getEditor('containerId',{onready:function(){//创建一个编辑器实例
      *      this.setContent('hello')
      *  }});
-     *  UE.getEditor('containerId'); //返回刚创建的实例
+     *  UE.getEditor('-'); //返回刚创建的实例
      *
      */
     UE.getEditor = function (id, opt) {
         var editor = instances[id];
         if (!editor) {
+            //实例化adapter下面的UE.Editor  自身文件就是adapter下的editor.js
             editor = instances[id] = new UE.ui.Editor(opt);
             editor.render(id);
         }

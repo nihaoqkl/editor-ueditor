@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../internal.js"></script>
+</head>
+<body>
+输入一个文字：<input type="text" id="inputEditor" value="">
+<script>
+    dialog.onok=function(){
+        editor.execCommand('insertHtml',document.querySelector('#inputEditor').value);
+    }
+</script>
+</body>
+</html>

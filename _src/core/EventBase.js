@@ -139,6 +139,7 @@ EventBase.prototype = {
                     }
                 }
             }
+
             if (t = this['on' + ti.toLowerCase()]) {
                 r = t.apply(this, arguments);
             }

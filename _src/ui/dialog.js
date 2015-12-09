@@ -25,6 +25,8 @@
                 draggable: true,
                 onok: function (){},
                 oncancel: function (){},
+
+                //onclose用来fireEvent来触发调用  fireEvent('close',false)->onok invoke;
                 onclose: function (t, ok){
                     return ok ? this.onok() : this.oncancel();
                 },
