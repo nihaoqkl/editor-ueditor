@@ -56,6 +56,8 @@
             (editor.options.allHtmlEnabled ? editor.getAllHtml() : editor.getContent(null, null, true)) :
             ''
     }
+
+    //被停用的方式 已经在UE.plugin.load(me);注入
     function loadPlugins(me){
         //初始化插件
         for (var pi in UE.plugins) {
@@ -1078,9 +1080,6 @@
                 cmd, cmdFn;
             cmd = this.commands[cmdName] || UE.commands[cmdName];
             cmdFn = cmd && cmd[fnName];
-            //console.log(this.commands)
-            //console.log(cmdName)
-            //console.log(fnName)
             //没有querycommandstate或者没有command的都默认返回0
             if ((!cmd || !cmdFn) && fnName == 'queryCommandState') {
                 return 0;
