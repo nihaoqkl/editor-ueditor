@@ -266,6 +266,13 @@
         UE.instants['ueditorInstant' + me.uid] = me;
     };
     Editor.prototype = {
+        //最新的外部注册插件的绑定命令函数的方式
+        //注册按钮执行时的command命令，使用命令默认就会带有回退操作
+        //editor.registerCommand(uiName,{
+        //    execCommand:function(){
+        //        alert('execCommand:' + uiName)
+        //    }
+        //});
          registerCommand : function(name,obj){
             this.commands[name] = obj;
          },
