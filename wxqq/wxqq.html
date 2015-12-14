@@ -14,8 +14,7 @@
     <meta name="Description" content="" />
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link href="./css/main.css" rel="stylesheet" type="text/css" >
-    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" >
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -1495,7 +1494,7 @@
                     <!-- <textarea class="editorBox" name="" id="" cols="30" rows="10"></textarea>-->
                     <form action="" class="form-horizontal editorBox" style="background-color:transparent;position: relative;" role="form" target="_blank" id="WxMsgViewForm" method="post" accept-charset="utf-8">
                         <div id="image-preview"></div>
-                        <script id="WxMsgContent" type="text/plain"></script>
+                        <script id="editorContent" type="text/plain"></script>
                         <input type="hidden" name="template_id" id="template_id" />
                         <input type="hidden" name="template_name"  id="template_name"/>
                         <input type="hidden" name="msg_id" />
@@ -1527,12 +1526,12 @@
                         <div class="editorslide">
                             <ul>
 
-                                <li><a href="javascript:;" id="copy-editor-html" class="btn btn-warning btn-xs"  data-container="body"
+                                <li><a href="javascript:;" id="copyAllWxqqEditor" class="btn btn-warning btn-xs"  data-container="body"
                                        data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="复制内容到剪切板，若复制失败请查看使用帮助"><i  class="fa fa-copy"></i>复制</a></li>
                                 <li><button type="button" id="save-as-template" tabindex="2"  class="btn btn-warning btn-xs" data-toggle="tooltip" data-container="body" data-placement="right"  title="保存内容"><i class="fa fa-save"></i>保存</button></li>
                                 <li><button type="button" id="html-to-image" class="btn btn-default btn-xs"  data-toggle="tooltip" data-container="body" data-placement="right"   title="转为长图片格式，<br/>用于发微博、控制版权等"><i  class="fa fa-image"></i>长图</button></li>
-                                <li><button type="button"  id="btn-new-msg" class="btn btn-default btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
-                                <li><a href="javascript:;" id="preview-editor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
+                                <li><button type="button"  id="clearWxqqEditor" class="btn btn-default btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
+                                <li><a href="javascript:;" id="previewEditor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
 
 
 
@@ -1714,8 +1713,7 @@
                                             </section>
                                         </section>
                                     </section>
-                                    <section class="135brush" id="preview-msg-content"  data-style="text-align: center;" style="padding: 10px 10px;overflow-x:hidden;overflow-y:auto;min-height:300px;max-height:500px;">
-
+                                    <section class="135brush" id="previewBox"  data-style="text-align: center;" style="padding: 10px 10px;overflow-x:hidden;overflow-y:auto;min-height:300px;max-height:500px;">
                                     </section>
                                 </section>
                             </section>
@@ -1893,13 +1891,15 @@
 <script src="http://static.135editor.com/js/jquery/jquery.Jcrop.js"></script>
 <script type="text/javascript" src="../dist/utf8-php/ueditor.config.js"></script>
 <script src="../dist/utf8-php/ueditor.all.min.js"></script>
-<script type="text/javascript" src="./js/ZeroClipboard/ZeroClipboard.js"></script>
+<script type="text/javascript" src="./js/ZeroClipboard/ZeroClipboard.min.js"></script>
 
 <script>
     var wxqqEditor=null;
+    ZeroClipboard.config( { swfPath: "./js/ZeroClipboard/ZeroClipboard.swf" } );
+    var client = new ZeroClipboard( document.getElementById("copyAllWxqqEditor") );
     $(function(){
 
-        wxqqEditor=UE.getEditor('WxMsgContent',{
+        wxqqEditor=UE.getEditor('editorContent',{
             toolbars: [
                 ["bold","italic","underline","forecolor","backcolor","txtshadow","|","justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|","removeformat",'formatmatch',"autotypeset"],
                 ["paragraph","fontfamily","fontsize","inserttable",'background',"uploadword","insertimage",'insertvideo',"horizontal", 'spechars',"|","undo","redo","|","more"],
@@ -1990,6 +1990,28 @@
         }).click(function(e) {
             e.stopPropagation();
         });
+
+        //更换背景
+        $('#bg-choose .chooser').on('click',function(){
+            $('body').css({background:'url('+$(this).data('url')+')'});
+        });
+
+        //右侧的快捷按钮
+        $('#clearWxqqEditor').on('click',function(){
+            if(confirm('你确定要清空所有内容,无法恢复哦?')){
+                wxqqEditor.setContent('');
+                wxqqEditor.focus();
+            }
+        });
+        $('#previewEditor').on('click',function(){
+            $('#previewBox').html(wxqqEditor.getContent());
+            $('#preview-msg').modal('show');
+        })
+        client.on( "copy", function( event ) {
+            event.clipboardData.setData( "text/plain", wxqqEditor.getContent());
+        });
+
+        //end
     });
 </script>
 
