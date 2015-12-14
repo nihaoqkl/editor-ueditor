@@ -63,7 +63,7 @@ a {
 }
 .n1-1 > li {width: 80px;height: 45px;color: #dad9d8;text-align: center;}
 .n1-1 ul.dropdown-menu > li {width: 100%;}
-.n1-1 > li > a{display:block;line-height:45px;color:#dad9d8;text-decoration:none;font-size:14px;border-bottom: 1px solid rgba(255,255,255,0.06);}
+.n1-1 > li > a{display:block;line-height:45px;color:#dad9d8;text-decoration:none;font-size:14px;border-top: 1px solid rgba(255,255,255,0.06);}
 .n1-1 > li.active,.n1-1 > li > a:hover{background:#4c4342;text-decoration:none}
 .col-sm-4,.col-sm-6,.col-sm-2{padding-right: 5px;padding-left: 5px;}
 #params-setting ul{padding:0;}
