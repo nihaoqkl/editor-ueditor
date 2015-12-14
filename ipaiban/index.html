@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>编辑器</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"/>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--颜色选择器 spectrum CSS-->
+    <link rel='stylesheet' href='http://www.ipaiban.com/css/spectrum.css'/>
+    <!--图标字体 CSS-->
+    <link rel="stylesheet" type="text/css" href="http://static.135editor.com/css/font-awesome.min.css" />
+    <!--页面自定义 CSS-->
+    <link rel='stylesheet' href='http://www.ipaiban.com/newindex/css/page.loadnew.css?ver=20150424AM03'/>
+    <!--登陆框自定义 CSS-->
+    <link rel='stylesheet' href='http://www.ipaiban.com/css/login4pc.css'/>
+    <!--页面 CSS-->
+    <link rel='stylesheet' href='http://www.ipaiban.com/newindex/css/heartnew.css'/>
+    <link rel='stylesheet' href='http://www.ipaiban.com/newindex/css/headernew.css'/>
+    <!-- tab  样式 -->
+    <!-- 上传草稿封面图引入的CSS -->
+    <link href="http://www.ipaiban.com/fileinput/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <!--<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <!--<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/js/sourceIdentifier.js"></script>-->
+    <!--颜色选择器spectrum.js-->
+    <!--<script type="text/javascript" charset="utf-8" src='http://www.ipaiban.com/js/spectrum.js'></script>-->
+    <!--编辑器 ueditor.js-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/js/ueditor/ueditor.config.js"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/js/ueditor/ueditor.all.js"> </script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/js/ueditor/lang/zh-cn/zh-cn.js"></script>-->
+    <!--页面内容切换需要JS-->
+    <script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/js/hashmap.compiled.js?ver=2015042701"></script>
+    <!--滚动条-->
+    <!--<script type="text/javascript" src="http://www.ipaiban.com/js/nicescroll.js"></script>-->
+    <!--复制内容JS-->
+    <!--<script type="text/javascript" src="http://www.ipaiban.com/ZeroClipboard/ZeroClipboard.js"></script>-->
+    <!--收藏JS-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/newindex/js/collectionnew.js?ver=2015052501"></script>-->
+    <!--&lt;!&ndash;页面JS&ndash;&gt;-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/newindex/js/page.publicnew.js?ver=2015042701"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/newindex/js/page.stylenew.js?ver=2015050601"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/newindex/js/page.toolbarnew.js?ver=20150430AM01"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/newindex/js/page.loginnew.js?ver=2015042701"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/js/page.feedback.compiled.js?ver=2015042701"></script>-->
+    <!--<script type="text/javascript" charset="utf-8" src="http://www.ipaiban.com/newindex/js/page.loadnew.js?ver=2015042701"></script>-->
+    <!-- 保存草稿时上传封面图JS -->
+    <!--<script src="http://www.ipaiban.com/fileinput/fileinput.js" type="text/javascript"></script>-->
+    <!--<script src="http://www.ipaiban.com/fileinput/fileinput_locale_zh.js" type="text/javascript"></script>-->
+    <!--<script src="http://www.ipaiban.com/me/js/template.js" type="text/javascript"></script>-->
+</head>
+
+<body>
+<div class="new-header wrapper" style="position:relative;">
+    <a href="http://www.ipaiban.com/" target="_blank" class="logo">
+        <img src="images/logo.png" alt="小黄人图文编辑器">
+    </a>
+    <!--  <span id="horn_info"><img class="horn_img" src="http://1251001145.cdn.myqcloud.com/1251001145/images/horn.png"><marquee scrollamount="5" width="335" direction="left">各位亲爱的用户，i排版将于今晚23：30到凌晨04：00进行服务器维护工作，届时将无法正常使用，给各位带来的不便敬请谅解。</marquee><span onclick="closeHorn()" id="horn_close">x</span></span>     -->
+    <ul class="new-nav clearfix">
+        <li><a href="http://xhr.so" target="_blank">短网址/超链接</a>|</li>
+        <li><a href="http://www.maka.im/hot?source=ipaiban" target="_blank">H5制作<img src="http://1251001145.cdn.myqcloud.com/1251001145/images/new.png" style="width: 25px;height: auto;position: absolute;top: 28px"></a>|</li>
+        <li data-toggle="modal" data-target="#CommunicationModal"><a href="#">交流/反馈</a>|</li>
+        <li><a href="#" onclick="styleCenterCheck()">样式中心</a>|</li>
+        <!-- <li><a href="#" onclick="registRemind()">样式中心</a>|</li> -->
+
+        <li><a href="http://weixin.ipaiban.com/index.php?m=content&c=index&a=lists&catid=12" target="_blank">排版示例</a>|</li>
+        <li><a href="http://weixin.ipaiban.com/index.php?m=content&c=index&a=lists&catid=7" target="_blank">运营教程</a></li>
+        <li id="me_access" >
+            <a href="#" id="ipaiban_login_btn" data-toggle="modal" data-target="#LoginModal" style="background-color:#74c13c; color: #ffffff">注册｜登录</a>
+            <div id="ipaiban_me_div" class="btn-group" style="display:none">
+                <button type="button" id="ipaiban_me_name" class="dropdown-toggle ipaiban-drop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu ipaiban-drop-menu">
+                    <li><a href="me/main.jsp" target="_Blank">个人中心</a></li>
+                    <li><a href="me/main.jsp" target="_Blank">草稿箱</a></li>
+                    <li><a href="me/main.jsp?command=buy" target="_Blank">升级会员</a></li>
+                    <li class="ipaiban-quit"><a href="#" onclick="logout()">退出</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="main wrapper clearfix">
+    <div class="main-left f_l">
+        <!-- 调色板内容 -->
+        <div class="main-left-top clearfix" style="position: relative">
+            <div class="myColor">
+                <ul class="myUl list-unstyled"><li class="myLi recover-color" onmousedown="recoverColor()"></li><li class="myLi" style="background-color: #fde800;" onmousedown="changeColor('#fde800')"></li><li class="myLi" style="background-color: #ffcb15;" onmousedown="changeColor('#ffcb15')"></li><li class="myLi" style="background-color: #ffa921;" onmousedown="changeColor('#ffa921')"></li><li class="myLi" style="background-color: #ff691f;" onmousedown="changeColor('#ff691f')"></li><li class="myLi" style="background-color: #ff391f;" onmousedown="changeColor('#ff391f')"></li><li class="myLi" style="background-color: #c53f46;" onmousedown="changeColor('#c53f46')"></li><li class="myLi" style="background-color: #d6004a;" onmousedown="changeColor('#d6004a')"></li><li class="myLi" style="background-color: #ff1d6b;" onmousedown="changeColor('#ff1d6b')"></li><li class="myLi" style="background-color: #ff4da9;" onmousedown="changeColor('#ff4da9')"></li><li class="myLi" style="background-color: #ff80c5;" onmousedown="changeColor('#ff80c5')"></li><li class="myLi" style="background-color: #ffb4ce;" onmousedown="changeColor('#ffb4ce')"></li><li class="myLi" style="background-color: #ddf56d;" onmousedown="changeColor('#ddf56d')"></li><li class="myLi" style="background-color: #b0f346;" onmousedown="changeColor('#b0f346')"></li><li class="myLi" style="background-color: #6fe113;" onmousedown="changeColor('#6fe113')"></li><li class="myLi" style="background-color: #87c943;" onmousedown="changeColor('#87c943')"></li><li class="myLi" style="background-color: #129527;" onmousedown="changeColor('#129527')"></li><li class="myLi" style="background-color: #059d7f;" onmousedown="changeColor('#059d7f')"></li><li class="myLi" style="background-color: #00589c;" onmousedown="changeColor('#00589c')"></li><li class="myLi" style="background-color: #4676d9;" onmousedown="changeColor('#4676d9')"></li><li class="myLi" style="background-color: #4e99df;" onmousedown="changeColor('#4e99df')"></li><li class="myLi" style="background-color: #5faaff;" onmousedown="changeColor('#5faaff')"></li><li class="myLi" style="background-color: #3abcff;" onmousedown="changeColor('#3abcff')"></li><li class="myLi" style="background-color: #70d8ff;" onmousedown="changeColor('#70d8ff')"></li><li class="myLi" style="background-color: #cccccc;" onmousedown="changeColor('#cccccc')"></li><li class="myLi" style="background-color: #999999;" onmousedown="changeColor('#999999')"></li><li class="myLi" style="background-color: #666666;" onmousedown="changeColor('#666666')"></li><li class="myLi" style="background-color: #333333;" onmousedown="changeColor('#333333')"></li><li class="myLi" style="background-color: #000000;" onmousedown="changeColor('#000000')"></li><li class="myLi" id="addColor"><div class="temp_inner">+</div></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 微信样式 -->
+        <div class="main-left-bottom">
+            <div class="navtab" id="commonStyle">
+                <ul class="tabul" role="tablist" id="styleTab">
+                    <li id="mystyle" class="active"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">我的样式</a></li>
+                    <li id="title"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">标题</a></li>
+                    <li id="card"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">卡片</a></li>
+                    <li id="pic"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">图文</a></li>
+                    <li id="multipic"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">拼图</a></li>
+                    <li id="top"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">顶关注</a></li>
+                    <li id="bottom"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">底提示</a></li>
+                    <li id="soundvideo"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">音视频</a></li>
+                    <li id="signature"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">微名片</a></li>
+                    <li id="fengexian"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">分隔线</a></li>
+                    <li id="mark"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">小符号</a></li>
+                    <li id="minions" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">小黄人</a></li>
+                    <li id="iphone" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">苹果范</a></li>
+                    <li id="autumn" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">秋季</a></li>
+                    <li id="halloween" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">万圣节</a></li>
+                    <li id="business"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">商务范</a></li>
+                    <li id="christmas" class="tab-item"><em class="jiao"></em><div class="listnew-logo"></div><a href="javascript:void(0);" class="style-text">圣诞节</a></li>
+                    <li id="snow"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">下雪啦</a></li>
+                    <li id="summer" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">夏季</a></li>
+                    <li id="magpie" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">七夕</a></li>
+                    <li id="thanksday" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">感恩节</a></li>
+                    <li id="childhood" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">儿童节</a></li>
+                    <li id="dragon" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">端午节</a></li>
+                    <li id="father" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">父亲节</a></li>
+                    <li id="mooncake" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">中秋节</a></li>
+                    <li id="teacher" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">教师节</a></li>
+                    <li id="spring" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">春季</a></li>
+                    <li id="graduation" style="display: none;"><em class="jiao"></em><a href="javascript:void(0);" class="style-text">毕业季</a></li>
+                </ul>
+            </div>
+            <div class="tab-content"  id="tab-content-style">
+                <div id="panel_body" class="panel-body　list-group" style="height:500px; overflow: auto;">
+                    <div id="block_T25" style="position:relative;min-height:65px;border-bottom:1px solid #ddd;">
+                        <a class="list-group-item shifutip" href="#" id="T25" style="max-width:297px;border:none;margin-bottom:0px;">
+                            <section label="Copyright © 2015 playhudong All Rights Reserved." style="
+border:none;
+border-style:none;
+margin: 1em auto;
+text-align:center;
+" id="shifu_t_025" onmousedown="shifuMouseDownStyle('shifu_t_025')"><span class="color" style="
+border-radius: 50%;
+overflow: hidden;
+vertical-align: middle;
+background-color: #22ac38;
+display: inline-block;"><section class="color" style="
+width: 44px;
+height: 44px;
+line-height: 44px;
+overflow: hidden;
+background-color: #22ac38;
+margin: 8px;
+border-radius: 50%;
+color: #ffffff;
+font-size: 31px;
+text-align: center;
+border: solid 2px #ffffff !important;"><p style="margin: 0;">1</p></section></span><section class="color" style="
+font-size: 18px;
+display: inline-block;
+color: #ffffff;
+vertical-align: middle;
+min-width: 153px;
+height: 32px;
+text-align: left;
+padding-left: 0.5em;
+padding-right: 0.5em;
+line-height: 32px;
+margin-left: -0.4em;
+background-color: #22ac38;
+border-top-right-radius: 0.8em;
+border-bottom-right-radius: 0.8em;"><p style="margin: 0;">文章标题</p></section></section>
+
+                        </a>
+                        <span class="soucang" id="soucang_T25" soucang="0" onclick="styleValue('T25')"><span id="heart"></span><span id="heart_son_white"></span><span id="heart_son_red"></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-right f_r">
+        <!--富文本编辑器-->
+        <div style="position:relative;">
+            <script id="wxqqEditor" type="text/plain"></script>
+        </div>
+        <!-- 预览、复制、清空按钮 -->
+        <div id="btn_box" class="box_btn">
+
+            <button type="button" class="btn  btn-xs" onclick="clearLocalData()"id="qingkong">清&nbsp;空</button>
+            <div class="select_box" style="margin-top: 3px; margin-left: 8px;">
+                <select class="jos_select" id="memberSignList">
+                    <option>我的签名</option>
+                </select>
+            </div>
+            <div class="btn_box_right">
+                <!-- <button type="button" class="btn  btn-xs" onclick="saveData()" id="save">保&nbsp;存</button> -->
+                <button type="button" class="btn  btn-xs" id="d_clip_button">复制全文</button>
+                <!-- <button type="button" class="btn  btn-xs" id="conserver_img_button">存为图片</button> -->
+                <!-- <button type="button" class="btn  btn-xs" id="conserver_weibo_button">转发到微博</button> -->
+                <button type="button" class="btn  btn-xs" onclick="saveData()" id="save">保&nbsp;&nbsp;存</button>
+                <button type="button" class="btn  btn-xs" onclick="look()" id="yulan">预&nbsp;&nbsp;览</button>
+                <!-- <button type="button" class="btn  btn-xs" onclick="noLook()" id="yincang">隐&nbsp;藏</button> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 页脚 -->
+<div class="foot">
+    <ul class="foot-link">
+        <li><a href="http://www.playhudong.com" target="_blank">关于我们</a></li>
+        <li><a href="faq.html" target="_blank">帮助中心</a></li>
+        <li><a href="service.html" target="_blank">服务协议</a></li>
+        <li><a href="mailto:ipaiban@playhudong.com?subject=给i排版的建议或意见&cc=arthur@playhudong.com&body=i排版你好,%0a%0d关于编辑器我有一些建议：%0a%0d1.%0a%0d2.%0a%0d我的微信号：" target="_blank" style="border-right: none">联系邮箱</a></li>
+    </ul>
+    <div class="foot-info">© 2015 <a href="http://www.playhudong.com" target="_blank">小黄人科技.</a><a style="margin-left: 10px;" href="http://www.miibeian.gov.cn/" target="_blank">京ICP备14043207号-2</a></div>
+    <!--  <marquee style="width: 500px;margin: 0 auto;display: block;height: 20px;" direction="left"></marquee> -->
+</div>
+<!-- 登录 Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">注册/登录</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="log-l">
+                    <div class="log-center">扫一扫登录/注册</div>
+                    <div style="text-align:center;margin-top:33px;">
+                        <img  title="点击更换" onclick="javascript:refresh(this);" id="qrImage" style="width:140px;height:140px;"><!-- src 动态生成QRServlet -->
+                    </div>
+                    <div style="text-align:center;margin-top:10px;">
+                        <p style="font-size:14px;">使用微信扫一扫，根据提示完成注册</p>
+                    </div>
+                </div>
+
+                <div class="log-r">
+                    <div class="userinfor_name">
+                        <span class="icon-user"></span>
+                        <input type="text" name="username" style="text-indent:0.2em;padding-bottom:0px; margin-left:2px;" id="username">
+                    </div>
+                    <div class="userinfor_pwd">
+                        <span class="icon-lock" style="margin-left: 4px;"></span>
+                        <input type="password" name="userpwd" style="text-indent:0.2em;padding-bottom:0px;" id="userpwd">
+                    </div>
+                    <div class="userinfor_submit" id="userinfor_submit">
+                        <button type="button" class="btn btn-primary">登&nbsp;&nbsp;&nbsp;录</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 200px;">
+                <div style="font-size: 14px; text-align:left;">注：必须完成注册后方可正常使用i排版的各项功能</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 交流-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="CommunicationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">交流/反馈</h4>
+            </div>
+            <div class="modal-body clearfix">
+                <div class="comm clearfix">
+                    <div class="comm-left f_l">
+                        <p>扫码进入i排版微信交流群</p>
+                        <img src="http://1251001145.cdn.myqcloud.com/1251001145/2.jpg" style="width:100px;">
+                        <p>QQ群：108412787</p>
+                    </div>
+                    <div class="comm-right f_r">
+                        <div class="comm-textarea"><span>如果您在使用i排版的过程中有任何问题或意见，欢迎点击下方按钮发送邮件。<br/>邮件中请留下你的微信号，我们会及时与您进行沟通。</span></div>
+                        <a class="btn btn-default center-block" href="mailto:ipaiban@playhudong.com?subject=给i排版的建议或意见&cc=arthur@playhudong.com&body=i排版你好,%0a%0d关于编辑器我有一些建议：%0a%0d1.%0a%0d2.%0a%0d我的微信号：" target="_blank" style="display: block;margin: 0 auto;width: 102px;">发送邮件</a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align: left">
+                <p>* 进群须知：本群只交流微信排版及运营相关事务，请勿群发自己的微信账号及广告，会被管理员踢出。</p>
+                <p>* 加QQ群请备注来自：i排版。</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 复制成功提示框 -->
+<div id="success" style="display:none;">
+    <div style="font-size: 16px;">请使用Ctrl+A全选，Ctrl+C复制<br/>切换到微信后台Ctrl+V粘贴</div>
+</div>
+<!-- 保存草稿的模态框 -->
+<div class="modal fade bs-example-modal-sm" id="SaveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="width:350px">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:13px">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#uploadImgForm')[0].reset();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel">保存草稿</h5>
+            </div>
+            <div class="modal-body">
+                <form id="uploadImgForm" action="DraftServlet" method="POST" target='frameFile'
+                      enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" id="draftTitle"
+                                   name="title" placeholder="标题" onkeyup="countTitleWord()"
+                                   onmousedown="countTitleWord()">
+                            <div id="titleNum" class="input-group-addon">(0/64)</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" id="draftAuthor"
+                                   name="author" placeholder="作者" onkeyup="countAuthorWord()"
+                                   onmousedown="countAuthorWord()">
+                            <div id="authorNum" class="input-group-addon">&nbsp;(0/8)&nbsp;</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input id="input-image" name="image" type="file" accept="image/*" onchange="$('#oldImage').hide();$('#changeImg').val('yes');">
+                    </div>
+                    <div class="form-group">
+                            <textarea class="form-control input-sm" id="draftSummary" name="summary"
+                                      rows="2" placeholder="请输入摘要" onkeyup="countSummaryWord()"
+                                      onmousedown="countSummaryWord()"></textarea>
+                    </div>
+                    <!-- <div class="count_box" contenteditable="true"><br/></div> -->
+                    <div class="count"><span id="summaryNum">(0/120)</span></div>
+                    <!-- 隐藏部分 -->
+                    <input id="userID" name="id" value="" style="display: none;" />
+                    <input id="userOpenid" name="openid" value="" style="display: none;" />
+                    <input id="draftMethod" name="method" value="" style="display: none;" />
+                    <input id="draftID" name="draftid" value="" style="display: none;" />
+                    <input id="changeImg" name="changeImg" value="no" style="display: none;" />
+                    <textarea id="draftContent" name="content" style="display: none;"></textarea>
+
+                </form>
+                <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-xs" id="modal_cancel" data-dismiss="modal" onclick="$('#uploadImgForm')[0].reset();">取消</button>
+                <button type="button" class="btn btn-xs" id="modal_save" onclick="return saveNewDraft();" style="background:">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 预览 -->
+<div class="preview_back" id="preview-background" onclick="noLook()"></div>
+<div class="preview_box" id="preview-box">
+    <div class="preview_lis">
+        <div id="preview_out" onclick="noLook()"><img src="http://1251001145.cdn.myqcloud.com/1251001145/images/out_btn.png"></div>
+    </div>
+    <div id="look" class="preview-look">
+        <!-- <img id="QR_preview" class="preview_QR" alt="预览二维码"> -->
+        <div class="content-box" id="contentBox"></div>
+    </div>
+    <div class="preview_btn"></div>
+</div>
+
+<!-- 注册提醒的模态框 -->
+<!-- <div class="modal fade bs-example-modal-sm" id="register_remind" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="width:550px; height: 250px">
+        <div class="modal-content">
+            <div class="modal-header" style="padding:13px">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#uploadImgForm')[0].reset();">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myModalLabel">注册提醒</h5>
+            </div>
+            <div class="modal-body">
+                <img style="width: 140px;height: 140px;display: block;margin: 10px auto;" src="https://mmbiz.qlogo.cn/mmbiz/wyice8kFQhf4Mm0CFWFnXy6KtFpy8UlvNhOEJE5nQtccJvPuRZQ9bQxzHs4Iz4oTsFED2sgTaeYCic1UJIdcVCZg/0?wx_fmt=png" alt="群注册二维码"><div style="text-align: center;font-size: 14px;"><span style="display: block;margin: 10px;">扫描此二维码进行注册</span><span style="display: block;">注册后方可正常使用iPaiban的各项功能</span></div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- {{if item.itemid=="M01"}}style="display:none;"{{/if}} -->
+
+<!-- 生成分类列表 -->
+<script id="style-list" type="text/html">
+    {{each list as item}}
+    <li role="presentation" id="{{item.listid}}" {{if item.listid=='multipic'}} class="tab-item active"{{/if}} {{if item.listid=="father"||item.listid=="magpie"||item.listid=="mooncake"||item.listid=="childhood"||item.listid=="halloween"||item.listid=="teacher"||item.listid=="summer"||item.listid=="spring"||item.listid=="graduation"||item.listid=="dragon"||item.listid=="autumn"||item.listid=="minions"||item.listid=="iphone"||item.listid=="thanksday"}}style="display: none;"{{/if}}><em class="jiao"></em>{{if item.listid=="multipic"}}<div class="listnew-logo"></div>{{/if}}<a href="javascript:void(0);" class="style-text">{{item.listname}}</a></li>
+    {{/each}}
+</script>
+<!-- 绘制样式 -->
+<script id="style-item" type="text/html">
+    <div id="id" role='tabpanel' class="tab-pane active">
+        <div id="panel_body" class="panel-body　list-group" style="height:{{panelheight}}px; overflow: auto;">
+            {{each list as item}}
+            <div id="block_{{item.itemid}}" style='position:relative;min-height:65px;border-bottom:1px solid #ddd;'>{{if item.itemnew =='1'}}<div class="new-logo"></div>{{/if}}<a class='list-group-item shifutip' href='#' id="{{item.itemid}}" style='max-width:297px;border:none;margin-bottom:0px;'></a><span class="soucang" id="soucang_{{item.itemid}}" soucang="{{item.soucang}}" onclick=styleValue('{{item.itemid}}') {{if item.itemid=="M01"}}style="display:none;"{{/if}}><span id="heart"></span><span id="heart_son_white"></span><span id="heart_son_red"></span></span>
+            </div>
+            {{/each}}
+            <div class="more-style"><a href="#" class="more-style-link" onclick="styleCenterCheck()"><span class="more-style-add"></span><span class="more-style-text">更多样式</span></a></div>
+        </div>
+    </div>
+</script>
+<!-- 绘制用户名窗口 -->
+
+<script type="text/javascript" src="../dist/utf8-php/ueditor.config.js"></script>
+<script src="../dist/utf8-php/ueditor.all.min.js"></script>
+
+<script src="./js/spm_modules/seajs/2.3.0/dist/sea.js"></script>
+<script src="./js/seajs-config.js"></script>
+<script>
+    var wxqqEditor=UE.getEditor('wxqqEditor',{
+        toolbars: [
+            ["bold","italic","underline","forecolor","backcolor","txtshadow","|","justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|","removeformat",'formatmatch',"autotypeset"],
+            ["paragraph","fontfamily","fontsize","inserttable",'background',"uploadword","insertimage",'insertvideo',"horizontal", 'spechars',"|","undo","redo","|","more"],
+            ["source",'blockquote','superscript', 'subscript','insertorderedlist', 'insertunorderedlist','emotion','link','searchreplace', 'help','message']
+        ],
+        autoHeightEnabled:false,
+        elementPathEnabled:false, //是否启用元素路径，默认是显示
+        wordCount:false, //是否开启字数统计
+//        allowDivTransToP:false
+    });
+
+    seajs.use("./js/main");
+</script>
+</body>
+</html>

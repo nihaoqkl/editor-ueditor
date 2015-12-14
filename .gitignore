@@ -12,6 +12,7 @@ node_modules
 ErrorFiles
 dist
 ueditor
+ipaiban/gulp
 
 
 ###############

@@ -9,13 +9,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="x-rim-auto-match" content="none">
-    <title>微信圈圈编辑器官网-一键秒刷,微信排版编辑器,微信图文排版,公众号图文编辑器,内容编辑器，无需下载</title>
-    <meta name="Keywords" content="微信圈圈编辑器，微信编辑器，微信图文编辑器，微信图文美化编辑器，微信圈圈编辑器下载,微信排版工具，微信公众号内容编辑，图文排版工具，最方便的微信编辑器，微信圈圈编辑器官网" />
-    <meta name="Description" content="微信圈圈编辑器，微信图文素材排版编辑器提供美化微信文章排版，微信公众号内容编辑的功能，样式丰富，“秒刷”一键排版，轻松编辑非常美观的微信图文消息。支持收藏样式、收藏颜色、图片素材编辑，图片水印等个性化功能。微信圈圈编辑器无需下载,直接在线使用即可。网上下载的为欺骗的病毒程序。" />
+    <title>编辑器</title>
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link href="./css/65223d75eb.css" rel="stylesheet" type="text/css" >
-    <link rel="stylesheet" type="text/css" href="./css/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="http://static.135editor.com/css/font-awesome.min.css" />
+    <link href="./css/main.css" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/fontawesome/4.4.0/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -82,27 +81,18 @@
     <div class="box p-r clearfix" style="margin:0 auto;"><!--box start-->
 
         <div class="w0 p-r clearfix">
-            <!-- <div class="p-a" style="width:80px;left:-80px;">
-                <a href="#editor-template" class="filter btn-block btn btn-primary" onclick="return brushOff();" role="tab" data-toggle="tab"  data-filter="all" >样式</a>
-                <a class="filter btn-block btn btn-warning" data-filter=".brush" onclick="return brushOn();" role="tab" data-toggle="tab" href="#editor-template">样式刷</a>
-            </div> -->
             <div id="style-operate-area" style="display:inline-block;position:relative;float:left;margin-top: -40px;">
                 <div class="w1 fl" style="background:RGBA(0,0,0,0.3);height:900px;">
                     <a href="/"><img src="./images/logo.png" style="width:80px;padding:10px;" title="微信编辑器 - 微信圈圈"></a>
                     <ul class="n1-1" id="left-operate-menu" style="height: auto;">
-                        <li class="active"><a href="#editor-template" class="filter active" data-filter="all" role="tab" data-toggle="tab"> 样式</a></li>
-                        <li><a href="#parse-rule-lists" style="color:red;" data-url="/html_parsers/lists #html-parsers-list" role="tab" data-toggle="tab">一键排版</a></li>
-
-                        <li id="tab-tpl-trigger"><a href="#editor-tpls" role="tab" data-toggle="tab">模板</a></li>
-                        <li><a href="#image-list" onclick="$('#editor-image-navtab  a:first').trigger('click').tab('show');" role="tab" data-toggle="tab">图片素材</a></li>
-
-
-                        <li id="tab-wxmsg-trigger" ><a href="#editor-my-msgs" role="tab" data-toggle="tab"> 我的文章</a></li>
-
-
-                        <li><a href="#editor-others" role="tab" data-toggle="tab">加点料</a></li>
-
-
+                        <li class="active"><a href="#editor-template" class="filter active" data-filter="all" role="tab" data-toggle="tab"> 关注</a></li>
+                        <li><a href="#editor-template" class="filter" data-filter="all" role="tab" data-toggle="tab"> 标题</a></li>
+                        <li><a href="#editor-template" class="filter" data-filter="all" role="tab" data-toggle="tab"> 正文</a></li>
+                        <li><a href="#editor-template" class="filter" data-filter="all" role="tab" data-toggle="tab"> 分割线</a></li>
+                        <li><a href="#editor-template" class="filter" data-filter="all" role="tab" data-toggle="tab"> 分享</a></li>
+                        <li><a href="#editor-template" class="filter" data-filter="all" role="tab" data-toggle="tab"> 阅读全文</a></li>
+                        <li><a href="#editor-template" class="filter" data-filter="all" role="tab" data-toggle="tab"> 互推</a></li>
+                        <li><a href="#editor-template" class="filter" data-filter="all" role="tab" data-toggle="tab"> 其他</a></li>
                     </ul>
                 </div>
                 <div class="w2 fl">
@@ -1953,7 +1943,7 @@
     var wxqqEditor=null;
     $(function(){
 
-        var wxqqEditor=UE.getEditor('WxMsgContent',{
+        wxqqEditor=UE.getEditor('WxMsgContent',{
             toolbars: [
                 ["bold","italic","underline","forecolor","backcolor","txtshadow","|","justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|","removeformat",'formatmatch',"autotypeset"],
                 ["paragraph","fontfamily","fontsize","inserttable",'background',"uploadword","insertimage",'insertvideo',"horizontal", 'spechars',"|","undo","redo","|","more"],
@@ -2017,21 +2007,13 @@
             var style_item = $(this).find('> .wxqq:first'); //第一级的
 
             if(style_item.size()){
-                // insertHtml( $(this).html() + "<p>&nbsp;</p>"); 包含收藏夹的删除按钮等
-                /*if(strtolower(style_item.prop('tagName')) == 'img'){
-                 var html = style_item.prop('outerHTML');
-                 ret = insertHtml(html);
-                 }
-                 else */
-                if(style_item.find('> *').size() == 1 && style_item.find('> *').eq(0).hasClass('135editor') ) {
-                    // 只包含一个一级子元素，且为135样式。说明代码本身包含了135editor的class标记，只需要插入内部内容即可，无需再增加外围代码。
+                if(style_item.find('> *').size() == 1 && style_item.find('> *').eq(0).hasClass('wxqq') ) {
                     ret = wxqqEditor.execCommand('insertHtml',  style_item.html() + "<p><br/></p>" );
                 } else {
                     var html = style_item.prop('outerHTML');
-//                    ret = insertHtml(html + "<p><br/></p>");
                     ret=wxqqEditor.execCommand('insertHtml', html + "<p><br/></p>");
                 }
-            } else { //最外围包装135editor容器
+            } else {
                 ret = wxqqEditor.execCommand('insertHtml', "<section data-id=\""+id+"\" class=\"wxqq\">" + $(this).html() + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
             }
 
