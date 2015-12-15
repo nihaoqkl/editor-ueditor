@@ -2009,7 +2009,7 @@
             $('#preview-msg').modal('show');
         })
         client.on( "copy", function( event ) {
-            event.clipboardData.setData( "text/plain", wxqqEditor.getContent());
+            event.clipboardData.setData( "text/html", wxqqEditor.getContent());
         });
 
         //end
@@ -2034,8 +2034,11 @@
                 elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
             },
             displayCallback:function(colors, mode,options){
-                $('.editor-template-list').find('.wxqq').css({
+                $('.editor-template-list').find('.wxqq-bg').css({
                     backgroundColor:'#'+colors.HEX
+                });
+                $('.editor-template-list').find('.wxqq-borderTopColor,.wxqq-borderLeftColor,.wxqq-borderRightColor,.wxqq-borderBottomColor').css({
+                    borderColor:'#'+colors.HEX
                 });
             }
         }).each(function(idx, elm) {
@@ -2047,13 +2050,43 @@
                    anchorNode=_range.startContainer;
 
             if($('#replace-color-all').prop('checked')){
-                $(wxqqEditor.document).find('.wxqq').css({backgroundColor:$(this).css('background-color')});
+
+                $(wxqqEditor.document).find('.wxqq-bg').css({
+                    backgroundColor:$(this).css('background-color')
+                });
+                $(wxqqEditor.document).find('.wxqq-borderTopColor,.wxqq-borderLeftColor,.wxqq-borderRightColor,.wxqq-borderBottomColor').css({
+                    borderColor:$(this).css('background-color')
+                });
             } else {
-                if($(anchorNode).hasClass('wxqq')){
+                //背景
+                if($(anchorNode).hasClass('wxqq-bg')){
                     $(anchorNode).css({backgroundColor:$(this).css('background-color')});
                 } else {
-                    $(anchorNode).parents('.wxqq').css({backgroundColor:$(this).css('background-color')});
+                    $(anchorNode).parents('.wxqq-bg').css({backgroundColor:$(this).css('background-color')});
                 }
+
+                //border颜色
+                if($(anchorNode).hasClass('wxqq-borderTopColor')){
+                    $(anchorNode).css({borderTopColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderTopColor').css({borderTopColor:$(this).css('background-color')});
+                }
+                if($(anchorNode).hasClass('wxqq-borderLeftColor')){
+                    $(anchorNode).css({borderLeftColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderLeftColor').css({borderLeftColor:$(this).css('background-color')});
+                }
+                if($(anchorNode).hasClass('wxqq-borderRightColor')){
+                    $(anchorNode).css({borderRightColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderRightColor').css({borderRightColor:$(this).css('background-color')});
+                }
+                if($(anchorNode).hasClass('wxqq-borderBottomColor')){
+                    $(anchorNode).css({borderBottomColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderBottomColor').css({borderBottomColor:$(this).css('background-color')});
+                }
+                //border end颜色
             }
 
         });
