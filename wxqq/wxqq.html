@@ -13,12 +13,13 @@
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link href="./css/main.css" rel="stylesheet" type="text/css" >
+    <link rel="stylesheet" type="text/css" href="./css/main.css" >
     <link rel="stylesheet" type="text/css" href="./css/style.css" >
+    <link rel="stylesheet" type="text/css" href="./js/colorPicker/jqColor.css" />
     <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
-    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body style="overflow-y:hidden;overflow-x:auto;background-size: cover !important;" oncontextmenu="return false;">
@@ -1887,11 +1888,11 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="http://static.135editor.com/css/jquery.Jcrop.css" type="text/css" />
-<script src="http://static.135editor.com/js/jquery/jquery.Jcrop.js"></script>
 <script type="text/javascript" src="../dist/utf8-php/ueditor.config.js"></script>
-<script src="../dist/utf8-php/ueditor.all.min.js"></script>
+<script type="text/javascript" src="../dist/utf8-php/ueditor.all.min.js"></script>
 <script type="text/javascript" src="./js/ZeroClipboard/ZeroClipboard.min.js"></script>
+<script type="text/javascript" src="./js/colorPicker/lib/color.all.min.js"></script>
+<script type="text/javascript" src="./js/colorPicker/jqColor.js"></script>
 
 <script>
     var wxqqEditor=null;
@@ -2012,6 +2013,50 @@
         });
 
         //end
+
+
+        //bootstrap的标签页
+        $('#right-fix-tab a').on('click',function (e){
+            $(this).tab('show');
+            e.preventDefault();
+        });
+
+
+
+        //右侧的快速颜色操作
+        $('#custom-color-text').colorPicker({
+            customBG: '#222',
+            size:2,
+            readOnly: false,
+            mode:'hsv-h',
+            init: function(elm, colors) { // colors is a different instance (not connected to colorPicker)
+                elm.style.backgroundColor = elm.value;
+                elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
+            },
+            displayCallback:function(colors, mode,options){
+                $('.editor-template-list').find('.wxqq').css({
+                    backgroundColor:'#'+colors.HEX
+                });
+            }
+        }).each(function(idx, elm) {
+            // $(elm).css({'background-color': this.value})
+        });
+
+        $('.color-swatch').on('click',function(){
+           var _range=wxqqEditor.selection.getRange(),
+                   anchorNode=_range.startContainer;
+
+            if($('#replace-color-all').prop('checked')){
+                $(wxqqEditor.document).find('.wxqq').css({backgroundColor:$(this).css('background-color')});
+            } else {
+                if($(anchorNode).hasClass('wxqq')){
+                    $(anchorNode).css({backgroundColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq').css({backgroundColor:$(this).css('background-color')});
+                }
+            }
+
+        });
     });
 </script>
 
