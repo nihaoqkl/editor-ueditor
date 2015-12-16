@@ -14,6 +14,10 @@ dist
 ueditor
 ipaiban/gulp/node_modules
 wxqq/gulp/node_modules
+wxqq/gulp/rev
+wxqq/wxqq.html
+wxqq/wxqq/css
+wxqq/wxqq/js
 
 
 ###############

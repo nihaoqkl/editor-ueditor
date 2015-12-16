@@ -12,13 +12,16 @@ var gulp = require('gulp'),
 
 
 gulp.task('jsmin', function () {
-    gulp.src(['asset/js/**/*'])
+    return gulp.src(['asset/js/**/*'])
         .pipe(uglify())
-        .pipe(gulp.dest('../js'));
+        .pipe(rev())
+        .pipe(gulp.dest('../wxqq/js'))
+        .pipe( rev.manifest() )
+        .pipe( gulp.dest( 'asset/rev/js' ) );
 });
 
 gulp.task('less', function () {
-    gulp.src(['asset/css/enter.less'])
+    return gulp.src(['asset/css/enter.less'])
         .pipe(less())
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
@@ -28,20 +31,14 @@ gulp.task('less', function () {
             remove:true //是否去掉不必要的前缀 默认：true
         }))
         .pipe(cssmin())
-        .pipe(gulp.dest('../css'));
-});
-
-gulp.task('buildrev',function(){
-    gulp.src(['../css/enter.css', '../js/main.js'])
-        .pipe(gulp.dest('asset/rev'))
         .pipe(rev())
-        .pipe(gulp.dest('asset/rev'))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest('asset/rev'));
+        .pipe(gulp.dest('../wxqq/css'))
+        .pipe( rev.manifest() )
+        .pipe( gulp.dest( 'asset/rev/css' ) );
 });
 
 gulp.task('rev', function() {
-    gulp.src(['asset/rev/*.json', '../wxqq.html'])   //- 读取rev-manifest.json 文件以及需要进行css名替换的文件
+    return gulp.src(['asset/rev/**/*.json', 'asset/rev/wxqq.html'])   //- 读取rev-manifest.json 文件以及需要进行css名替换的文件
         .pipe(revCollector())                        //- 执行文件内css名的替换
         .pipe(gulp.dest('../'));                     //- 替换后的文件输出的目录
 });
@@ -58,10 +55,10 @@ gulp.task('html', function () {
         minifyCSS: true//压缩页面CSS
     };
 
-    gulp.src('asset/html/wxqq.html')
+    return gulp.src('asset/html/wxqq.html')
         .pipe(htmlmin(options))
-        .pipe(gulp.dest('../'));
+        .pipe(gulp.dest('asset/rev'));
 });
 
 
-gulp.task('default', ['jsmin','less','html','buildrev','rev']);
+gulp.task('default', ['jsmin','less','html','rev']);
