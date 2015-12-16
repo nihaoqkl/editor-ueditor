@@ -12,7 +12,8 @@ node_modules
 ErrorFiles
 dist
 ueditor
-ipaiban/gulp
+ipaiban/gulp/node_modules
+wxqq/gulp/node_modules
 
 
 ###############

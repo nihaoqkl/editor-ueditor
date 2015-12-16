@@ -9,26 +9,18 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="x-rim-auto-match" content="none">
-    <title>微信圈圈编辑器官网-一键秒刷,微信排版编辑器,微信图文排版,公众号图文编辑器,内容编辑器，无需下载</title>
-    <meta name="Keywords" content="微信圈圈编辑器，微信编辑器，微信图文编辑器，微信图文美化编辑器，微信圈圈编辑器下载,微信排版工具，微信公众号内容编辑，图文排版工具，最方便的微信编辑器，微信圈圈编辑器官网" />
-    <meta name="Description" content="微信圈圈编辑器，微信图文素材排版编辑器提供美化微信文章排版，微信公众号内容编辑的功能，样式丰富，“秒刷”一键排版，轻松编辑非常美观的微信图文消息。支持收藏样式、收藏颜色、图片素材编辑，图片水印等个性化功能。微信圈圈编辑器无需下载,直接在线使用即可。网上下载的为欺骗的病毒程序。" />
+    <title>编辑器</title>
+    <meta name="Keywords" content="" />
+    <meta name="Description" content="" />
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link href="./css/65223d75eb.css" rel="stylesheet" type="text/css" >
-    <link rel="stylesheet" type="text/css" href="./css/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="http://static.135editor.com/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" >
+    <link rel="stylesheet" type="text/css" href="./css/style.css" >
+    <link rel="stylesheet" type="text/css" href="./js/colorPicker/jqColor.css" />
     <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
-    <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script>
-        var BASEURL = "http://www.135editor.com";
-        var current_editor;
-        var current_active_135item = null;
-        var current_media_id = null;
-        var current_media_idx = null;
-    </script>
 </head>
 <body style="overflow-y:hidden;overflow-x:auto;background-size: cover !important;" oncontextmenu="return false;">
 <div id="full-page" class="bg" style="max-width: 1200px;margin: 0 auto;padding:0 5px;">
@@ -89,27 +81,19 @@
     <div class="box p-r clearfix" style="margin:0 auto;"><!--box start-->
 
         <div class="w0 p-r clearfix">
-            <!-- <div class="p-a" style="width:80px;left:-80px;">
-                <a href="#editor-template" class="filter btn-block btn btn-primary" onclick="return brushOff();" role="tab" data-toggle="tab"  data-filter="all" >样式</a>
-                <a class="filter btn-block btn btn-warning" data-filter=".brush" onclick="return brushOn();" role="tab" data-toggle="tab" href="#editor-template">样式刷</a>
-            </div> -->
             <div id="style-operate-area" style="display:inline-block;position:relative;float:left;margin-top: -40px;">
                 <div class="w1 fl" style="background:RGBA(0,0,0,0.3);height:900px;">
                     <a href="/"><img src="./images/logo.png" style="width:80px;padding:10px;" title="微信编辑器 - 微信圈圈"></a>
                     <ul class="n1-1" id="left-operate-menu" style="height: auto;">
-                        <li class="active"><a href="#editor-template" class="filter active" data-filter="all" role="tab" data-toggle="tab"> 样式</a></li>
-                        <li><a href="#parse-rule-lists" style="color:red;" data-url="/html_parsers/lists #html-parsers-list" role="tab" data-toggle="tab">一键排版</a></li>
-
-                        <li id="tab-tpl-trigger"><a href="#editor-tpls" role="tab" data-toggle="tab">模板</a></li>
-                        <li><a href="#image-list" onclick="$('#editor-image-navtab  a:first').trigger('click').tab('show');" role="tab" data-toggle="tab">图片素材</a></li>
-
-
-                        <li id="tab-wxmsg-trigger" ><a href="#editor-my-msgs" role="tab" data-toggle="tab"> 我的文章</a></li>
-
-
-                        <li><a href="#editor-others" role="tab" data-toggle="tab">加点料</a></li>
-
-
+                        <li><a href="javascript:void(0);" class="filter active" data-filter="all"> 所有样式</a></li>
+                        <li class="active"><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 标题</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 标题</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 正文</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 分割线</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 分享</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 阅读全文</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 互推</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="all" role="tab" data-toggle="tab"> 其他</a></li>
                     </ul>
                 </div>
                 <div class="w2 fl">
@@ -134,59 +118,13 @@
 
 
                     <div id="insert-style-list" class="item tab-content" style="height:860px;">
-
                         <div id="editor-template" class="tab-pane active">
                             <div style="background-color:rgba(245,245,245,0.9);height:90px; text-align:center;">
-                                <div style="height:60px;">
-                                    <ul class="nav nav-tabs nav-toolbars" id="style-categories" >
-                                        <li class="dropdown">
-                                            <a class="filter" data-filter=".tagtpl-107" role="tab" data-toggle="tab" href="#"> <i class="icon135 icon-biaoti"></i><br/> 标题 </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-229" >编号标题</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-237" >框线标题</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-233" >底色标题</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-232" >图片标题</a></li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="dropdown">
-                                            <a class="filter" data-filter=".tagtpl-109" role="tab" data-toggle="tab" href="#"> <i class="icon135 icon-neirong"></i><br/> 正文 </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-226">边框内容</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-228">底色内容</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-230">序号/轴线</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-231">单页</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-235">竖排</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a class="filter" data-filter=".tagtpl-222,.cate-50,.cate-51,.cate-52,.cate-53,.cate-54,.cate-55,.cate-56" role="tab" data-toggle="tab" href="#"> <i class="icon135 icon-tupian"></i><br/>图片 </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-222">图片样式</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".cate-53">分割线</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".cate-56">引导图</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".cate-51">背景图</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".cate-50,.cate-52,.cate-54,.cate-55">其它</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a class="filter" data-filter=".tagtpl-151,.tagtpl-111" role="tab" data-toggle="tab" href="#"> <i class="icon135 icon-tuwen"></i><br/>图文 </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-223">上下图文</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-224">左右图文</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-225">背景/信纸</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-234">音频/视频</a></li>
-                                                <li><a href="#editor-template" class="filter" data-filter=".tagtpl-236">对话</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a class="filter" data-filter=".tagtpl-227" role="tab" data-toggle="tab" href="#"> <i class="icon135 icon-layout"></i><br/>布局 </a>
-                                        </li>
-                                    </ul>
+                                <div style="height:60px;text-align: left;padding:20px 0 0 20px">
+                                    微信圈圈新版上线： 操作更快捷方便，更强大功能!
                                 </div>
                                 <div id="style-sorts" style="text-align:right;height:30px;padding:5px 10px;z-index:1;background-color:rgba(235,235,235,0.8);">
-                                    排序：<span class="sort active" style="cursor:pointer;" data-sort="time:desc" > <i class="fa fa-clock-o"></i> 收藏时间 </span> |
-                                    <span class="sort" style="cursor:pointer;" data-sort="click:desc" > <i class="fa fa-thumbs-o-up"></i> 使用次数 </span>
+
                                 </div>
                             </div>
                             <div id="editor-template-scroll" style="height: 741px; overflow-y: auto; overflow-x: hidden;">
@@ -212,12 +150,12 @@
                                         <section class="wxqq" style="position:static;box-sizing: border-box;" data-id="29735"><section style="width:120px;margin-bottom:0px;">
                                             <p style="text-align: center; color: inherit; line-height: 2em;"><span style="border-color:rgb(255, 129, 36); color:rgb(255, 129, 36); font-size:16px"><strong style="border-color:rgb(255, 129, 36); color:inherit">微信圈圈编辑器</strong></span></p>
                                         </section>
-                                        <section style="margin-top: 0px; padding: 0px 5px; line-height: 10px; color: inherit; border: 1px solid rgb(255, 129, 36);"><section style="padding: 0px; font-size: 16px; color: inherit; height: 8px; margin: -8px 0px 0px 140px; width: 50%; background-color: rgb(254, 254, 254);"><section style="width: 8px; height: 8px; border-radius: 100%; line-height: 1; box-sizing: border-box; font-size: 18px; text-decoration: inherit; border-color: rgb(255, 129, 36); display: inline-block; margin: 0px; color: inherit; background-color: rgb(255, 129, 36);"></section></section><section class="135brush" data-style="text-indent: 2em;" style="padding: 0px; line-height: 2em; color: rgb(62, 62, 62); font-size: 14px; margin: 15px;">
-                                            <p style="color: inherit;"><span style="font-size:14px">微信圈圈编辑器是一个在线图文编辑工具，大量节省您排版的时间，让工作更轻松高效。</span></p>
-                                        </section>
-                                        <section style="padding: 0px; background-color: rgb(254, 254, 254); font-size: 16px; color: inherit; text-align: right; height: 10px; margin: 0px 0px -4px 25px; width: 65%;">
-                                            <section style="margin: 0px auto 1px; border-radius: 100%; line-height: 1; box-sizing: border-box; text-decoration: inherit; background-color: rgb(255, 129, 36); border-color: rgb(255, 129, 36); display: inline-block; height: 8px; width: 8px; color: inherit;"></section>
-                                        </section>
+                                            <section style="margin-top: 0px; padding: 0px 5px; line-height: 10px; color: inherit; border: 1px solid rgb(255, 129, 36);"><section style="padding: 0px; font-size: 16px; color: inherit; height: 8px; margin: -8px 0px 0px 140px; width: 50%; background-color: rgb(254, 254, 254);"><section style="width: 8px; height: 8px; border-radius: 100%; line-height: 1; box-sizing: border-box; font-size: 18px; text-decoration: inherit; border-color: rgb(255, 129, 36); display: inline-block; margin: 0px; color: inherit; background-color: rgb(255, 129, 36);"></section></section><section class="135brush" data-style="text-indent: 2em;" style="padding: 0px; line-height: 2em; color: rgb(62, 62, 62); font-size: 14px; margin: 15px;">
+                                                <p style="color: inherit;"><span style="font-size:14px">微信圈圈编辑器是一个在线图文编辑工具，大量节省您排版的时间，让工作更轻松高效。</span></p>
+                                            </section>
+                                                <section style="padding: 0px; background-color: rgb(254, 254, 254); font-size: 16px; color: inherit; text-align: right; height: 10px; margin: 0px 0px -4px 25px; width: 65%;">
+                                                    <section style="margin: 0px auto 1px; border-radius: 100%; line-height: 1; box-sizing: border-box; text-decoration: inherit; background-color: rgb(255, 129, 36); border-color: rgb(255, 129, 36); display: inline-block; height: 8px; width: 8px; color: inherit;"></section>
+                                                </section>
                                     </li>
                                     <li title="左侧编号内容格式" class="recomment-style itembg2 tag-recommend tagtpl-109 tagtpl-230 tagtpl-238 mix" data-id="2185" style="display: block;">
                                         <section class="wxqq" style="position:static;box-sizing: border-box;" data-id="2185"><section style="color: inherit; font-size: 16px; padding: 5px 10px 0px 35px; margin-left: 27px; border-left-width: 2px; border-left-style: dotted; border-left-color: rgb(228, 228, 228);"><section class="autonum" style="width: 32px; height: 32px; margin-left: -53px; margin-top: 23px; color: rgb(202, 251, 215); text-align: center; line-height: 32px; border-top-left-radius: 16px; border-top-right-radius: 16px; border-bottom-right-radius: 16px; border-bottom-left-radius: 16px; background: rgb(14, 184, 58);" data-original-title="" title="">1</section><section class="135brush" style="margin-top: -30px;padding-bottom: 10px; color: inherit;">
@@ -1393,8 +1331,9 @@
                                                     <span style="color: rgb(0, 0, 0);">生而排版</span>
                                                 </p>
                                                 <p style="clear: none; margin: 0px; line-height: 1.5em; color: inherit;">
-			<span style="color: rgb(0, 0, 0);"><span style="line-height: 24px; text-align: center;">为你而</span><span style="line-height: 24px; text-align: center;">美</span><br>
-			</span>
+                                                    <span style="color: rgb(0, 0, 0);"><span style="line-height: 24px; text-align: center;">为你而</span>
+                                                        <span style="line-height: 24px; text-align: center;">美</span><br />
+                                                    </span>
                                                 </p>
                                             </section></section></section><section style="padding-left: 8px; width: 50%; display: inline-block; text-align: center; color: inherit;clear: both;" class="layout"><section style="padding: 20px 25px; min-height: 140px; color: inherit;">
                                             <h3 class="135brush" data-brushtype="text" style="font-size: 16px; margin: 0px 0px 10px; color: inherit;"><span style="color: rgb(0, 0, 0);">第二栏</span></h3>
@@ -1556,7 +1495,7 @@
                     <!-- <textarea class="editorBox" name="" id="" cols="30" rows="10"></textarea>-->
                     <form action="" class="form-horizontal editorBox" style="background-color:transparent;position: relative;" role="form" target="_blank" id="WxMsgViewForm" method="post" accept-charset="utf-8">
                         <div id="image-preview"></div>
-                        <script id="WxMsgContent" type="text/plain"></script>
+                        <script id="editorContent" type="text/plain"></script>
                         <input type="hidden" name="template_id" id="template_id" />
                         <input type="hidden" name="template_name"  id="template_name"/>
                         <input type="hidden" name="msg_id" />
@@ -1588,12 +1527,12 @@
                         <div class="editorslide">
                             <ul>
 
-                                <li><a href="javascript:;" id="copy-editor-html" class="btn btn-warning btn-xs"  data-container="body"
+                                <li><a href="javascript:;" id="copyAllWxqqEditor" class="btn btn-warning btn-xs"  data-container="body"
                                        data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="复制内容到剪切板，若复制失败请查看使用帮助"><i  class="fa fa-copy"></i>复制</a></li>
                                 <li><button type="button" id="save-as-template" tabindex="2"  class="btn btn-warning btn-xs" data-toggle="tooltip" data-container="body" data-placement="right"  title="保存内容"><i class="fa fa-save"></i>保存</button></li>
                                 <li><button type="button" id="html-to-image" class="btn btn-default btn-xs"  data-toggle="tooltip" data-container="body" data-placement="right"   title="转为长图片格式，<br/>用于发微博、控制版权等"><i  class="fa fa-image"></i>长图</button></li>
-                                <li><button type="button"  id="btn-new-msg" class="btn btn-default btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
-                                <li><a href="javascript:;" id="preview-editor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
+                                <li><button type="button"  id="clearWxqqEditor" class="btn btn-default btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
+                                <li><a href="javascript:;" id="previewEditor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
 
 
 
@@ -1775,8 +1714,7 @@
                                             </section>
                                         </section>
                                     </section>
-                                    <section class="135brush" id="preview-msg-content"  data-style="text-align: center;" style="padding: 10px 10px;overflow-x:hidden;overflow-y:auto;min-height:300px;max-height:500px;">
-
+                                    <section class="135brush" id="previewBox"  data-style="text-align: center;" style="padding: 10px 10px;overflow-x:hidden;overflow-y:auto;min-height:300px;max-height:500px;">
                                     </section>
                                 </section>
                             </section>
@@ -1951,739 +1889,50 @@
 </div>
 
 <script type="text/javascript" src="../dist/utf8-php/ueditor.config.js"></script>
-<script src="../dist/utf8-php/ueditor.all.min.js"></script>
-<script src="http://static.135editor.com/js/jquery/jquery.Jcrop.js"></script>
-<link rel="stylesheet" href="http://static.135editor.com/css/jquery.Jcrop.css" type="text/css" />
-<script type="text/javascript" src="./js/ZeroClipboard/ZeroClipboard.js"></script>
-<script src="./js/index.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="../dist/utf8-php/ueditor.all.min.js"></script>
+<script type="text/javascript" src="./js/ZeroClipboard/ZeroClipboard.min.js"></script>
+<script type="text/javascript" src="./js/colorPicker/lib/color.all.min.js"></script>
+<script type="text/javascript" src="./js/colorPicker/jqColor.js"></script>
 
 <script>
-
-    if( UE.browser.ie ) {
-        alert("请使用谷歌浏览器,火狐,或者使用360/搜狗/猎豹等浏览器的极速模式操作");
-    }
-
-    function keep_session(){
-        var url = BASEURL + '/wxes/keep_session';
-        ajaxActionHtml(url,null,function(html){ });
-    }
-
-
-    rs_callbacks.loginSuccess = function(request){
-        if(request.success){
-            publishController.close_dialog();
-            //publishController.remove();
-            $('#login_errorinfo').hide();
-            if(sso.form){
-                $(sso.form).trigger("submit");
-                sso.form=null;
-            }
-            if(sso.callback){
-                sso.callback.apply(sso.callback,sso.callback_args);
-            }
-
-            reloadStyleOperate();
-
-            keep_session();
-
-            //$('#tab-wxmsg-trigger').show();
-            //loadUserDrafts();
-
-            $('#login-menus').removeClass('hidden');
-            $('#login-links').remove();
-            $('#login-user-name').html(request.userinfo.username);
-
-            if(request.userinfo && request.userinfo.session_flash){
-                request.success += request.userinfo.session_flash;
-            }
-//		showSuccessMessage(request.success); //ajaxAction中已调用
-        }
-        else{
-            //$('#login_errorinfo').addClass('alert alert-danger').show().html(request.error);
-        };
-    }
-
-    function save_as_tpl(){
-        publishController.close_dialog();
-        $('#myModal').modal('show');
-        $('#save-wx-msg-dialog').modal('hide');//$('.modal-backdrop').remove();
-
-        $('#dialog-save-template').unbind('click').click(function(){
-            if($('#dialog-template-name').val() == ""){
-                $('#dialog-template-name').focus();
-            }
-            else{
-                $('#template_name').val($('#dialog-template-name').val());
-                var form = $('#WxMsgViewForm').get(0);
-                form.action = '/user_styles/saveTemplate';
-                ajaxSubmitForm(form,function(){
-                    $('#myModal').modal('hide');
-                });
-            }
-        });
-    }
-
-    function saveWxMsg(form){
-
-        var postdata = $(form).serializeArray();
-
-        // 将内容追加到提交的数据中
-        postdata[postdata.length] = { name:'data[WxMsg][content]',value: getEditorHtml() };
-
-        ajaxAction(form.action,postdata,form,function(request){
-            //alert(1);
-            current_edit_msg_id = request.id;
-            publishController.close_dialog();
-            $('#save-wx-msg-dialog').modal('hide');$('.modal-backdrop').remove();	//期间可能弹出了其它的dialog
-        });
-        return false;
-
-    }
-    function saveTemplate(form){
-        if(getEditorHtml() == ""){
-            showErrorMessage("请先输入内容");
-            return false;
-        }
-
-        if(!sso.check_userlogin({"callback":saveTemplate,"callback_args":arguments}))
-            return false;
-
-        var tid = $('#template_id').val();
-        if( tid ) {
-            $('#myModal').modal('show');
-            $('#dialog-save-template').unbind('click').click(function(){
-                if($('#dialog-template-name').val() == ""){
-                    $('#dialog-template-name').focus();
-                }
-                else{
-                    $('#template_name').val($('#dialog-template-name').val());
-                    form.action = '/user_styles/saveTemplate';
-                    ajaxSubmitForm(form,function(){
-                        $('#myModal').modal('hide');
-                    });
-                }
-            });
-            return false;
-        }
-
-        //
-        var url;
-        if(current_media_id != null && current_media_idx != null) {
-            url = '/wx_msgs/save?inajax=1&rethtml=1&mid='+current_media_id +'&idx='+current_media_idx;
-        }
-        else if(current_edit_msg_id) {
-            url = '/wx_msgs/save/'+current_edit_msg_id+'?inajax=1&rethtml=1';
-        }
-        else{
-            url = '/wx_msgs/save?inajax=1&rethtml=1';
-        }
-
-        publishController.open_dialog(url,{title:'保存图文',id:'save-wx-msg-dialog','width':900,'callback':function(dialog){
-            //$('#save-wx-msg').click();
-            //alert(dialog.find('.modal-body').text());
-            var text = dialog.find('.modal-body').text();
-
-            dialog.find('#WxMsgWxId').change(function(){
-                var wxid = this.value;
-                ajaxAction('/wxes/setManageWx/'+wxid,null,null,function(result){
-                    showSuccessMessage(result.message);
-                    $('#wxmsg-mine-list').find('#wxmsg-mine-wxid').val(wxid);
-                    $('#tab-wxmsg-trigger').trigger('click');
-                });
-            });
-
-            var regTest = new RegExp("您没有权限进行此项操作");
-
-            if( regTest.test(text) ){
-
-                //showErrorMessage('没有权限保存消息，只能保存三个模板.付费后可无限制保存消息');
-
-                dialog.modal('hide');
-
-                $('#myModal').modal('show');
-                $('#dialog-save-template').unbind('click').click(function(){
-                    if($('#dialog-template-name').val() == ""){
-                        $('#dialog-template-name').focus();
-                    }
-                    else{
-                        $('#template_name').val($('#dialog-template-name').val());
-                        form.action = '/user_styles/saveTemplate';
-                        ajaxSubmitForm(form,function(){
-                            $('#myModal').modal('hide');
-                        });
-                    }
-                });
-            }
-        }});
-
-        var $dialogid = publishController.dialogid;
-        $('#'+$dialogid).on('hidden.bs.modal', function (e) {
-            $('#'+$dialogid).remove();
-        });
-
-        return false;
-    }
-
-    function reloadStyleOperate(){
-
-        //$('#style-operate-area').append('<div style="position:absolute; background: rgba(255,255,255,0.95);width: 100%;line-height: 65px;text-align: center" title="若自动刷新失败，请按“F5”手动刷新"><img src="http://static.135editor.com/img/ajax/circle_ball.gif"> 正在加载最新数据...</div>');
-
-        //$('<div></div>').load('/beautify_editor #full-page',function(){
-        $('#editor-template-scroll').prepend('<div style="margin:10px;color:red;"><img src="http://static.135editor.com/img/ajax/circle_ball.gif"> 正在加载样式...</div>').load('/editor_styles/styles?inajax=1',function(){
-
-            /*var html = $(this).find('#style-operate-area').html(); //#style-operate-area
-             $('#style-operate-area').html(html);
-
-             var favor_html = $(this).find('#favor-colors').html();
-             $('#favor-colors').html(favor_html);*/
-            page_loaded();
-
-            $('.editor-template-list > li').addClass('mix');
-            //$('.editor-template-list').mixItUp('destroy');
-            $('.editor-template-list').mixItUp({
-                layout:{display:'block'},
-                load:{filter: 'all','sort':'time:desc'},
-                callbacks: {
-                    onMixEnd: function(state){
-                        $('#editor-template-scroll').scrollTop(0);
-                    }
-                }
-            });
-
-            //$('.popover-trigger').popover({trigger:"hover"});
-
-            $('.autonum').on('mousewheel', function(event) {
-                var num = parseInt($(this).html());
-                if(event.deltaY < 0) { //向下滚动
-                    if(num <= 1) return ;
-                    $(this).html( num - 1);
-                }
-                else{
-                    $(this).html( num + 1);
-                }
-                return false;
-            }).tooltip({'title':'上下滚动鼠标，可调整序号大小',container: 'body'});
-
-            //$('#left-side-affix').width($('#left-sidebar').width());
-            $('#style-categories .dropdown').hover( function(e){
-                $(this).addClass('open');
-            },function(){
-                $(this).removeClass('open');
-            }).click(function(e){
-                //e.stopPropagation();// 阻止事件冒泡，点击链接后，页面直接跳转，屏蔽click的dropdown事件。
-            });
-
-            //$('#left-side-affix').width($('#left-sidebar').width());
-            $('[data-toggle="popover"]','#insert-style-list').popover();
-
-            $('#btn-help').popover();
-            $('#editor-type-pop').popover({
-                trigger: 'hover'
-            });
-            showSuccessMessage('样式加载成功');
-        });
-
-
-    }
-    //document.oncontextmenu=function(e){return false;}
-    //window.localStorage.loadFeeds = 'true';
-
-
-    function showFullColorChange(){
-        $('#all-style-color-panel').show();
-    }
-
-    var current_draft_id = null;
-    var auto_save_draft_interval = null ;
-
-    function loadUserDrafts(){
-        loadLocalStorage();return;
-        $.ajax({
-            async:true,
-            type:'get',
-            url: '/drafts/lists?model=WxMsg',
-            success: function (data){
-                if( data != "" ) {
-                    publishController.open_html_dialog('user-draft-chooser','草稿箱');
-                    $('#user-draft-chooser').find('.modal-body').html(data);
-                }
-                else{
-                    loadLocalStorage();
-                }
-            },
-            dataType:"html"
-        });
-
-        clearInterval(auto_save_draft_interval);
-        auto_save_draft_interval = setInterval(function(){
-            autoSavedraft();
-        },30000); //每30秒保存草稿
-    }
-
-    function autoSavedraft(){
-        var html = getEditorHtml();
-        if (html != "" ) {
-            ajaxAction('/drafts/save.json',{'model':'WxMsg','id':current_draft_id,'data_id':current_edit_msg_id,'content':html},null,function(request){
-                current_draft_id = request.id;
-            });
-        }
-    }
-
-    function loadLocalStorage(){
-        if( window.localStorage){ // 本地临时存储编辑器内容
-            if(typeof window.localStorage._135content != "undefined"){
-                //alert(window.localStorage._135content);
-                //setEditorHtml(window.localStorage._135content);
-
-                current_editor.setContent(window.localStorage._135content);
-
-                var editor_document = current_editor.selection.document;
-                $(editor_document).find('.wxqq').each(function(){
-                    //$(this).removeAttr('style');
-                    $(this).css({'border':'0 none','padding':0});
-                });
-            }
-            if(typeof window.localStorage._edit_msg_id != "undefined"){
-                current_edit_msg_id = window.localStorage._edit_msg_id;
-            }
-            setInterval(function(){
-                window.localStorage._135content = getEditorHtml();
-            },90000); // 一分半保存一次
-        }
-    }
-
-
-    function loadWechatArticle(media_id, idx) {
-
-        current_media_id = media_id;
-        current_media_idx = idx;
-
-        var url = BASEURL + '/wx_msgs/wechat_content/'+media_id+'/'+ idx;
-        ajaxAction(url,null,null,function(request){
-            if(request.content ){
-                setEditorHtml(request.content);
-            }
-        });
-    }
-
-    function showMoreColorSwatch(){
-
-        var height = $(window).height()-80-10;
-        $('#moreColorSwatch').height(height);
-        $('#moreColorSwatchList').height(height-70);
-
-        $('#moreColorSwatch').fadeIn('slow');
-        if($('#moreColorSwatchList').html() == "") {
-            $('#moreColorSwatchList').html('<div style="margin:10px;"><img src="http://static.135editor.com/img/ajax/circle_ball.gif"> 正在加载配色方案...</div>').load('/colors/lists?inajax=1 #colors_list',function(data){
-                inner_open('#moreColorSwatchList','#colors_list');
-                // <br/>付费用户在5秒后将自动进入收藏配色方案列表
-                /*if($('#favor-color-trigger').size() > 0) {
-                 setTimeout(function(){
-                 $('#favor-color-trigger').trigger('click');
-                 },3000);
-                 }*/
-            });
-        }
-    }
-
-    current_editor = UE.getEditor('WxMsgContent',{
-        toolbars: [
-            ["bold","italic","underline","forecolor","backcolor","txtshadow","|","justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|","removeformat",'formatmatch',"autotypeset"],
-            ["paragraph","fontfamily","fontsize","inserttable",'background',"uploadword","insertimage",'insertvideo',"horizontal", 'spechars',"|","undo","redo","|","more"],
-            ["source",'blockquote','superscript', 'subscript','insertorderedlist', 'insertunorderedlist','emotion','link','searchreplace', 'help','message']
-        ],
-        autoHeightEnabled:false,
-        elementPathEnabled:false, //是否启用元素路径，默认是显示
-        wordCount:false, //是否开启字数统计
-//        allowDivTransToP:false
-    });
-
-    current_editor.ready(function(){
-        //current_editor.addListener('ready', resetHandler);
-        $(window).trigger('resize');
-
-        setTimeout(function(){
-
-            $('#edui1_iframeholder').height(785);
-            $('.edui-editor-toolbarboxinner').children().eq(1).append('<button id="tbmore"><i class="fa fa-plus-square"></i></button>');
-            $('.edui-editor-toolbarboxinner').children().eq(2).css({backgroundColor:'#F7F4F3'}).hide();
-
-            $('#tbmore').click(function(e){
-                $('.edui-editor-toolbarboxinner').children().eq(2).toggle();
-                e.preventDefault();
-            });
-
-
-            //current_editor.execCommand('drafts');
-            current_editor.execCommand( 'focus' );
-
-            var editor_document = current_editor.selection.document;
-
-            $('.edui-editor-toolbarbox .js_tooltip').tooltip({
-                'container':'body',
-                title:function(){return $(this).data('tooltip');}
-            });
-            $('.edui-editor-toolbarbox .edui-button-body').tooltip({'container':'body'});
-
-
-            if( sso.is_login() ) {
-                loadUserDrafts();
-            }
-            else{
-                loadLocalStorage();
-            }
-
-            jQuery(editor_document).on('mousewheel','.autonum', function(event) {
-                var num = parseInt($(this).html());
-                if(event.deltaY < 0) { //向下滚动
-                    if(num <= 1) return ;
-                    $(this).html( num - 1);
-                }
-                else{
-                    $(this).html( num + 1);
-                }
-                return false;
-            });
-
-        },100);
-
-    });
-
-    $(function(){
-
-        //$('#editor-template-scroll').load('/editor_styles/styles?inajax=1');
-        reloadStyleOperate();
-
-        $(document).on('click','#wechat-article-list .wechat-edit',function(){
-            loadWechatArticle($(this).data('mid'), $(this).data('idx'));
-            return false;
-        });
-
-        $(document).on('keyup blur focus','#txtStyleSearch',function(){
-            var last = $(this).data('last');
-            var word = $.trim(this.value);
-            if( word == "" ||  word == " " ) {
-                $('#styleSearchResult').fadeOut('slow');// 关闭搜索的显示
-                return false;
-            }
-            var search_height = $(window).height()-80-10;
-            $('#styleSearchResult').height(search_height);
-            $('#styleSearchResultList').height(search_height-70);
-
-            if(last == word) {
-                $('#styleSearchResult').fadeIn('slow');
-                return false; // 未变化
-            }
-            else {
-                $(this).data('last',word);
-                $('#styleSearchResult').fadeIn('slow');
-                $('#styleSearchResultList').load('/editor_styles/search?inajax=1&name='+word +' #style_search_list',function(data){
-                    ;
-                });
-            }
-        });
-
-        //var html = $('#insert-style-list').html();
-        //$('#insert-style-list').html(parseHtml(html,"rgb(255, 129, 36)","#FFF"));
-        $('#left-operate-menu li a').click(function(){
-            $('#styleSearchResult').fadeOut('slow');
-            $('#moreColorSwatch').fadeOut('slow');
-        });
-
-        $(document).on('click','#style-categories .filter,#style-sorts .sort',function(){
-            $('#editor-template-scroll').scrollTop(0); //切换分类时，回到顶部
-            var filter = $(this).attr('data-filter');
-            $('.sub-filter-tags').find('li').hide();
-            $('.sub-filter-tags').find(filter).show();
-        });
-
-        $(window).resize(function(){
-            var win_height = $(window).height();
-            $('#full-page').height(win_height);
-
-
-            /*if( win_height < 800 && $(window).width() > 1300 ){
-             //area_height = 800;
-             $('#full-page').addClass('small-height');
-             area_height += 50;
-             }
-             else{
-             $('#full-page').removeClass('small-height');
-             }*/
-
-            if( $(window).width() < 1000 &&  win_height < 650 ) {
-                if($('#color-choosen').hasClass('active')) {
-                    $('#right-fix-tab > li > a:first').trigger('click');
-                }
-            }
-            else{
-                if(!$('#color-choosen').hasClass('active')) {
-                    $('#color-choosen').parent('.tab-content').show();
-                    $('#right-fix-tab > li > a:first').trigger('click');
-                }
-            }
-
-
-
-            $('.w1').height(win_height-40);
-            $('#insert-style-list').height(win_height-80);
-            $('#editor-template-scroll').height(win_height-80-90); //subtract toolbar height
-
-            var area_height = win_height-140;
-            $('.editor2').height(area_height);
-
-            //$('.w3').width($('#full-page').width() - $('#style-operate-area').width() );
-
-
-            if($('#WxMsgContent').find('.show-edui-more').size() > 0 ) {
-                $('.edui-editor-iframeholder').height(area_height-30);
-            }
-            else{
-                $('.edui-editor-iframeholder').height(area_height-0);
-            }
-
-            if( $(window).width() < $('body').width() ) {
-                $('body').scrollLeft( $('body').width() - $(window).width() );
-            }
-            //$('#WxMsgContent').css('width',$('.editorBox').width());
-
-        }); // .trigger('resize');
-
-        //setTimeout(function(){
-        //$(window).trigger('resize');
-        //},500);
-
-        $('.autonum').on('mousewheel', function(event) {
-            var num = parseInt($(this).html());
-            if(event.deltaY < 0) { //向下滚动
-                if(num <= 1) return ;
-                $(this).html( num - 1);
-            }
-            else{
-                $(this).html( num + 1);
-            }
-            return false;
-        }).tooltip({'title':'上下滚动鼠标，可调整序号大小',container: 'body'});
-
-
-        //$('#html-more-popover').data('content',$('#more-popover-content').html());
-        /*$('#html-more-popover').popover({trigger:"hover"}).on('shown.bs.popover', function () {
-         var $this = $(this);
-         $('#more-popover .popover-content').html($('#more-popover-content').html());
-         })*/
-        $('.editor-template-list > li').addClass('mix');
-        $('.editor-template-list').mixItUp({
-            layout:{display:'block'},
-            load:{filter: 'all','sort':'time:desc'},
-            callbacks: {
-                onMixEnd: function(state){
-                    $('#editor-template-scroll').scrollTop(0);
-                }
-            }
-        });
-
-        //$('#left-side-affix').width($('#left-sidebar').width());
-        $('#style-categories .dropdown').hover( function(e){
-            $(this).addClass('open');
-        },function(){
-            $(this).removeClass('open');
-        }).click(function(e){
-            //e.stopPropagation();// 阻止事件冒泡，点击链接后，页面直接跳转，屏蔽click的dropdown事件。
-        });
-
-        $('[data-toggle="popover"]','#insert-style-list').popover();
-        $('.popover-trigger').popover({trigger:"hover"});
-        $('#btn-help').popover();
-        $('#editor-type-pop').popover({
-            trigger: 'hover'
-        });
-
-
-    });
-</script>
-
-<script src="http://static.135editor.com/cache/82e97d8f1b.js" type="text/javascript"></script>
-<script>
+    var wxqqEditor=null;
     ZeroClipboard.config( { swfPath: "./js/ZeroClipboard/ZeroClipboard.swf" } );
+    var client = new ZeroClipboard( document.getElementById("copyAllWxqqEditor") );
     $(function(){
 
-
-        // var $colors = jsColorPicker('.colorPicker',{
-        $('.colorPicker').colorPicker({
-            customBG: '#FFF',
-            size:2,
-            mode:'hsv-h', //rgb-r
-            init: function(elm, colors) { // colors is a different instance (not connected to colorPicker)
-                elm.style.backgroundColor = elm.value;
-                elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
-            }
-            /*,displayCallback:function(colors, mode, options){
-             setBackgroundColor($(this).val(),'#FFF', 'all');
-             }*/
-        });
-        $('.colorPicker').blur(function(){
-            setBackgroundColor(this.value,'#FFF',true);
-            this.style.backgroundColor = this.value;
-            this.style.color = '#FFF';
-        });
-        $('.colorPicker').keyup(function(){
-            if(this.value.search('#') == 0){
-                if(this.value.length ==7 ) { //|| this.value.length ==4
-                    $(this).trigger('focus.colorPicker');
-                }
-            }
-            else{
-                //alert(this.value.search('rgb'));alert(this.value.indexOf(")"));
-                if( this.value.search('rgb') == 0 && this.value.indexOf(")") >0 ) {
-                    $(this).trigger('focus.colorPicker');
-                }
-            }
+        wxqqEditor=UE.getEditor('editorContent',{
+            toolbars: [
+                ["bold","italic","underline","forecolor","backcolor","txtshadow","|","justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|","removeformat",'formatmatch',"autotypeset"],
+                ["paragraph","fontfamily","fontsize","inserttable",'background',"uploadword","insertimage",'insertvideo',"horizontal", 'spechars',"|","undo","redo","|","more"],
+                ["source",'blockquote','superscript', 'subscript','insertorderedlist', 'insertunorderedlist','emotion','link','searchreplace', 'help','message']
+            ],
+            autoHeightEnabled:false,
+            elementPathEnabled:false, //是否启用元素路径，默认是显示
+            wordCount:false, //是否开启字数统计
+//        allowDivTransToP:false
         });
 
+        wxqqEditor.ready(function() {
 
-        $(document).on('click','#flat-strip-shadow',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-            obj.find('*').css('box-shadow','');
-            var newHtml = obj.html();
-            setDealingHtml(newHtml);
-            obj = null;
-        });
+            $(window).trigger('resize');
 
-        $(document).on('click','#flat-add-shadow',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
+            setTimeout(function () {
 
-            obj.find('*').each(function(){
-                if( $(this).css('background-color') == 'transparent' ||  $(this).css('background-color') == '' ){
-                }
-                else{
-                    $(this).css('box-shadow','rgba(205, 205, 205,0.9) 2px 3px 2px');
-                }
-            });
-            obj.find('hr').each(function(){
-                $(this).css('box-shadow','rgba(205, 205, 205,0.9) 1px 1px 2px');
-            })
-            var newHtml = obj.html();
-            setDealingHtml(newHtml);
-            obj = null;
-        });
+                $('#edui1_iframeholder').height(785);
+                $('.edui-editor-toolbarboxinner').children().eq(1).append('<button id="tbmore"><i class="fa fa-plus-square"></i></button>');
+                $('.edui-editor-toolbarboxinner').children().eq(2).css({backgroundColor: '#F7F4F3'}).hide();
 
-
-        $(document).on('click','#set-image-radius',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-            obj.find('img').css('border-radius','50%'); //图片
-            obj.find('.135bg').css('border-radius','50%'); //背景图片
-            setDealingHtml(obj.html())
-            obj = null;
-        });
-        $(document).on('click','#set-image-border',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-            obj.find('img').css({"background-color":"#fff","border-radius":"4px","max-width":"100%","padding":"4px","border":"1px solid #ddd"});
-            setDealingHtml(obj.html())
-            obj = null;
-        })
-
-        $(document).on('click','#flat-add-radius',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-            obj.find('*').each(function(){
-                if( $(this).css('background-color') != 'transparent' &&  $(this).css('background-color') != '' ){
-                    $(this).css('border-radius','4px');
-                }
-                else{
-                    $(this).css('border-radius','4px');
-                }
-
-            });
-            setDealingHtml(obj.html())
-            obj = null;
-        });
-
-        $(document).on('click','#flat-strip-radius',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-            obj.find('*').css('border-radius','');
-            setDealingHtml(obj.html())
-            obj = null;
-        });
-
-        $(document).on('click','#flat-add-border',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-            obj.find('*').each(function(){
-                if( $(this).css('background-color') != 'transparent' &&  $(this).css('background-color') != '' ){
-                    $(this).css('border','1px solid #efefef');
-                }
-            });
-            //obj.find('.135editor').css('border','1px solid #efefef');
-            setDealingHtml(obj.html())
-            obj = null;
-        });
-        $(document).on('click','#flat-strip-border',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-
-            obj.find('*').each(function(){
-                //if( $(this).css('background-color') == 'transparent' ||  $(this).css('background-color') == ''  ){
-                //}
-                //else{
-                $(this).css('border','');
-                $(this).css('border-width','0');
-                //}
-            });
-
-            setDealingHtml(obj.html())
-            obj = null;
-        });
-
-        $(document).on('mouseover','#image-list .appmsg',function(){ //悬浮预览图
-            var src = $(this).find('img:first').attr('src');
-            $('#image-preview').show().html('<p>图片预览</p><img src="'+src+'"/>');
-            return;
-        });
-        $(document).on('mouseout','#image-list .appmsg',function(){ //离开关闭预览图
-            $('#image-preview').hide();
-            return;
-        });
-
-
-        $(document).on('click','#image-list .appmsg',function(){
-
-            var $image = $(this).find('img:first');
-            var src = $image.attr('src');
-
-            var range = current_editor.selection.getRange();
-            if (!range.collapsed) {
-                var img = range.getClosedNode();
-                if (img && img.tagName == 'IMG') { //选区为图片则切换图片地址
-                    img.src = src;
-                    img.setAttribute('_src',src);
-                    return;
-                }
-            }
-            insertHtml("<img src=\""+src+"\">");
-            if( $image.data('id') ) {
-                style_click($image.data('id'));
-            }
-            return;
-        });
-        $(document).on('click','#image-list .appmsg .deleteMsg',function(){
-            if(confirm('确认要删除吗？删除后,若文章中使用了此图片，将无法显示')) {
-                var id= $(this).data('id');
-                ajaxAction('/uploadfiles/delete/'+id,null,null,function(){
-                    $('#msg-'+id).remove();
+                $('#tbmore').click(function (e) {
+                    $('.edui-editor-toolbarboxinner').children().eq(2).toggle();
+                    e.preventDefault();
                 });
-            }
-            e.stopPropagation();
+
+                wxqqEditor.execCommand('focus');
+            });
         });
 
+        //注册事件
         $(document).on('click','#insert-style-list .ui-portlet-list > li,#styleSearchResultList #style_search_list > ul > li',function(){
-            //data-135editor=\"true\"
-            //多插入一个空行，防止有时无法选择到底部了，或者两个元素中间不方便插入内容。
 
             if($(this).hasClass('ignore')){
                 return false;
@@ -2715,23 +1964,14 @@
             var style_item = $(this).find('> .wxqq:first'); //第一级的
 
             if(style_item.size()){
-                // insertHtml( $(this).html() + "<p>&nbsp;</p>"); 包含收藏夹的删除按钮等
-                /*if(strtolower(style_item.prop('tagName')) == 'img'){
-                 var html = style_item.prop('outerHTML');
-                 ret = insertHtml(html);
-                 }
-                 else */
-                if(style_item.find('> *').size() == 1 && style_item.find('> *').eq(0).hasClass('135editor') ) {
-                    // 只包含一个一级子元素，且为135样式。说明代码本身包含了135editor的class标记，只需要插入内部内容即可，无需再增加外围代码。
-                    ret = insertHtml( style_item.html() + "<p><br/></p>" );
-                }
-                else{
+                if(style_item.find('> *').size() == 1 && style_item.find('> *').eq(0).hasClass('wxqq') ) {
+                    ret = wxqqEditor.execCommand('insertHtml',  style_item.html() + "<p><br/></p>" );
+                } else {
                     var html = style_item.prop('outerHTML');
-                    ret = insertHtml(html + "<p><br/></p>");
+                    ret=wxqqEditor.execCommand('insertHtml', html + "<p><br/></p>");
                 }
-            }
-            else{ //最外围包装135editor容器
-                ret = insertHtml("<section data-id=\""+id+"\" class=\"135editor\">" + $(this).html() + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
+            } else {
+                ret = wxqqEditor.execCommand('insertHtml', "<section data-id=\""+id+"\" class=\"wxqq\">" + $(this).html() + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
             }
 
             if(ret){
@@ -2743,594 +1983,116 @@
 
         });
 
-
-        $(document).on('click','#tab-tpl-trigger',function(){ // 系统及收藏模板加载
-
-            $('#editor-tpls-navtab a:first').trigger('click').tab('show');
-
-        });
-        $(document).on('click',function(event){
-            var object = event.srcElement ? event.srcElement : event.target;
-            if(object && ($(object).parents('#color-plan').size() > 0 || $(object).parents('.cp-app').size() > 0 ) ) { //为调色板或者取色器时，不隐藏
-                // 跳过
-            }
-            else{
-                hideColorPlan();
-            }
-        });
-
-        $(document).on('click','#tab-wxmsg-trigger',function(){ // 我的文章加载
-            //if($('#editor-msg-list').html()=="")
-            {
-                var wxid = $('#wxmsg-mine-wxid').val();
-                if($('#editor-msg-list').find('.preloading').size() == 0) {
-                    $('#editor-msg-list').prepend('<div class="preloading"><img src="http://static.135editor.com/img/ajax/circle_ball.gif"> 正在加载</div>');
-                }
-                else{
-                    $('#editor-msg-list').find('.preloading').show();
-                }
-                $('#editor-my-msgs > .nav-tabs').find('a:first').tab('show');
-
-                $('#wechat-article-list').html('');
-                /*ajaxActionHtml('/wx_msgs/mine',null,function(html){
-                 //$('#editor-msg-list').html(html);
-
-                 $('<div>'+html+'</div>').find('.col-md-4').each(function(){
-                 $('.article-msg').appendTo('#editor-msg-list');
-                 });
-
-                 $('#editor-msg-list').html( $('<div>'+html+'</div>').find('#wxmsg-mine-list').html() );
-                 page_loaded();
-                 });*/
-                var url = '';
-
-                if( wxid != 'all' ){
-                    url = '/wx_msgs/mine?manage_wxid='+wxid+' #wxmsg-mine-list';
-                }
-                else{
-                    url = '/wx_msgs/mine?msg=all #wxmsg-mine-list';
-                }
-
-                $('#editor-msg-list').html('<div class="preloading"><img src="http://static.135editor.com/img/ajax/circle_ball.gif"> 正在加载</div>').load(url,function(){
-                    page_loaded();
-                });
-            }
-        });
-
-        $(document).on('change','#wxmsg-mine-wxid',function(){
-            $('#tab-wxmsg-trigger').trigger('click');
-        });
-
-        $(document).on('click','#editor-msg-list .pagelink a',function(){
-            var url = $(this).attr('href');
-            $('#editor-msg-list').html('<div class="preloading"><img src="http://static.135editor.com/img/ajax/circle_ball.gif"> 正在加载</div>').load(url+' #wxmsg-mine-list',function(){
-                page_loaded();
-            })
-            return false;
-        });
-
-        /* 打开模板刷 */
-        $(document).on('click','#tpl-tab-content .open-tpl-brush',function(){
-            var tid = $(this).data('id');
-            var obj = $('#template-'+tid);
-            $('#tpl-brush-board-content').html($('#template-'+tid).html());
-            var offset = $('#style-operate-area').offset();
-            $('#tpl-brush-board').css('display','block').css('left',offset.left).css('top',offset.top);
-            $('#tpl-brush-board').width($('#style-operate-area').width());
-            $('#tpl-brush-board-content').height($('#style-operate-area').height()-70);
-
-            /*** 绑定模板秒刷的事件 ***/
-            $('#tpl-brush-board-content').find('.wxqq').addClass('clearfix').css({
-                'border':'1px solid #ddd','padding':'10px','margin':'5px 0'
-            }).prepend('<div class="tpl-brush-helper"><a href="javascript:void(0);" data-toggle="popover" data-content="提示:未选择秒刷内容时自动插入" data-trigger="hover" data-container="#tpl-brush-board-content" class="btn btn-brush btn-xs btn-warning">秒刷此样式</a></div>');
-
-            $('[data-toggle="tooltip"]','#tpl-brush-board-content').tooltip();
-            $('[data-toggle="popover"]','#tpl-brush-board-content').popover();
-
-            $('#tpl-brush-board-content').find('.btn-brush').click(function(){
-                var style_item = $(this).parents('.wxqq:first').clone();
-                style_item.find('.tpl-brush-helper').remove();
-                style_item.find('.wxqq').each(function(){
-                    $(this).after("<p><br/></p>");
-                    $(this).remove(); //在内嵌样式的对应位置添加空行，删除嵌套样式
-                });
-
-                insertHtml("<section data-id=\""+style_item.data('id')+"\" class=\"135editor\">" + style_item.html() + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
-            });
-
-            /*** 绑定模板悬浮效果 ***/
-            $('#tpl-brush-board-content').find('.wxqq').hover(function(){
-                $(this).css({
-                    'border':'1px dotted red'//,'background-color':'#fafafa'
-                });
-                $(this).find('.wxqq').css('opacity',0.9);
-            },function(){
-                $(this).find('.wxqq').css('opacity',1);
-                $(this).css({
-                    'border':'1px solid #ddd'//,'background-color':'inherit'
-                })
-                //$(this).find('.tpl-brush-helper').remove();
-            })
-
-        });
-
-
-
-        /*插入模板 */
-        $(document).on('click','#tpl-tab-content .insert-tpl-content,#tpl-tab-content .editor-style-content',function(){ //选中模板后设置编辑器的内容
-            var tid = $(this).data('id');
-            var obj = $('#template-'+tid);
-
-            obj.contents().filter(function() {
-                return this.nodeType === 3 && $.trim($(this).text()) == "";
-            }).remove();
-            obj.find('p').each(function(){
-                if($.trim($(this).html())=="&nbsp;") {
-                    $(this).html('<br/>');
-                }
-            });
-            insertHtml("<section data-id=\""+tid+"\" class=\"135editor\">" + obj.html() + "</section><p><br/></p>");
-            //setEditorHtml(obj.html());
-        });
-
-        /*编辑用户样式 */
-        $(document).on('click','#tpl-tab-content .user-style-toolbar .fa-edit',function(){ //选中模板后设置编辑器的内容
-            var tid = 'us'+$(this).data('id');
-            var obj = $('#template-'+tid);
-
-            obj.contents().filter(function() {
-                return this.nodeType === 3 && $.trim($(this).text()) == "";
-            }).remove();
-            obj.find('p').each(function(){
-                if($.trim($(this).html())=="&nbsp;") {
-                    $(this).html('<br/>');
-                }
-            });
-
-            setEditorHtml(obj.html());
-
-            var id = obj.data('id');
-
-            $('#template_id').val(id.replace('us',''));
-            $('#auto_cover_tpl').removeClass('hidden');
-            $('#template_name').val(obj.data('name'));
-            $('#dialog-template-name').val(obj.data('name'));
-        });
-
-        /*编辑用户样式 */
-        $(document).on('click','#tpl-tab-content .user-style-toolbar .fa-trash',function(){ //删除用户自定义的样式
-            var tid = $(this).data('id');
-            var $this = $(this);
-            var url = '/user_styles/delete/'+tid;
-            if(confirm('是否确认删除此自定义样式')) {
-                ajaxAction(url,null,null,function(request){
-                    $this.parents('.col-xs-12:first').remove();
-                });
-            };
-        });
-
-
-        $(document).on('click','.delete-msg',function(){
-            var $this = $(this);
-            var url = $(this).data('url');
-            if(confirm('是否确认删除这条图文消息')) {
-                ajaxAction(url,null,null,function(request){
-                    $this.parents('.article-msg:first').remove();
-                });
-            }
-        });
-
-        $('#btn-choose-auto-qa').click(function(){
-            publishController.open_dialog('/wx_auto_qas/lists',{
-                title:'插入每日一题',selector:'#WxAutoQa-list',width:900,
-                callback:function($dialog){
-
-                    $dialog.find('.modal-body').prepend('<div class="clearfix"><a class="btn btn-primary btn-sm pull-right" href="javascript:void(0);" onclick="$(\'#btn-choose-auto-qa\').trigger(\'click\')"><i class="fa fa-refresh"></i> 换一批</a></div>');
-
-                    $dialog.find('.choose-auto-qa').click(function(){
-                        var id = $(this).data('id');
-                        var html = '<section class="wxqq" style="border: 0px none; padding: 0px;">'
-                                + '<section style="margin: 1.5em 1em 1em; padding: 0px; border: 0px rgb(239, 112, 96); border-image-source: none; max-width: 100%; box-sizing: border-box; color: rgb(62, 62, 62); line-height: 25px;word-wrap: break-word !important;">'
-                                +  '<section style="max-width: 100%; box-sizing: border-box; line-height: 1.4; margin-left: -0.5em; word-wrap: break-word !important; color: inherit;">'
-                                +   '<section style="max-width: 100%; box-sizing: border-box; border-color: rgb(241, 201, 196); padding: 3px 8px; border-radius: 4px; color: rgb(255, 255, 255); font-size: 1em; display: inline-block; transform: rotate(-10deg); transform-origin: 0% 100% 0px; word-wrap: break-word !important; background-color: rgb(239, 112, 96);">'
-                                +   '<span class="135brush" data-brushtype="text" style="color: inherit; border-color: rgb(239, 112, 96);">每日一题</span>'
-                                +  '</section>'
-                                + '</section>'
-                                +  '<section class="135brush autoqa" data-style="line-height:24px;color:rgb(89, 89, 89); font-size:14px" style="max-width: 100%; box-sizing: border-box; padding: 22px 16px 16px; border: 1px solid rgb(239, 112, 96); color: rgb(0, 0, 0); font-size: 14px; margin-top: -24px;">'
-                                +   $('#qa-content-'+id).html();
-                        +  '</section>'
-                        + '</section>'
-                        + '<section style="display: block; width: 0; height: 0; clear: both;"></section></section>';
-                        insertHtml(html);
-                        publishController.close_dialog();
-                    });
-
-
-                }
-            });
-        });
-
-        $(document).on('click','#syncToWechat',function(){
-            $("ol.sync-article-list").sortable("destroy");
-
-            function syncLoaded($dialog){
-                var adjustment;
-                var group_name = "sync-article-group-" + parseInt(Math.random()*1000)
-                $("ol.sync-article-list",$dialog).sortable({
-                    group: group_name,
-                    pullPlaceholder: false,
-                    // animation on drop
-                    onDrop: function  (item, targetContainer, _super) {
-                        var clonedItem = $('<li/>').css({height: 0})
-                        item.before(clonedItem)
-                        clonedItem.animate({'height': item.height()})
-
-                        item.animate(clonedItem.position(), function  () {
-                            clonedItem.detach()
-                            _super(item)
-                        })
-                    },
-
-                    // set item relative to cursor position
-                    onDragStart: function ($item, container, _super) {
-                        var offset = $item.offset(),
-                                pointer = container.rootGroup.pointer
-
-                        adjustment = {
-                            left: pointer.left - offset.left,
-                            top: pointer.top - offset.top
-                        }
-
-                        _super($item, container)
-                    },
-                    onDrag: function ($item, position) {
-                        $item.css({
-                            left: position.left - adjustment.left,
-                            top: position.top - adjustment.top
-                        })
-                    }
-                });
-                $('#btn-sync-wechat',$dialog).click(function(){
-                    if($('#sync-selected > li',$dialog).size() < 1){
-                        alert("请先选择消息");return false;
-                    }
-
-                    var id = '';
-                    $('#sync-selected > li',$dialog).each(function(){
-                        id += $(this).data('id')+',';
-                    });
-                    ajaxAction('/wx_msgs/sync',{ids:id},null,function(request){
-                        if(request.success){
-                            var html = '<p class="alert alert-success">保存成功，扫描查看微信预览效果</p>';
-                            html += '<img src="/wx_msgs/preview_qrcode?media_id='+request.media_id+'&appid='+request.appid+'" width="200">';
-                            html += '<p><a href="http://www.135plat.com/wx_msgs/wechat_preview?redirect=1&media_id='+request.media_id+'&appid='+request.appid+'" target="_blank">直接浏览器访问预览</a></p>';
-                            setTimeout(function(){
-                                $dialog.modal('show');
-                                $dialog.find('.modal-body').addClass('text-center').html(html);
-                            },500);
-                        }
-                    });
-                });
-
-                $('#sync-wxid-select',$dialog).change(function(){
-                    var wxid = this.value;
-                    publishController.open_dialog('/wx_msgs/syncToWechat?manage_wxid='+wxid,{
-                        id:'wx_msgs_syncToWechat-chosen—form',
-                        title:'图文同步保存到微信',selector:'#sync-wxmsg-list',width:900,
-                        callback:syncLoaded
-                    });
-                    $('#wxmsg-mine-list').find('#wxmsg-mine-wxid').val(wxid);
-                    $('#tab-wxmsg-trigger').trigger('click');
-                });
-            }
-
-            publishController.open_dialog('/wx_msgs/syncToWechat',{
-                id:'wx_msgs_syncToWechat-chosen—form',
-                title:'图文同步保存到微信',selector:'#sync-wxmsg-list',width:900,
-                callback:syncLoaded
-            });
-        });
-        $(document).on('click','.modal-backdrop',function(){
-            $(this).remove();
-        });
-
-
-        $(document).on('click','.article-msg a',function(e){
+        //样式的快速导航下拉
+        $('.nav .dropdown,.navbar-nav .dropdown,header .dropdown').hover(function(e) {
+            $(this).addClass('open');
+        }, function() {
+            $(this).removeClass('open');
+        }).click(function(e) {
             e.stopPropagation();
-            // e.preventDefault(); // 阻止冒泡但不屏蔽默认事件
         });
 
-        $(document).on('click','#wxmsg-mine-list .article-msg,#wxmsg-mine-list .article-msg .opr-edit',function(){
-            var id =  $(this).data('id');
-            current_edit_msg_id = id;
-            var url = BASEURL + '/wx_msgs/view/'+id+'.json?nolazy=1';
-            ajaxAction(url,null,null,function(request){
-                if(request.data ){
-                    if(request.data.WxMsg.content) {
-                        setEditorHtml(request.data.WxMsg.content);
-                    }
-                    else{
-                        setEditorHtml("");
-                    }
-                }
-            });
-
+        //更换背景
+        $('#bg-choose .chooser').on('click',function(){
+            $('body').css({background:'url('+$(this).data('url')+')'});
         });
 
-        $('#right-fix-tab > li > a').click(function(){
-
-            var t = $(this).data('toggle');
-            if($(t).hasClass('active')) {
-                $(t).parent('.tab-content').hide();
-                $(t).removeClass('active');
-            }
-            else{
-                $('#color-choosen').removeClass('active');$('#features').removeClass('active');
-
-                $(t).parent('.tab-content').show();
-                $(t).addClass('active');
+        //右侧的快捷按钮
+        $('#clearWxqqEditor').on('click',function(){
+            if(confirm('你确定要清空所有内容,无法恢复哦?')){
+                wxqqEditor.setContent('');
+                wxqqEditor.focus();
             }
         });
-
-        /*$(document).on('click','.all-color-swatch',function(){
-         $('.all-color-swatch').removeClass('active');
-         $(this).addClass('active');
-         var color = $(this).data('color'); //data-color为前景色，bgcolor为背景色，或者无背景文字的前景色
-         var bgcolor = $(this).css('backgroundColor');
-
-         $('#all-color-rgb-text').val(bgcolor).css('backgroundColor',bgcolor);
-         if(!color)  color = '#FFF';
-
-         parseObject($('.editor-template-list'),bgcolor,color);
-
-         });*/
-
-        $(document).on('click','.color-swatch',function(){
-            $('.color-swatch').removeClass('active');
-            $(this).addClass('active');
-            var color = $(this).data('color'); //data-color为前景色，bgcolor为背景色，或者无背景文字的前景色
-            var bgcolor = $(this).css('backgroundColor');
-
-            $('#custom-color-text').val(bgcolor).css('backgroundColor',bgcolor);
-
-            if(!color)  color = '#FFF';
-//            setBackgroundColor(bgcolor,color, true);
-            //replace_full_color
-            $(current_editor.document.body).find('.wxqq-bg').css({backgroundColor:'#f00'});
-        });
-        /*var default_color = $('.default-color').css('backgroundColor');
-         $('#editor-template-list li > .wxqq').each(function(){
-         parseObject($(this),default_color,'#FFF');
-         $(this).attr('data-color',default_color);
-         });*/
-
-        $(document).on('click','#135-random-transform',function(){
-            var range=current_editor.selection.getRange();
-            if($(range.startContainer).parents('.wxqq')){
-                var deg = parseInt(Math.random()*8); // 正负8度
-                var f = Math.random()*10 > 5 ? '' : '-';
-                var transform = 'rotate('+f+deg+'deg)';
-
-                setElementTransform($(range.startContainer).parents('.wxqq').get(0),transform);
-            }
-            else{
-                showErrorMessage("请在内容中选择要倾斜的样式");
-            }
-            /*var editor_document = current_editor.selection.document;
-
-             $(editor_document).find('.wxqq').each(function(i){
-             if((i+1)%3 == 0) {
-             deg = parseInt(Math.random()*8);
-             f = Math.random()*10 > 5 ? '+' : '-';
-             }
-             $(this).css('transform','rotate('+f+deg+'deg)').css('-webkit-transform','rotate('+f+deg+'deg)');
-             });*/
+        $('#previewEditor').on('click',function(){
+            $('#previewBox').html(wxqqEditor.getContent());
+            $('#preview-msg').modal('show');
+        })
+        client.on( "copy", function( event ) {
+            event.clipboardData.setData( "text/html", wxqqEditor.getContent());
         });
 
-        $(document).on('click','#135-random-color',function(){
-            var html = getDealingHtml();
-            var obj = $('<div>'+html+'</div>');
-            var bgcolors = ['#5BB75B','#2E8BCC','#F09609','#E51400','#7B4F9D','#E671B8','#008641','#20608E','#FFC40D'];
+        //end
 
-            var rd = Math.floor(Math.random() * ( bgcolors.length));
-            var used = [];
-            var current_bgcolor = bgcolors[rd];
-            if(obj.find('.wxqq').size() > 0 ) {
-                var components = obj.find('.wxqq').each(function(i){
-                    if(i%random_color_step == 0){
-                        do
-                        {
-                            rd = Math.floor(Math.random() * ( bgcolors.length));
-                        }
-                        while(jQuery.inArray(rd,used) != -1);
 
-                        used[used.length] = rd;
-                        if( used.length == bgcolors.length ){
-                            used = [];
-                        }
+        //bootstrap的标签页
+        $('#right-fix-tab a').on('click',function (e){
+            $(this).tab('show');
+            e.preventDefault();
+        });
 
-                        current_bgcolor = bgcolors[rd];
-                    }
-                    $(this).html(parseHtml($(this).html(),current_bgcolor,'#FFF'));
+
+
+        //右侧的快速颜色操作
+        $('#custom-color-text').colorPicker({
+            customBG: '#222',
+            size:2,
+            readOnly: false,
+            mode:'hsv-h',
+            init: function(elm, colors) { // colors is a different instance (not connected to colorPicker)
+                elm.style.backgroundColor = elm.value;
+                elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
+            },
+            displayCallback:function(colors, mode,options){
+                $('.editor-template-list').find('.wxqq-bg').css({
+                    backgroundColor:'#'+colors.HEX
+                });
+                $('.editor-template-list').find('.wxqq-borderTopColor,.wxqq-borderLeftColor,.wxqq-borderRightColor,.wxqq-borderBottomColor').css({
+                    borderColor:'#'+colors.HEX
                 });
             }
-            else{
-                $(obj).html(parseHtml($(obj).html(),current_bgcolor,'#FFF'));
-            }
-
-
-            setDealingHtml(obj.html())
-            obj = null;
+        }).each(function(idx, elm) {
+            // $(elm).css({'background-color': this.value})
         });
 
-        $(document).on('click','#html-parsers-list .appmsg',function(){
+        $('.color-swatch').on('click',function(){
+            var _range=wxqqEditor.selection.getRange(),
+                    anchorNode=_range.startContainer;
 
-            var rule_id = $(this).data('id');
-            var data = {html:getEditorHtml()};
-            $('#html-parsers-options :input').each(function(){
-                data[this.name] = this.value;
-            });
-            ajaxAction('/html_parsers/parse/'+rule_id,data,null,function(request){
-                if(request.success) {
-                    setEditorHtml(request.html);
-                }
-            });
+            if($('#replace-color-all').prop('checked')){
 
-        });
-
-        $(document).on('click','#btn-new-msg',function(){
-            if(confirm('是否确认清空内容并新建文档，清空后内容将无法恢复，请自行保存内容')) {
-                current_edit_msg_id = null;
-                current_draft_id = null;
-                current_media_idx = null;
-                current_media_id = null;
-                $('#template_id').val(''); $('#template_name').val(''); $('#dialog-template-name').val('');
-                setEditorHtml("");
-            }
-        });
-
-        $('#preview-editor').click(function(){
-            $('#preview-msg-content').html(getEditorHtml());
-            publishController.open_html_dialog('preview-msg');
-        });
-
-
-        $('#save-as-template').click(function(){
-            clean_135helper();
-            saveTemplate(this.form);
-        });
-
-
-        $('#html-to-image').click(function(){
-            clean_135helper();
-            this.form.action = '/downloads/htmlToImage';
-            this.form.submit();
-        });
-
-        var client = new ZeroClipboard( $('#copy-editor-html') );
-        client.on( 'ready', function(event) {
-            client.on( 'copy', function(event) {
-                clean_135helper();
-                var html = getEditorHtml();
-                event.clipboardData.setData('text/html',html );
-                showSuccessMessage("已成功复制到剪切板");
-            });
-        });
-
-
-
-        window.onbeforeunload = function(event){
-//            var html = getEditorHtml();
-//            if(html != ""){
-//                if( window.localStorage){
-//                    localStorage._135content = html;
-//                    window.localStorage._edit_msg_id = current_edit_msg_id;
-//                }
-//                event.returnValue = "即将离开页面，是否确认编辑的内容已保存或者复制使用，否则内容可能丢失";
-//            }
-        }
-
-        $('#bg-choose .chooser').click(function(){
-            //$('#bg-img').attr('src',$(this).data('url'));
-            $('body').css('background-image','url('+$(this).data('url')+')');
-            //$.cookie('bgimg',$(this).data('url'));
-        });
-
-        $('#bg-choose .default').click(function(){
-            $('body').css('background-image','initial');
-            //$('#bg-img').removeAttr('src',"");//
-            //$.cookie('bgimg',null);
-        });
-
-
-        setTimeout(function(){
-            //if($.cookie('bgimg')) {
-            //$('#bg-img').attr('src',$.cookie('bgimg'));
-            //	$('body').css('background-image','url('+$.cookie('bgimg')+')');
-            //}
-            //else{
-            var x= new Date();
-            var week=x.getDay();
-            var bi = week%5;
-            $('#bg-choose div').eq(bi).trigger('click'); // 按week每天轮换背景图
-            //}
-        },3000);
-
-        $('#replace-color-all').click(function(){
-            if(this.checked){
-                replace_full_color = true;
-            }
-            else{
-                replace_full_color = false;
-            }
-        });
-
-        $('#btn-favor-color').click(function(){
-
-            if( !sso.check_userlogin() ) {
-                return false;
-            }
-            var colors = $('#custom-color-text').css('backgroundColor');//.val();
-            var color_array = [];
-            color_array[0] = colors;
-            var hasfavor = false;
-
-            $('#favor-colors li').each(function(){
-                if($.inArray($(this).css('backgroundColor'),color_array) == -1 ) {
-                    colors += ';'+$(this).css('backgroundColor');
-                }
-                else{
-                    hasfavor = true;
-                }
-
-            });
-            if( hasfavor == false ) {
-                setFavorColor(colors,function(){
-                    $('#favor-colors').prepend('<li class="color-swatch" style="background-color:'+ $('#custom-color-text').val() +' ;"><i title="删除" class="fa fa-remove"></i></li>');
+                $(wxqqEditor.document).find('.wxqq-bg').css({
+                    backgroundColor:$(this).css('background-color')
                 });
-            }
-            else{
-                alert('此颜色已收藏');
+                $(wxqqEditor.document).find('.wxqq-borderTopColor,.wxqq-borderLeftColor,.wxqq-borderRightColor,.wxqq-borderBottomColor').css({
+                    borderColor:$(this).css('background-color')
+                });
+            } else {
+                //背景
+                if($(anchorNode).hasClass('wxqq-bg')){
+                    $(anchorNode).css({backgroundColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-bg').css({backgroundColor:$(this).css('background-color')});
+                }
+
+                //border颜色
+                if($(anchorNode).hasClass('wxqq-borderTopColor')){
+                    $(anchorNode).css({borderTopColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderTopColor').css({borderTopColor:$(this).css('background-color')});
+                }
+                if($(anchorNode).hasClass('wxqq-borderLeftColor')){
+                    $(anchorNode).css({borderLeftColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderLeftColor').css({borderLeftColor:$(this).css('background-color')});
+                }
+                if($(anchorNode).hasClass('wxqq-borderRightColor')){
+                    $(anchorNode).css({borderRightColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderRightColor').css({borderRightColor:$(this).css('background-color')});
+                }
+                if($(anchorNode).hasClass('wxqq-borderBottomColor')){
+                    $(anchorNode).css({borderBottomColor:$(this).css('background-color')});
+                } else {
+                    $(anchorNode).parents('.wxqq-borderBottomColor').css({borderBottomColor:$(this).css('background-color')});
+                }
+                //border end颜色
             }
 
         });
-
-        $(document).on('click','#favor-colors .fa-remove',function(e){
-
-            e.preventDefault();e.stopPropagation();
-
-            $(this).parent().remove();
-            var colors = '';
-            $('#favor-colors li').each(function(){
-                colors += $(this).css('backgroundColor')+';';
-            });
-            setFavorColor(colors);
-            return false;
-        });
-
-        /*var bgcolors = ['#FAF9DE','#FFF2E2','#FDE6E0','#E3EDCD','#DCE2F1','#E9EBFE','#EAEAEF','#c9b3a5'];
-         var bi = 0;
-         setInterval(function(){
-         //$('body').css('background',bgcolors[bi]);
-
-         $('#bg-choose div').eq(bi).trigger('click');
-         //bi++;bi = bi%bgcolors.length;
-         bi++;bi = bi%5;
-         },600000);*/
-
-        setTimeout(function(){
-            $('#editor-style-tips').remove();
-        },15000);
-
-        keep_session();
-        setInterval( keep_session, 1200 * 1000); //session expired 1440s. keep session
     });
-
-    var flashmsg = '';
-    if(flashmsg != '') {
-        showSuccessMessage(flashmsg);
-    }
 </script>
+
 <div id="bg-choose" title="点击更换编辑器背景图" data-toggle="tooltip" data-placement="right" data-container="body" style="position:fixed;bottom:28px;left:0px;z-index:10;height:auto;width:30px;border:0;padding:5px 0;background:rgba(58,51,50,0.5);">
     <div class="default" style="background:#c9b3a5;"></div>
     <div class="chooser" style="background:#584446;" data-url="http://image.135editor.com/135editor/tpl/bg.jpg"></div>

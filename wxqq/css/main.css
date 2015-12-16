@@ -828,8 +828,7 @@ media="all" .panels {
 }
 
 .editorslide .btn {
-    width: 72px;
-    padding: 5px 2px;
+    padding: 5px 10px;
     color: #FFF;
     font-size: 18px;
     border: 0 none;
@@ -847,7 +846,7 @@ media="all" .panels {
 
 .editorslide li {
     width: 32px;
-    margin-bottom: 3px
+    margin-bottom: 8px
 }
 
 .change {
