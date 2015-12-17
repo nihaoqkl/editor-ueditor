@@ -247,6 +247,9 @@ $(function(){
             $('.editor-template-list').html(data.code);
             $('.editor-template-list li').hide();
             $('.editor-template-list').find('.wxqq-tpl1').show();
+            $('.editor-template-list li img').each(function(i,v){
+                $(v).attr('src',$(v).data('src'));
+            })
         }
     });
 
@@ -322,7 +325,8 @@ $(function(){
     if( $('#tplid').val() ){
         $.post('/index.php/Home/New/getTpl',{type:$('#tpltype').val(),id:$('#tplid').val()},function(data){
             if(data.status){
-                wxqqEditor.setContent(data.code);
+                wxqqEditor.setContent(data.data);
+                $("#tplName").val(data.title);
             } else {
                 $.toaster({ message : data.data, title : '错误提醒', priority : 'warning', timeout:90000 });
             }
