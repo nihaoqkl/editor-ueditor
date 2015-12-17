@@ -12,32 +12,30 @@
     <title>编辑器</title>
     <meta name="Keywords" content="" />
     <meta name="Description" content="" />
-    <link rel="stylesheet" type="text/css" href="./wxqq/css/enter.css" />
+    <link rel="stylesheet" type="text/css" href="/static/new/css/enter.css" />
     <script type="text/javascript">
-//        var isLogin={$isLogin};
-        var isLogin=0;
+        var isLogin={$isLogin};
     </script>
 </head>
 <body style="overflow-y:hidden;overflow-x:auto;background-size: cover !important;" oncontextmenu="return false;">
 <div id="full-page" class="bg" style="max-width: 1200px;margin: 0 auto;padding:0 5px;">
     <div id="nav-header">
         <div class="clearfix" style="text-align:center;margin-left: 80px;background: rgba(0, 0, 0, 0.25);">
-            <ul id="login-menus"  class="hidden  pull-right nav  editor-nav">
+            <php>if(session('uid')) {</php>
+            <ul id="login-menus"  class="pull-right nav  editor-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="login-user-name" title=""></span><b class="caret"></b></a>				 <ul class="dropdown-menu" style="right: 0px;left: auto;">
-                    <li><a href="/wxes/mine" target="_blank"><i class="fa fa-wechat"></i> 授权公众号</a></li>
-                    <li><a href="/users/score" target="_blank"><i class="fa fa-leaf"></i> 我的积分</a></li>
-                    <li><a href="/users/permission" target="_blank"><i class="fa fa-lock"></i> 我的权限</a></li>
-                    <li><a href="/users/invite" target="_blank"><i class="fa fa-user"></i> 邀请朋友</a></li>
-
-                    <li><a href="/users/logout" title="退出登录"><i class="fa fa-sign-out"></i> 退出登录</a></li>
-                </ul>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="login-user-name" title="">{$Think.session.nickname}</span><b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="right: 0px;left: auto;">
+                        <li><a href="/index.php/Home/User/center" target="_blank"><i class="fa fa-wechat"></i> 个人中心</a></li>
+                        <li><a href="/index.php/Home/User/msg" target="_blank"><i class="fa fa-leaf"></i> 消息中心</a></li>
+                        <li><a href="/index.php/Home/User/myweixin" target="_blank"><i class="fa fa-lock"></i> 公众号管理</a></li>
+                        <li><a href="/index.php/Home/User/mytuwen" target="_blank"><i class="fa fa-user"></i> 我的模版</a></li>
+                        <li><a href="/index.php/Home/User/logout" title="退出登录"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+                    </ul>
                 </li>
             </ul>
+            <php>} else {</php>
             <ul id="login-links" class="fr nav  editor-nav">
-                <!--<li>-->
-                    <!--<a href="/users/login" onclick="return checkLogin();">登录</a>-->
-                <!--</li>-->
                 <li class="dropdown">
                     <a href="javascript:void(0);">注册并登录</a>
                     <ul class="dropdown-menu">
@@ -46,6 +44,7 @@
                     </ul>
                 </li>
             </ul>
+            <php>}</php>
 
             <ul class="fr nav editor-nav category-nav">
                 <li class="dropdown">
@@ -71,7 +70,7 @@
         <div class="w0 p-r clearfix">
             <div id="style-operate-area" style="display:inline-block;position:relative;float:left;margin-top: -40px;">
                 <div class="w1 fl" style="background:RGBA(0,0,0,0.3);height:900px;">
-                    <a href="/"><img src="./images/logo.png" style="width:80px;padding:10px;" title="微信编辑器 - 微信圈圈"></a>
+                    <a href="/"><img src="/static/new/images/logo.png" style="width:80px;padding:10px;" title="微信编辑器 - 微信圈圈"></a>
                     <ul class="n1-1" id="left-operate-menu" style="height: auto;">
                         <li><a href="javascript:void(0);" class="filter active" data-filter="all"> 所有样式</a></li>
                         <li class="active"><a href="javascript:void(0);" class="filter" data-filter="tpl1" role="tab" data-toggle="tab"> 标题</a></li>
@@ -96,7 +95,7 @@
                             <span title="关闭" class="btn" style="float:right;font-size: 24px;color: #999;font-weight: bold;text-shadow: 0 1px 0 #ffffff;" onclick="$('#styleSearchResult').hide();"> × </span>
                             <h3 style="border-bottom:2px solid #CCC;margin:0;padding:15px 10px"> 搜索结果 </h3>
                             <div id="styleSearchResultList" style="height:500px;width:100%;padding:10px;overflow-y:auto;">
-                                <img src="./images/circle_ball.gif">
+                                <img src="/static/new/images/circle_ball.gif">
                             </div>
                         </div>
                         <div id="moreColorSwatch" style="position:absolute;display:none;top:40px;left:80px;width:384px;z-index: 100;border: 5px solid rgba(154, 188, 56, 0.3);background:#FFF;">
@@ -592,8 +591,8 @@
                                     <label for="tplName" class="col-sm-2 control-label">图文标题 *</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="tplName" placeholder="请输入保存的模版名字">
-                                        <input type="text" class="form-control" id="tplid" value="{$tpl['id']}">
-                                        <input type="text" class="form-control" id="tpltype" value="{$tpl['type']}">
+                                        <input type="hidden" class="form-control" id="tplid" value="{$tpl['id']}">
+                                        <input type="hidden" class="form-control" id="tpltype" value="{$tpl['type']}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -638,10 +637,10 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6" style="text-align: right">
-                            <a href="/index.php/Home/Auth/qqlogin" target="_blank"><img src="./images/logo_qq.png" alt="QQ登录"></a>
+                            <a href="/index.php/Home/Auth/qqlogin" target="_blank"><img src="/static/new/images/logo_qq.png" alt="QQ登录"></a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="/index.php/Home/Auth/sinalogin" target="_blank"><img src="./images/logo_weibo.png" alt="新浪微博登录"></a>
+                            <a href="/index.php/Home/Auth/sinalogin" target="_blank"><img src="/static/new/images/logo_weibo.png" alt="新浪微博登录"></a>
                         </div>
                     </div>
                 </div>
@@ -656,24 +655,27 @@
 <![endif]-->
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../dist/utf8-php/ueditor.config.js"></script>
-<script type="text/javascript" src="../dist/utf8-php/ueditor.all.min.js"></script>
-<script type="text/javascript" src="./js/ZeroClipboard/ZeroClipboard.min.js"></script>
-<script type="text/javascript" src="./js/colorPicker/lib/color.all.min.js"></script>
-<script type="text/javascript" src="./js/colorPicker/jqColor.js"></script>
-<script type="text/javascript" src="./js/jquery.toaster.js"></script>
-<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/static/new/js/ZeroClipboard/ZeroClipboard.min.js"></script>
+<script type="text/javascript" src="/static/new/js/colorPicker/lib/color.all.min.js"></script>
+<script type="text/javascript" src="/static/new/js/colorPicker/jqColor.js"></script>
+<script type="text/javascript" src="/static/new/js/jquery.toaster.js"></script>
+<script type="text/javascript" src="/static/new/js/jquery.cookie.js"></script>
 <script>
-    ZeroClipboard.config( { swfPath: "./js/ZeroClipboard/ZeroClipboard.swf" } );
+    ZeroClipboard.config( { swfPath: "/static/new/js/ZeroClipboard/ZeroClipboard.swf" } );
 </script>
-<script type="text/javascript" src="./wxqq/js/main.js"></script>
+<script type="text/javascript" src="/static/new/js/main.js"></script>
 
 <div id="bg-choose" title="点击更换编辑器背景图" data-toggle="tooltip" data-placement="right" data-container="body" style="position:fixed;bottom:28px;left:0px;z-index:10;height:auto;width:30px;border:0;padding:5px 0;background:rgba(58,51,50,0.5);">
-    <div class="chooser" style="background:#c9b3a5;" data-bg="#c9b3a5;" data-url="./images/bg/bg2.jpg"></div>
-    <div class="chooser" style="background:#ba907b;" data-bg="#ba907b;" data-url="./images/bg/bg1.jpg"></div>
-    <div class="chooser" style="background:#fcdebd;" data-bg="#fcdebd;" data-url="./images/bg/bg2.jpg"></div>
-    <div class="chooser" style="background:#b0bbb7;" data-bg="#b0bbb7;" data-url="./images/bg/bg3.jpg"></div>
-    <div class="chooser" style="background:#584446;" data-bg="#584446;" data-url="./images/bg/10120.jpg"></div>
+    <div class="chooser" style="background:#c9b3a5;" data-bg="#c9b3a5;" data-url="/static/new/images/bg/bg2.jpg"></div>
+    <div class="chooser" style="background:#ba907b;" data-bg="#ba907b;" data-url="/static/new/images/bg/bg1.jpg"></div>
+    <div class="chooser" style="background:#fcdebd;" data-bg="#fcdebd;" data-url="/static/new/images/bg/bg2.jpg"></div>
+    <div class="chooser" style="background:#b0bbb7;" data-bg="#b0bbb7;" data-url="/static/new/images/bg/bg3.jpg"></div>
+    <div class="chooser" style="background:#584446;" data-bg="#584446;" data-url="/static/new/images/bg/10120.jpg"></div>
 </div>
 </body>
 </html>
