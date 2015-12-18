@@ -9,35 +9,31 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta http-equiv="x-rim-auto-match" content="none">
-    <title>编辑器</title>
-    <meta name="Keywords" content="" />
-    <meta name="Description" content="" />
+    <title>微信图文排版_微信图文编辑器_微信公众号助手_在线微信编辑首选 - 微信圈圈</title>
+    <meta name="Keywords" content="微信图文排版,微信图文编辑器,微信公众号助手,在线微信编辑首选,微信图文美化编辑器,微信排版工具,微信公众号内容编辑,最方便的微信编辑器" />
+    <meta name="Description" content="圈圈微信在线微信图文排版助手是一个方便微信公众号用户在线生成微信文章关于关注,标题,正文,分割线,阅读全文,卡片等多种的丰富模版样式的一个在线微信公众号编辑器。" />
     <link rel="stylesheet" type="text/css" href="./wxqq/css/enter.css" />
     <script type="text/javascript">
-//        var isLogin={$isLogin};
-        var isLogin=0;
+        var isLogin=1,_wxqqTmpContent='_wxqqTmpContent';
     </script>
 </head>
 <body style="overflow-y:hidden;overflow-x:auto;background-size: cover !important;" oncontextmenu="return false;">
 <div id="full-page" class="bg" style="max-width: 1200px;margin: 0 auto;padding:0 5px;">
     <div id="nav-header">
         <div class="clearfix" style="text-align:center;margin-left: 80px;background: rgba(0, 0, 0, 0.25);">
-            <ul id="login-menus"  class="hidden  pull-right nav  editor-nav">
+            <ul id="login-menus"  class="pull-right nav  editor-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="login-user-name" title=""></span><b class="caret"></b></a>				 <ul class="dropdown-menu" style="right: 0px;left: auto;">
-                    <li><a href="/wxes/mine" target="_blank"><i class="fa fa-wechat"></i> 授权公众号</a></li>
-                    <li><a href="/users/score" target="_blank"><i class="fa fa-leaf"></i> 我的积分</a></li>
-                    <li><a href="/users/permission" target="_blank"><i class="fa fa-lock"></i> 我的权限</a></li>
-                    <li><a href="/users/invite" target="_blank"><i class="fa fa-user"></i> 邀请朋友</a></li>
-
-                    <li><a href="/users/logout" title="退出登录"><i class="fa fa-sign-out"></i> 退出登录</a></li>
-                </ul>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="login-user-name" title="">平凡的世界</span><b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="right: 0px;left: auto;">
+                        <li><a href="/index.php/Home/User/center" target="_blank"><i class="fa fa-user"></i> 个人中心</a></li>
+                        <li><a href="/index.php/Home/User/msg" target="_blank"><i class="fa fa-envelope"></i> 消息中心</a></li>
+                        <li><a href="/index.php/Home/User/myweixin" target="_blank"><i class="fa fa-wechat"></i> 公众号管理</a></li>
+                        <li><a href="/index.php/Home/User/mytuwen" target="_blank"><i class="fa fa-th-list"></i> 我的模版</a></li>
+                        <li><a href="/index.php/Home/User/logout" title="退出登录"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+                    </ul>
                 </li>
             </ul>
             <ul id="login-links" class="fr nav  editor-nav">
-                <!--<li>-->
-                    <!--<a href="/users/login" onclick="return checkLogin();">登录</a>-->
-                <!--</li>-->
                 <li class="dropdown">
                     <a href="javascript:void(0);">注册并登录</a>
                     <ul class="dropdown-menu">
@@ -52,7 +48,11 @@
                     <a href="#" id="link-147" data-id="147" ref="thirdplat" class=" ui-menu-last  dropdown-toggle" target="_blank" data-toggle="dropdown">微信圈圈<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="http://www.weixinquanquan.com" class=" ui-menu-first" target="_blank">公众号大全</a></li>
-                        <li><a href="/add" class=" ui-menu-first" target="_blank">立即入驻</a></li>
+                        <li><a href="/tpl/" class=" ui-menu-first" target="_blank">用户模版大全</a></li>
+                        <li><a href="/add" class=" ui-menu-first" target="_blank">立即入驻公众号</a></li>
+                        <li><a href="/map" class=" ui-menu-first" target="_blank">公众号地图</a></li>
+                        <li><a href="/n/" class=" ui-menu-first" target="_blank">最新资讯</a></li>
+                        <li><a href="http://www.saomaqun.com/" class="ui-menu-first" target="_blank" title="微信群，微信公众号互推，个人微信交友">微信互推</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -114,14 +114,14 @@
                                     <i class="fa fa-envelope-o" style="font-size:16px;color:#f00;"></i> 微信圈圈新版上线： 操作更快捷方便，更强大功能!
                                 </div>
                                 <div id="style-sorts" style="text-align:right;height:30px;padding:5px 10px;z-index:1;background-color:rgba(235,235,235,0.8);">
-                                    
+
                                 </div>
                             </div>
                             <div id="editor-template-scroll" style="height: 741px; overflow-y: auto; overflow-x: hidden;">
                                 <!--<div class="alert alert-warning m0">-->
-                                    <!--<p>-->
-                                        <!--想要更多样式？前往<a href="/users/login?referer=/style-center?cate_id=1" target="_blank">样式中心</a>收藏使用吧！-->
-                                    <!--</p>-->
+                                <!--<p>-->
+                                <!--想要更多样式？前往<a href="/users/login?referer=/style-center?cate_id=1" target="_blank">样式中心</a>收藏使用吧！-->
+                                <!--</p>-->
                                 <!--</div>-->
                                 <ul class="editor-template-list ui-portlet-list">
 
@@ -129,9 +129,9 @@
                                 <div id="emojiIframe" style="display:none;">
                                     <iframe src="http://www.weixinquanquan.com/index.php/Home/New/emoji" width="100%" height="100%" frameborder="0"></iframe>
                                 </div>
-                                <div class="alert alert-warning m0">
+                                <div class="alert alert-warning m0 tplLogin">
                                     <p>
-                                        登录后可保存样式模版，点击QQ或微博<a href="" target="_blank">立即登录</a>
+                                        登录后可保存样式模版，点击QQ或微博<a href="javascript:void(0);" onclick="$('#loginModal').modal('show');">立即登录</a>
                                     </p>
                                 </div>
                                 <div id="pageTitle" style="display:none;">
@@ -223,40 +223,22 @@
 
                         <div class="editorslide">
                             <ul>
-
-                                <li><a href="javascript:;" id="copyAllWxqqEditor" class="btn btn-warning btn-xs"  data-container="body"
-                                       data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="复制内容到剪切板，若复制失败请查看使用帮助"><i  class="fa fa-copy"></i>复制</a></li>
+                                <li><a href="/wxeditor" id="newWxqqEditor" class="btn btn-warning btn-xs"  data-container="body" data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="新建一个模版从头开始"><i  class="fa fa-copy"></i>新建</a></li>
+                                <li><a href="javascript:;" id="copyAllWxqqEditor" class="btn btn-warning btn-xs"  data-container="body" data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="复制内容到剪切板，若复制失败请查看使用帮助"><i  class="fa fa-copy"></i>复制</a></li>
                                 <li><button type="button" id="save-as-template" tabindex="2"  class="btn btn-warning btn-xs" data-toggle="tooltip" data-container="body" data-placement="right" title="保存内容"><i class="fa fa-save"></i>保存</button></li>
                                 <!--<li><button type="button" id="html-to-image" class="btn btn-default btn-xs"  data-toggle="tooltip" data-container="body" data-placement="right"   title="转为长图片格式，<br/>用于发微博、控制版权等"><i  class="fa fa-image"></i>长图</button></li>-->
-                                <li><a href="/index.php/Wechat/Tuoguan/enter" target="_blank"  id="tuoguan" class="btn btn-success btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-exchange"></i>授权</a></li>
+                                <li><a href="javascript:;" id="syncOpen" class="btn btn-success btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="授权给微信圈圈<br/>自动同步素材到微信官方素材库"><i class="fa fa-exchange"></i>同步</a></li>
                                 <li><button type="button"  id="clearWxqqEditor" class="btn btn-default btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
+                                <li><button type="button"  id="helpOnce" class="btn btn-info btn-xs"  data-container="body" data-toggle="tooltip" data-html="true" role="button" tabindex="1" data-placement="right"  title="补救一次<br />获得误操作前一分钟的本模版的系统缓存"><i class="fa fa-life-bouy"></i>补救</button></li>
                                 <li><a href="javascript:;" id="previewEditor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
-                                <li><a href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="" style="font-size:12px;"><i class="fa fa-qq"></i>联系客服</a></li>
-
-
-
-                                <!-- <li><a href="javascript:;" id="html-more-popover"  data-container="#more-popover"
-                                       data-toggle="popover" data-placement="right" data-content="更多操作"  class="btn btn-default btn-xs" ><i class="fa fa-ellipsis-h" ></i> 更多</a></li>
-                                    -->
-
+                                <li><a href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title=""><i class="fa fa-qq"></i>客服</a></li>
                             </ul>
                         </div>
                     </form>
-                </div><!--editor2 end-->
+                </div>
             </div>
         </div>
-
-
-        <!-- <div class="change">
-              <div id="params-setting" class="text-right">
-              <small><a class="pull-right" style="margin:0 15px;" href="" target="_blank">回老版本</a></small>
-        </div>
-        </div>
-        <footer class="fl w100 center">
-          <div class="links"><a href="#">前沿资讯</a>  |  <a href="#">微信导航</a></div>
-
-        </footer>-->
-    </div><!--box end-->
+    </div>
 
 
     <div class="panel panel-primary" id="qrcode-pannel" style="position:fixed;display:none;z-index:10001;right:2px;bottom:0px;">
@@ -561,6 +543,7 @@
 
 </div> <!-- end full-page -->
 
+
 <div style="position:fixed;z-index:10000;bottom:0px;width:100%;height:36px;background:rgba(45,45,45,0.5);color:#999;line-height:36px;">
     <div style="position:relative;max-width: 1200px; margin: 0px auto;">
         <div style="float:right;margin-right:5px;top:0px;">
@@ -574,6 +557,42 @@
         </div>
     </div>
 </div>
+
+<!--bottomRight-->
+<div id="feedsModal" class="panel panel-primary" style="position:fixed;z-index:10001;width:300px;margin-bottom: 0px;border:0 none;right:2px;bottom:0px;">
+    <div class="panel-body" style="padding:0 0;">
+        <button type="button" class="close float-right" style="position: absolute;right: 10px;opacity: 0.8;" onclick="$('#feedsModal').hide();"><span style="font-size: 16px;">关闭</span></button>
+        <div style="padding:10px 20px;">
+            <section class="wxqq Powered-by-WeixinQuanquan.com">
+                <fieldset data-id="29735" style="border:0 none;" class="tn-Powered-by-WeiXinQuanQuan">
+                    <section style="width:132px;margin-bottom:0px;" data-width="92px">
+                        <p style="text-align: center; color: inherit; line-height: 2em;">
+                            <span style="border-color:#00bbec; color:rgb(255, 0, 0); font-size:16px" class="wxqq-color"><strong>微信圈圈提醒：</strong></span>
+                        </p>
+                    </section>
+                    <fieldset style="margin-top: 0px; padding: 0px 5px; line-height: 10px; color: inherit; border: 1px solid rgb(255, 0, 0);" class="wxqq-borderTopColor wxqq-borderLeftColor wxqq-borderRightColor wxqq-borderBottomColor">
+                        <section style="padding: 0px; font-size: 16px; color: inherit; height: 8px; margin: -8px 0px 0px 140px; width: 50%; background-color: rgb(254, 254, 254);" data-width="50%">
+                            <section style="width: 8px; height: 8px; border-radius: 100%; line-height: 1; box-sizing: border-box; font-size: 18px; text-decoration: inherit; border-color: rgb(255, 129, 36); display: inline-block; margin: 0px; color: inherit; background-color: rgb(255, 0, 0);" class="wxqq-bg"></section>
+                        </section>
+                        <section style="padding: 0px; line-height: 2em; color: rgb(62, 62, 62); font-size: 14px; margin: 15px;">
+                            <p style="color: inherit;">
+                                <span style="color: rgb(255, 0, 0);"><strong>请使用chrome，火狐浏览器，360极速浏览器等现在浏览器使用本编辑器!</strong></span>
+                            </p>
+                            <p style="color: inherit;">
+                                <br />
+                                <span style="color: rgb(255, 0, 0);"><strong>多公众号授权管理，一键同步这些都是免费的！</strong></span>
+                            </p>
+                        </section>
+                        <section style="padding: 0px; background-color: rgb(254, 254, 254); font-size: 16px; color: inherit; text-align: right; height: 10px; margin: 0px 0px -4px 25px; width: 65%;" data-width="65%">
+                            <section style="margin: 0px auto 1px; border-radius: 100%; line-height: 1; box-sizing: border-box; text-decoration: inherit; border-color: rgb(255, 129, 36); display: inline-block; height: 8px; width: 8px; color: inherit; background-color: rgb(255, 0, 0);" class="wxqq-bg"></section>
+                        </section>
+                    </fieldset>
+                </fieldset>
+            </section>
+        </div>
+    </div>
+</div>
+<!--bottomRight-->
 
 <!--modal-->
 <div class="modal fade" id="saveModal" role="dialog">
@@ -592,8 +611,8 @@
                                     <label for="tplName" class="col-sm-2 control-label">图文标题 *</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="tplName" placeholder="请输入保存的模版名字">
-                                        <input type="text" class="form-control" id="tplid" value="{$tpl['id']}">
-                                        <input type="text" class="form-control" id="tpltype" value="{$tpl['type']}">
+                                        <input type="hidden" class="form-control" id="tplid" value="{$tpl['id']}">
+                                        <input type="hidden" class="form-control" id="tpltype" value="{$tpl['type']}">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -605,7 +624,7 @@
                                         <p style="font-weight:bold;font-size:14px;">授权不会对微信公众号现有的各种第三方功能及微信原生功能产生影响。</p>
                                         <p><br></p>
                                         <p style="font-weight:bold;font-size:16px;">
-                                            <a href="/index.php/Wechat/Tuoguan/enter" style="color:red;" target="_blank">立即授权</a>
+                                            <a href="/index.php/Wechat/Tuoguan/enter" style="color:red;" target="_blank">立即授权</a>，授权后直接操作【同步到微信】按钮
                                         </p>
                                     </div>
                                 </div>
@@ -620,8 +639,61 @@
                 </div>
             </div>
             <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
-                <!--<button type="button" class="btn btn-primary">保存</button>-->
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+            <!--<button type="button" class="btn btn-primary">保存</button>-->
+            <!--</div>-->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="syncModal" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">同步到微信</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" onsubmit="return false;">
+                                <div class="form-group">
+                                    <label for="tplName" class="col-sm-2 control-label">同步到微信的标题 *</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="syncTplName" placeholder="请输入同步到微信的标题">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tplName" class="col-sm-2 control-label">选择同步的公众号 *</label>
+                                    <div class="col-sm-10">
+                                        <select id="syncMp" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group syncModalTip">
+
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-9 controls">
+                                        <p style="font-weight:bold;font-size:16px;">
+                                            你还未授权/选中的公众号授权超时，请<a href="/index.php/Wechat/Tuoguan/enter" style="color:red;" target="_blank">立即授权</a>，才可以同步
+                                        </p>
+                                        <p><br></p>
+                                        <p style="font-weight:bold;font-size:14px;">跳转到授权页面后授权成功后关掉页面回来后，即可直接【立即同步】</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="syncwx btn btn-success" style="width:100px">立即同步</button> &nbsp; &nbsp; &nbsp;
+                                        <a href="/index.php/Wechat/Tuoguan/enter" target="_blank" class="btn btn-info" data-toggle="tooltip" data-html="true" data-container="body" data-placement="top" title="点击跳转到授权页面<br />切换新的公众号授权即可<br />然后返回刷新页面即可">新增授权公众号</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+            <!--<button type="button" class="btn btn-primary">保存</button>-->
             <!--</div>-->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -638,10 +710,10 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6" style="text-align: right">
-                            <a href="/index.php/Home/Auth/qqlogin" target="_blank"><img src="./images/logo_qq.png" alt="QQ登录"></a>
+                            <a href="/index.php/Home/Auth/qqlogin"><img src="./images/logo_qq.png" alt="QQ登录"></a>
                         </div>
                         <div class="col-sm-6">
-                            <a href="/index.php/Home/Auth/sinalogin" target="_blank"><img src="./images/logo_weibo.png" alt="新浪微博登录"></a>
+                            <a href="/index.php/Home/Auth/sinalogin"><img src="./images/logo_weibo.png" alt="新浪微博登录"></a>
                         </div>
                     </div>
                 </div>

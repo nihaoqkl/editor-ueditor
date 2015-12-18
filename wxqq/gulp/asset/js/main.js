@@ -11,6 +11,17 @@ function resize(e){
     $('#editor-template-scroll').height($(window).height()-186);
     $('#emojiIframe').height($(window).height()-260);
 }
+//获取最后一个本地的缓存
+function getLastStorage(){
+    if(!!window.localStorage[_wxqqTmpContent]){
+        wxqqEditor.setContent(window.localStorage[_wxqqTmpContent]);
+    }
+}
+function helpOnce(){
+    if(confirm('丢弃当前编辑器里的内容，恢复到操作前一分钟的状态？')){
+        getLastStorage();
+    }
+}
 
 function changeColorEditor(color){
     $(wxqqEditor.document).find('.wxqq-bg').css({
@@ -38,6 +49,7 @@ wxqqEditor=UE.getEditor('editorContent',{
     initialFrameHeight:800,
     autoHeightEnabled:false,
     elementPathEnabled:false, //是否启用元素路径，默认是显示
+    enableAutoSave:false, //关闭本地自动保存
     wordCount:false //是否开启字数统计
 //        allowDivTransToP:false
 });
@@ -61,15 +73,13 @@ wxqqEditor.ready(function() {
 
     //localStorage
     setInterval(function(){
-        if( wxqqEditor.getContent().length >200 ){
-            window.localStorage._wxqqTmpContent=wxqqEditor.getContent();
-            $.toaster({ message : '成功为你缓存一次本地数据', title : '本地保存成功(每隔30秒自动保存)', priority : 'success', timeout:90000 });
+        if( wxqqEditor.getContent().length > 200 ){
+            window.localStorage[_wxqqTmpContent]=wxqqEditor.getContent();
+            $.toaster({ message : '成功为你缓存一次本地数据', title : '本地保存成功(每隔一分钟自动保存)', priority : 'success', timeout:90000 });
         }
-    },30000);
+    },60000);
 
-    if(!!window.localStorage._wxqqTmpContent){
-        wxqqEditor.setContent(window.localStorage._wxqqTmpContent);
-    }
+    getLastStorage();
 });
 
 
@@ -281,6 +291,10 @@ $(function(){
 
 
     //保存模版modal
+    $('#helpOnce').on('click',function(){
+        helpOnce();
+    });
+
     $('#save-as-template').on('click',function(){
         if(!isLogin){
             $('#loginModal').modal('show');
@@ -292,13 +306,13 @@ $(function(){
     //保存
     $(".wxqqSaveTpl").on("click", function(e) {
         var that = $(this),data=wxqqEditor.getContent();
-        that.hide();
         if ("" == $("#tplName").val()) {
             $.toaster({ message : '请输入你要保存的模版名字', title : '温馨提醒', priority : 'warning', timeout:90000 }); return ;
         }
         if ("" == data) {
             $.toaster({ message : '请先创建好的需要的文案再保存吧', title : '温馨提醒', priority : 'warning', timeout:90000 });return ;
         }
+        that.hide();
         $.post("/index.php/Home/New/save", {
             id: $("#tplid").val(),
             type:$('#tpltype').val(),
@@ -307,8 +321,9 @@ $(function(){
         }, function(data) {
 
             if(data.status){
-                if(!data.ismine){
+                if(!parseInt(data.ismine)){
                     $('#tplid').val(data.newid);
+                    window.location='/wxeditor/?type=u&id='+data.newid;
                 }
                 $('#tpltype').val('u');
                 $.toaster({ message : '保存成功', title : '温馨提醒', priority : 'warning', timeout:90000 });
@@ -316,6 +331,59 @@ $(function(){
                 $.toaster({ message : '保存失败，你可联系客服', title : '错误提醒', priority : 'warning', timeout:90000 });
             }
             $('#saveModal').modal('hide');
+            that.show();
+        });
+
+        e.preventDefault();
+    });
+
+    //同步授权
+    $('#syncOpen').on('click',function(){
+        $.post("/index.php/Wechat/Tuoguan/isAuthTg", {}, function(data){
+            if(data.status=='1'){
+                $('.syncModalTip').hide();
+                $('#syncMp').html(data.mps);
+                $('#syncModal').modal('show');
+            } else if(data.status=='-1'){
+                $('#loginModal').modal('show');
+            } else {
+                $('.syncModalTip').show();
+                $('#syncModal').modal('show');
+            }
+        });
+    });
+
+    $(".syncwx").on("click", function(e) {
+        var that = $(this),data=wxqqEditor.getContent(),index=parseInt($("#syncMp").val());
+        if ("" == $("#syncTplName").val()) {
+            $.toaster({ message : '请输入你要同步到微信官方的素材标题', title : '温馨提醒', priority : 'warning', timeout:90000 });
+            return ;
+        }
+        if ("" == data) {
+            $.toaster({ message : '请先创建好的需要的文案再同步吧', title : '温馨提醒', priority : 'warning', timeout:90000 });
+            return ;
+        }
+        if (!index) {
+            $.toaster({ message : '请选择你要同步的公众号哦', title : '温馨提醒', priority : 'warning', timeout:90000 });
+            return ;
+        }
+        that.hide();
+        $.post("/index.php/Wechat/Tuoguan/syncmedia", {
+            id: $("#syncMp").val(),
+            title: $("#syncTplName").val(),
+            code: data
+        }, function(data) {
+
+            if(data.status=='1'){
+                $.toaster({ message : '同步成功，赶快去后台看看吧', title : '温馨提醒', priority : 'success', timeout:90000 });
+                $('#syncModal').modal('hide');
+            } else if(data.status=='-1'){
+                $('.syncModalTip').show();
+                $.toaster({ message : "公众号登录超时了 <br />请重新授权一次你需要同步的公众号", title : '温馨提醒', priority : 'danger', timeout:90000 });
+            } else {
+                $.toaster({ message : '同步失败，你可联系客服咨询', title : '错误提醒', priority : 'danger', timeout:90000 });
+                $('#syncModal').modal('hide');
+            }
             that.show();
         });
 
@@ -331,5 +399,13 @@ $(function(){
                 $.toaster({ message : data.data, title : '错误提醒', priority : 'warning', timeout:90000 });
             }
         });
+    }
+
+    if(isLogin){
+        $('.tplLogin').hide();
+    }
+
+    window.onbeforeunload=function(){
+        return "即将离开此页面，确认编辑器内容已保存，否则内容可能会丢失？"
     }
 });

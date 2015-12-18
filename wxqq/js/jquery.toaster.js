@@ -93,7 +93,7 @@
 				'top'      : '10px',
 				'right'    : '10px',
 				'width'    : 'auto',
-				'zIndex'   : 50000
+				'zIndex'   : 1000050+999
 			}
 		},
 
@@ -143,7 +143,7 @@
 		},
 
 		'debug'        : false,
-		'timeout'      : 3200,
+		'timeout'      : 5800,
 		'stylesheet'   : null,
 		'donotdismiss' : []
 	};
