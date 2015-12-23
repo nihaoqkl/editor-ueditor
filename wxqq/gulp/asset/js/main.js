@@ -22,6 +22,40 @@ function helpOnce(){
         getLastStorage();
     }
 }
+function getTpls(){
+    $('.editor-template-list').html('');
+    $('.editor-template-list').append('<li id="tplLoading"><img src="/static/new/images/circle_ball.gif"></li>');
+    $.ajax({
+        url: 'http://www.weixinquanquan.com/index.php?s=/Home/New/getTpls&callback=?',
+        dataType : "jsonp",
+        success: function(data){
+            $('.editor-template-list').html(data.code);
+            $('.editor-template-list li').hide();
+            $('.editor-template-list').find('.wxqq-tpl1').show();
+            $('.editor-template-list li img').each(function(i,v){
+                $(v).attr('src',$(v).data('src'));
+            });
+            $('#tplLoading').remove();
+        }
+    });
+}
+
+function tplFilter($search){
+    var searchCount=0;
+    $('.editor-template-list li').hide();
+    $('.editor-template-list').append('<li id="tplLoading"><img src="/static/new/images/circle_ball.gif"></li>');
+    $('.editor-template-list li').each(function(i,v){
+        var patt1 = new RegExp($search);
+        if(patt1.test($(v).data('search'))){
+            $(v).show();
+            searchCount++;
+        }
+    });
+    $('#tplLoading').remove();
+    if(!searchCount){
+        $('.editor-template-list').html('<li>找不到相关['+$search+']的样式</li>');
+    }
+}
 
 function changeColorEditor(color){
     $(wxqqEditor.document).find('.wxqq-bg').css({
@@ -50,6 +84,7 @@ wxqqEditor=UE.getEditor('editorContent',{
     autoHeightEnabled:false,
     elementPathEnabled:false, //是否启用元素路径，默认是显示
     enableAutoSave:false, //关闭本地自动保存
+    saveInterval:5000000, //关闭本地自动保存
     wordCount:false //是否开启字数统计
 //        allowDivTransToP:false
 });
@@ -78,8 +113,6 @@ wxqqEditor.ready(function() {
             $.toaster({ message : '成功为你缓存一次本地数据', title : '本地保存成功(每隔一分钟自动保存)', priority : 'success', timeout:90000 });
         }
     },60000);
-
-    getLastStorage();
 });
 
 
@@ -151,7 +184,9 @@ $(function(){
         if($(this).data('url')!='')
             $('body').css({background:'url('+$(this).data('url')+')'});
     });
-    $('#bg-choose .chooser:last').trigger('click');
+
+    //$('#bg-choose .chooser:last').trigger('click');
+    $('#bg-choose .chooser').eq(Math.ceil(Math.random()*6)).trigger('click');
 
     //右侧的快捷按钮
     $('#clearWxqqEditor').on('click',function(){
@@ -250,18 +285,7 @@ $(function(){
 
 
     //加载所有的模版
-    $.ajax({
-        url: 'http://www.weixinquanquan.com/index.php?s=/Home/New/getTpls&callback=?',
-        dataType : "jsonp",
-        success: function(data){
-            $('.editor-template-list').html(data.code);
-            $('.editor-template-list li').hide();
-            $('.editor-template-list').find('.wxqq-tpl1').show();
-            $('.editor-template-list li img').each(function(i,v){
-                $(v).attr('src',$(v).data('src'));
-            })
-        }
-    });
+    getTpls();
 
     //左边导航条的动作
     $('#left-operate-menu .filter').on('click',function(){
@@ -313,20 +337,23 @@ $(function(){
             $.toaster({ message : '请先创建好的需要的文案再保存吧', title : '温馨提醒', priority : 'warning', timeout:90000 });return ;
         }
         that.hide();
-        $.post("/index.php/Home/New/save", {
-            id: $("#tplid").val(),
-            type:$('#tpltype').val(),
+        var data={
             title: $("#tplName").val(),
             code: data
-        }, function(data) {
-
+        }
+        if(!isnew){
+            data.id=$("#tplid").val();
+            data.type=$('#tpltype').val();
+        }
+        $.post("/index.php/Home/New/save", data, function(data) {
             if(data.status){
                 if(!parseInt(data.ismine)){
                     $('#tplid').val(data.newid);
-                    window.location='/wxeditor/?type=u&id='+data.newid;
+                    $.toaster({ message : '保存成功<br /><br />首次保存会跳转到编辑本模版的连接...请稍后勿操作!!!', title : '温馨提醒', priority : 'warning', timeout:90000 });
+                    window.location='/wxeditor/edit/type/u/id/'+data.newid;
+                } else {
+                    $.toaster({ message : '保存成功<br /><br /><a href="/tpl/preview/'+(!parseInt(data.ismine)?data.newid:$("#tplid").val())+'.html" target="_blank">点我查看我的文章</a>', title : '温馨提醒', priority : 'warning', timeout:90000 });
                 }
-                $('#tpltype').val('u');
-                $.toaster({ message : '保存成功', title : '温馨提醒', priority : 'warning', timeout:90000 });
             } else {
                 $.toaster({ message : '保存失败，你可联系客服', title : '错误提醒', priority : 'warning', timeout:90000 });
             }
@@ -390,22 +417,35 @@ $(function(){
         e.preventDefault();
     });
 
-    if( $('#tplid').val() ){
-        $.post('/index.php/Home/New/getTpl',{type:$('#tpltype').val(),id:$('#tplid').val()},function(data){
-            if(data.status){
-                wxqqEditor.setContent(data.data);
-                $("#tplName").val(data.title);
-            } else {
-                $.toaster({ message : data.data, title : '错误提醒', priority : 'warning', timeout:90000 });
-            }
-        });
-    }
+
+
+    //获取要编辑的模版  旧版本去掉了
+    //if( $('#tplid').val() ){
+    //    $.post('/index.php/Home/New/getTpl',{type:$('#tpltype').val(),id:$('#tplid').val()},function(data){
+    //        if(data.status){
+    //            wxqqEditor.setContent(data.data);
+    //            $("#tplName").val(data.title);
+    //        } else {
+    //            $.toaster({ message : data.data, title : '错误提醒', priority : 'warning', timeout:90000 });
+    //        }
+    //    });
+    //}
 
     if(isLogin){
         $('.tplLogin').hide();
     }
 
-    window.onbeforeunload=function(){
-        return "即将离开此页面，确认编辑器内容已保存，否则内容可能会丢失？"
-    }
+    //过滤
+    $('#refreshSearch').on('click',function(){
+        var search=$.trim($('#txtStyleSearch').val());
+        if(search){
+            tplFilter(search);
+        } else {
+            getTpls();
+        }
+    });
+
+    //window.onbeforeunload=function(){
+    //    return "即将离开此页面，确认编辑器内容已保存，否则内容可能会丢失？"
+    //}
 });

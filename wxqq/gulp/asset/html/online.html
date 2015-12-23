@@ -14,7 +14,7 @@
     <meta name="Description" content="圈圈微信在线微信图文排版助手是一个方便微信公众号用户在线生成微信文章关于关注,标题,正文,分割线,阅读全文,卡片等多种的丰富模版样式的一个在线微信公众号编辑器。" />
     <link rel="stylesheet" type="text/css" href="/static/new/css/enter.css" />
     <script type="text/javascript">
-        var isLogin={$isLogin},_wxqqTmpContent='_wxqqTmpContent{$tpl['id']}';
+        var isnew ={$tpl['isnew']},isLogin={$isLogin},_wxqqTmpContent='_wxqqTmpContent{$tpl['editName']}';
     </script>
 </head>
 <body style="overflow-y:hidden;overflow-x:auto;background-size: cover !important;" oncontextmenu="return false;">
@@ -59,9 +59,10 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="" id="link-154" data-id="154" ref="help-center" target="_blank" class="  dropdown-toggle" data-toggle="dropdown">帮助中心<span class="caret"></span></a>
+                    <a href="" id="link-154" data-id="154" ref="help-center" target="_blank" class="  dropdown-toggle" data-toggle="dropdown">常见问题(Q&A)<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="javascript:alert('功能未开放');" id="link-130" data-id="130" ref="editor-helps" class=" ui-menu-first" target="_blank">使用教程</a></li>
+                        <li><a href="/tpl/show/13350.html" ref="editor-helps" class=" ui-menu-first" target="_blank">无法同步图片问题</a></li>
+                        <!--<li><a href="javascript:alert('功能未开放');" ref="editor-helps" class=" ui-menu-first" target="_blank">使用教程</a></li>-->
                         <!--<li><a href="/use-principle.html" id="link-152" data-id="152" ref="use-principle" class=" ui-menu-last" target="_blank">使用原则</a></li>-->
                     </ul>
                 </li>
@@ -92,8 +93,8 @@
                 <div class="w2 fl">
                     <div style="line-height:30px;margin: 0 0px;">
                         <div style="height:40px;padding:5px;color: #FFF;">
-                            <!--<input type="text" placeholder="输入关键字搜索样式" style="height:30px;width:240px;color: #FFF;background-color: transparent; border: 0 none; padding:0 10px;" id="txtStyleSearch">-->
-                            <!--<span style="cursor:pointer;float:right;margin-right:20px;" onclick="reloadStyleOperate();" data-toggle="tooltip" data-container="body" data-placement="bottom" title="刷新样式"><i class="fa fa-refresh"></i></span>-->
+                            <input type="text" placeholder="输入关键字搜索快速定位样式" style="height:30px;width:240px;color: #FFF;background-color: transparent; border: 0 none; padding:0 10px;" id="txtStyleSearch">
+                            <span style="cursor:pointer;float:right;margin-right:20px;" data-toggle="tooltip" data-container="body" data-placement="bottom" title="搜索/刷新样式" id="refreshSearch"><i class="fa fa-refresh"></i></span>
                         </div>
                         <div id="styleSearchResult" style="position:absolute;display:none;top:40px;left:80px;width:384px;z-index: 100;border: 5px solid rgba(154, 188, 56, 0.3);background:#FFF;">
                             <span title="关闭" class="btn" style="float:right;font-size: 24px;color: #999;font-weight: bold;text-shadow: 0 1px 0 #ffffff;" onclick="$('#styleSearchResult').hide();"> × </span>
@@ -219,7 +220,7 @@
                     <!-- <textarea class="editorBox" name="" id="" cols="30" rows="10"></textarea>-->
                     <form action="" class="form-horizontal editorBox" style="background-color:transparent;position: relative;" role="form" target="_blank" id="WxMsgViewForm" method="post" accept-charset="utf-8">
                         <div id="image-preview"></div>
-                        <script id="editorContent" type="text/plain"></script>
+                        <script id="editorContent" type="text/plain">{$info['code']}</script>
                         <input type="hidden" name="template_id" id="template_id" />
                         <input type="hidden" name="template_name"  id="template_name"/>
                         <input type="hidden" name="msg_id" />
@@ -232,7 +233,7 @@
                                 <li><button type="button"  id="clearWxqqEditor" class="btn btn-warning btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
                                 <!--<li><button type="button" id="html-to-image" class="btn btn-default btn-xs"  data-toggle="tooltip" data-container="body" data-placement="right"   title="转为长图片格式，<br/>用于发微博、控制版权等"><i  class="fa fa-image"></i>长图</button></li>-->
                                 <li><a href="javascript:;" id="syncOpen" class="btn btn-success btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="授权给微信圈圈<br/>自动同步素材到微信官方素材库"><i class="fa fa-exchange"></i>同步</a></li>
-                                <li><button type="button"  id="helpOnce" class="btn btn-danger btn-xs"  data-container="body" data-toggle="tooltip" data-html="true" role="button" tabindex="1" data-placement="right"  title="补救一次<br />获得误操作前一分钟的本模版的系统缓存"><i class="fa fa-life-bouy"></i>补救</button></li>
+                                <li><button type="button"  id="helpOnce" class="btn btn-danger btn-xs"  data-container="body" data-toggle="tooltip" data-html="true" role="button" tabindex="1" data-placement="right"  title="补救一次<br />获得误操作前一分钟的本模版的系统缓存<br /><br />或者<br /><br />获取最后一次的缓存！"><i class="fa fa-life-bouy"></i>补救</button></li>
                                 <li><a href="javascript:;" id="previewEditor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
                                 <li><a href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="疑问咨询<br/>反馈建议"><i class="fa fa-qq"></i>客服</a></li>
                             </ul>
@@ -566,32 +567,7 @@
     <div class="panel-body" style="padding:0 0;">
         <button type="button" class="close float-right" style="position: absolute;right: 10px;opacity: 0.8;" onclick="$('#feedsModal').hide();"><span style="font-size: 16px;">关闭</span></button>
         <div style="padding:10px 20px;">
-            <section class="wxqq Powered-by-WeixinQuanquan.com">
-                <fieldset data-id="29735" style="border:0 none;" class="tn-Powered-by-WeiXinQuanQuan">
-                    <section style="width:132px;margin-bottom:0px;" data-width="92px">
-                        <p style="text-align: center; color: inherit; line-height: 2em;">
-                            <span style="border-color:#00bbec; color:rgb(255, 0, 0); font-size:16px" class="wxqq-color"><strong>微信圈圈提醒：</strong></span>
-                        </p>
-                    </section>
-                    <fieldset style="margin-top: 0px; padding: 0px 5px; line-height: 10px; color: inherit; border: 1px solid rgb(255, 0, 0);" class="wxqq-borderTopColor wxqq-borderLeftColor wxqq-borderRightColor wxqq-borderBottomColor">
-                        <section style="padding: 0px; font-size: 16px; color: inherit; height: 8px; margin: -8px 0px 0px 140px; width: 50%; background-color: rgb(254, 254, 254);" data-width="50%">
-                            <section style="width: 8px; height: 8px; border-radius: 100%; line-height: 1; box-sizing: border-box; font-size: 18px; text-decoration: inherit; border-color: rgb(255, 129, 36); display: inline-block; margin: 0px; color: inherit; background-color: rgb(255, 0, 0);" class="wxqq-bg"></section>
-                        </section>
-                        <section style="padding: 0px; line-height: 2em; color: rgb(62, 62, 62); font-size: 14px; margin: 15px;">
-                            <p style="color: inherit;">
-                                <span style="color: rgb(255, 0, 0);"><strong>请使用chrome，火狐浏览器，360极速浏览器等现在浏览器使用本编辑器!</strong></span>
-                            </p>
-                            <p style="color: inherit;">
-                                <br />
-                                <span style="color: rgb(255, 0, 0);"><strong>多公众号授权管理，一键同步这些都是免费的！</strong></span>
-                            </p>
-                        </section>
-                        <section style="padding: 0px; background-color: rgb(254, 254, 254); font-size: 16px; color: inherit; text-align: right; height: 10px; margin: 0px 0px -4px 25px; width: 65%;" data-width="65%">
-                            <section style="margin: 0px auto 1px; border-radius: 100%; line-height: 1; box-sizing: border-box; text-decoration: inherit; border-color: rgb(255, 129, 36); display: inline-block; height: 8px; width: 8px; color: inherit; background-color: rgb(255, 0, 0);" class="wxqq-bg"></section>
-                        </section>
-                    </fieldset>
-                </fieldset>
-            </section>
+            {$rightTip['code']}
         </div>
     </div>
 </div>
@@ -613,7 +589,7 @@
                                 <div class="form-group">
                                     <label for="tplName" class="col-sm-2 control-label">图文标题 *</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="tplName" placeholder="请输入保存的模版名字">
+                                        <input type="text" value="{$info['title']}" class="form-control" id="tplName" placeholder="请输入保存的模版名字">
                                         <input type="hidden" class="form-control" id="tplid" value="{$tpl['id']}">
                                         <input type="hidden" class="form-control" id="tpltype" value="{$tpl['type']}">
                                     </div>
@@ -747,11 +723,13 @@
 <script type="text/javascript" src="/static/new/js/main.js"></script>
 
 <div id="bg-choose" title="点击更换编辑器背景图" data-toggle="tooltip" data-placement="right" data-container="body" style="position:fixed;bottom:28px;left:0px;z-index:10;height:auto;width:30px;border:0;padding:5px 0;background:rgba(58,51,50,0.5);">
-    <div class="chooser" style="background:#c9b3a5;" data-bg="#c9b3a5;" data-url="/static/new/images/bg/bg2.jpg"></div>
-    <div class="chooser" style="background:#ba907b;" data-bg="#ba907b;" data-url="/static/new/images/bg/bg1.jpg"></div>
-    <div class="chooser" style="background:#fcdebd;" data-bg="#fcdebd;" data-url="/static/new/images/bg/bg2.jpg"></div>
-    <div class="chooser" style="background:#b0bbb7;" data-bg="#b0bbb7;" data-url="/static/new/images/bg/bg3.jpg"></div>
-    <div class="chooser" style="background:#584446;" data-bg="#584446;" data-url="/static/new/images/bg/10120.jpg"></div>
+    <div class="chooser" style="background:#c9b3a5;" data-bg="#c9b3a5;" data-url="http://i4.tietuku.com/3126b3b5f512bf37.jpg"></div>
+    <div class="chooser" style="background:#ba907b;" data-bg="#ba907b;" data-url="http://i4.tietuku.com/5cac3c59172b636e.jpg"></div>
+    <div class="chooser" style="background:#fcdebd;" data-bg="#fcdebd;" data-url="http://i4.tietuku.com/c0b40dbbaf68e2de.jpg"></div>
+    <div class="chooser" style="background:#b0bbb7;" data-bg="#b0bbb7;" data-url="http://i4.tietuku.com/5063e1e7c1ece76a.jpg"></div>
+    <div class="chooser" style="background:#584446;" data-bg="#584446;" data-url="http://i4.tietuku.com/df70ec10e4d1db1f.jpg"></div>
+    <div class="chooser" style="background:#D06F79;" data-bg="#D06F79;" data-url="http://i11.tietuku.com/d3d5206d7beb6bb4.jpg"></div>
+    <div class="chooser" style="background:#475016;" data-bg="#475016;" data-url="http://i11.tietuku.com/8ef8866ae1c0ef4b.jpg"></div>
 </div>
 </body>
 </html>
