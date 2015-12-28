@@ -22,27 +22,48 @@ function helpOnce(){
         getLastStorage();
     }
 }
-function getTpls(){
+function getTpls(type){
     $('.editor-template-list').html('');
     $('.editor-template-list').append('<li id="tplLoading"><img src="/static/new/images/circle_ball.gif"></li>');
-    $.ajax({
-        url: 'http://www.weixinquanquan.com/index.php?s=/Home/New/getTpls&callback=?',
-        dataType : "jsonp",
-        success: function(data){
-            $('.editor-template-list').html(data.code);
-            $('.editor-template-list li').hide();
-            $('.editor-template-list').find('.wxqq-tpl1').show();
-            $('.editor-template-list li img').each(function(i,v){
-                $(v).attr('src',$(v).data('src'));
+    $.get('/index.php/Home/New/getTpls',function(data){
+        $('.editor-template-list').html(data);
+        $('.editor-template-list li').hide();
+        $('.editor-template-list').find('.wxqq-tpl1').show();
+        //$('.editor-template-list li img').each(function(i,v){
+        //    $(v).attr('src',$(v).data('src'));
+        //});
+        $('#tplLoading').remove();
+        $('#tplTips').remove();
+
+        setTimeout(function(){
+
+            $('.editor-template-list li').not('#tplTips').each(function(i,v){
+                $(v).data('search',$(v).text());
             });
-            $('#tplLoading').remove();
-        }
+
+        },2000);
+
     });
+    //$.ajax({
+    //    url: '/index.php/Home/New/getTpls/type/'+type,
+    //    dataType : "jsonp",
+    //    success: function(data){
+    //        $('.editor-template-list').html(data.code);
+    //        $('.editor-template-list li').hide();
+    //        $('.editor-template-list').find('.wxqq-tpl1').show();
+    //        $('.editor-template-list li img').each(function(i,v){
+    //            $(v).attr('src',$(v).data('src'));
+    //        });
+    //        $('#tplLoading').remove();
+    //    }
+    //});
 }
 
 function tplFilter($search){
     var searchCount=0;
     $('.editor-template-list li').hide();
+    if($('#tplTips').size()>0) $('#tplTips').hide();
+
     $('.editor-template-list').append('<li id="tplLoading"><img src="/static/new/images/circle_ball.gif"></li>');
     $('.editor-template-list li').each(function(i,v){
         var patt1 = new RegExp($search);
@@ -53,7 +74,17 @@ function tplFilter($search){
     });
     $('#tplLoading').remove();
     if(!searchCount){
-        $('.editor-template-list').html('<li>找不到相关['+$search+']的样式</li>');
+        if($('#tplTips').size()<=0)
+            $('.editor-template-list').prepend('<li id="tplTips">找不到相关['+$search+']的样式</li>');
+        else {
+            $('#tplTips').html('找不到相关['+$search+']的样式').show();
+        }
+    } else {
+        if($('#tplTips').size()<=0)
+            $('.editor-template-list').prepend('<li id="tplTips">相关['+$search+']的样式</li>');
+        else {
+            $('#tplTips').html('相关['+$search+']的样式').show();
+        }
     }
 }
 
@@ -186,7 +217,7 @@ $(function(){
     });
 
     //$('#bg-choose .chooser:last').trigger('click');
-    $('#bg-choose .chooser').eq(Math.ceil(Math.random()*6)).trigger('click');
+    //$('#bg-choose .chooser').eq(Math.ceil(Math.random()*6)).trigger('click');
 
     //右侧的快捷按钮
     $('#clearWxqqEditor').on('click',function(){
@@ -284,8 +315,6 @@ $(function(){
     });
 
 
-    //加载所有的模版
-    getTpls();
 
     //左边导航条的动作
     $('#left-operate-menu .filter').on('click',function(){
@@ -441,11 +470,21 @@ $(function(){
         if(search){
             tplFilter(search);
         } else {
-            getTpls();
+            //getTpls();
+            $('.editor-template-list li').show();
+            $('#tplTips').hide();
         }
     });
 
     //window.onbeforeunload=function(){
     //    return "即将离开此页面，确认编辑器内容已保存，否则内容可能会丢失？"
     //}
+
+    //$('.editor-template-list li img').each(function(i,v){
+    //    $(v).attr('src',$(v).data('src'));
+    //});
+
+
+    //加载所有的模版
+    setTimeout(function(){getTpls();},1000);
 });
