@@ -89,6 +89,9 @@ function tplFilter($search){
 }
 
 function changeColorEditor(color){
+    $(wxqqEditor.document).find('.wxqq-color').css({
+        color:color
+    });
     $(wxqqEditor.document).find('.wxqq-bg').css({
         backgroundColor:color
     });
@@ -260,8 +263,20 @@ $(function(){
             $('.editor-template-list').find('.wxqq-bg').css({
                 backgroundColor:'#'+colors.HEX
             });
-            $('.editor-template-list').find('.wxqq-borderTopColor,.wxqq-borderLeftColor,.wxqq-borderRightColor,.wxqq-borderBottomColor').css({
-                borderColor:'#'+colors.HEX
+            $('.editor-template-list').find('.wxqq-color').css({
+                color:'#'+colors.HEX
+            });
+            $('.editor-template-list').find('.wxqq-borderTopColor').css({
+                borderTopColor:'#'+colors.HEX
+            });
+            $('.editor-template-list').find('.wxqq-borderLeftColor').css({
+                borderLeftColor:'#'+colors.HEX
+            });
+            $('.editor-template-list').find('.wxqq-borderRightColor').css({
+                borderRightColor:'#'+colors.HEX
+            });
+            $('.editor-template-list').find('.wxqq-borderBottomColor').css({
+                borderBottomColor:'#'+colors.HEX
             });
             if($('#replace-color-all').prop('checked')){ //全文换色
                 changeColorEditor('#'+colors.HEX);
@@ -280,6 +295,12 @@ $(function(){
             changeColorEditor(color);
         } else {
             if(anchorNode.nodeType!=1){ anchorNode=anchorNode.parentNode;}
+            //字体
+            if($(anchorNode).hasClass('wxqq-color')){
+                $(anchorNode).css({color:color});
+            } else {
+                $(anchorNode).closest('.wxqq').find('.wxqq-color').css({color:color});
+            }
             //背景
             if($(anchorNode).hasClass('wxqq-bg')){
                 $(anchorNode).css({backgroundColor:color});
