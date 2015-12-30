@@ -1,11 +1,18 @@
 /**
  * Created by qkl | QQ:80508567 Wechat:qklandy on 2015/12/16.
  */
+
+if(!window.localStorage || document.compatMode!='CSS1Compat' || /MSIE/i.test(navigator.userAgent) || /Trident/i.test(navigator.userAgent) ) {
+    //alert('你的浏览器不支持微信圈圈编辑器，请下载chrome,火狐、360极速浏览器、QQ浏览器等现在浏览器使用本站！');
+    $('#notSupportModal').modal('show');
+}
+
 var wxqqEditor=null;
 var client = new ZeroClipboard( document.getElementById("copyAllWxqqEditor") );
 function resize(e){
     $('#edui1_iframeholder').height($(window).height()-137);
     $('.editor2').height($(window).height()-137);
+    //wxqqEditor.setHeight($(window).height()-137);
     $('#style-operate-area .w1').height($(window).height()-37);
     $('#style-operate-area #insert-style-list').height($(window).height()-77);
     $('#editor-template-scroll').height($(window).height()-186);
@@ -114,6 +121,7 @@ wxqqEditor=UE.getEditor('editorContent',{
         ["paragraph","fontfamily","fontsize","inserttable",'background',"uploadword","insertimage",'insertvideo',"horizontal", 'spechars',"|","undo","redo","|","more"],
         ["source",'blockquote','superscript', 'subscript','insertorderedlist', 'insertunorderedlist','emotion','link','searchreplace', 'help','message']
     ],
+    //initialFrameWidth:500,
     initialFrameHeight:800,
     autoHeightEnabled:false,
     elementPathEnabled:false, //是否启用元素路径，默认是显示

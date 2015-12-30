@@ -1111,9 +1111,7 @@
             var me = this,
                 result,
                 cmd = me.commands[cmdName] || UE.commands[cmdName];
-            //console.log('editor[core] execCommand');
-            //me.commands[cmdName] && console.log(me.commands) || console.log(UE.commands);
-            //console.log(cmdName)
+
             if (!cmd || !cmd.execCommand) {
                 return null;
             }

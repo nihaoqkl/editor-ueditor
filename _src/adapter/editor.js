@@ -218,6 +218,10 @@
                         });
                     }
                 },
+                //加边框
+                _onBoxSet:function () {
+                    editor.execCommand('setborder');
+                },
                 //前或后插入空行
                 _onInsertNewNode:function (before) {
                     this.hide();
@@ -360,6 +364,7 @@
                         str = '<nobr>' + editor.getLang("property") + ': '+
                             '<span onclick=$$._onImgSetFloat("none") class="edui-clickable">' + editor.getLang("default") + '</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onDeleteNode() class="edui-clickable">删除</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onBoxSet() class="edui-clickable">外围加框</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onInsertNewNode(true) class="edui-clickable">前插空行</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onInsertNewNode(false) class="edui-clickable">后插空行</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onImgSetFloat("left") class="edui-clickable">' + editor.getLang("justifyleft") + '</span>&nbsp;&nbsp;' +
@@ -395,6 +400,7 @@
                             '<span onclick="wxqqCopy()" class="edui-clickable">复制</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onDeleteNode() class="edui-clickable">剪切</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onDeleteNode() class="edui-clickable">选中</span>&nbsp;&nbsp;' +
+                            '<span onclick=$$._onBoxSet() class="edui-clickable">外围加框</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onInsertNewNode(true) class="edui-clickable">前插空行</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onInsertNewNode(false) class="edui-clickable">后插空行</span>&nbsp;&nbsp;' +
                             '<span onclick=$$._onImgSetFloat("left") class="edui-clickable">' + editor.getLang("justifyleft") + '</span>&nbsp;&nbsp;' +
