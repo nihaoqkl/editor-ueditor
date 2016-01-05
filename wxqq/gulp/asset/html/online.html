@@ -61,7 +61,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="" id="link-154" data-id="154" ref="help-center" target="_blank" class="  dropdown-toggle" data-toggle="dropdown">常见问题(Q&A)和教程<span class="caret"></span></a>
+                    <a href="" id="link-154" data-id="154" ref="help-center" target="_blank" class="  dropdown-toggle" data-toggle="dropdown">使用教程和常见问题(Q&A)<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="http://www.weixinquanquan.com/tpl/show/13895.html" ref="editor-helps" class=" ui-menu-first" target="_blank">授权/同步教程</a></li>
                         <li><a href="http://www.weixinquanquan.com/tpl/show/13418.html" ref="editor-helps" class=" ui-menu-first" target="_blank">上传图片时时同步到微信</a></li>
@@ -82,17 +82,28 @@
                     <a href="/"><img src="/static/new/images/logo.png" style="width:80px;padding:10px;" title="微信编辑器 - 微信圈圈"></a>
                     <ul class="n1-1" id="left-operate-menu" style="height: auto;">
                         <li><a href="javascript:void(0);" class="filter active" data-filter="all"> 所有样式</a></li>
-                        <li class="active"><a href="javascript:void(0);" class="filter" data-filter="tpl1" role="tab" data-toggle="tab"> 关注</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="tpl2" role="tab" data-toggle="tab"> 标题</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="tpl3" role="tab" data-toggle="tab"> 正文</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="tpl4" role="tab" data-toggle="tab"> 分割线</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="tpl5" role="tab" data-toggle="tab"> 分享</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="tpl6" role="tab" data-toggle="tab"> 阅读全文</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="tpl7" role="tab" data-toggle="tab"> 互推</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="tpl8" role="tab" data-toggle="tab"> 其他</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="emoji" role="tab" data-toggle="tab"> 表情</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="mytpl" role="tab" data-toggle="tab"> 我的模版</a></li>
-                        <li><a href="javascript:void(0);" class="filter" data-filter="favorate" role="tab" data-toggle="tab"> 我的收藏</a></li>
+                        <!--<li class="active"><a href="javascript:void(0);" class="filter" data-filter="tpl1" role="tab" data-toggle="tab"> 关注</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="tpl2" role="tab" data-toggle="tab"> 标题</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="tpl3" role="tab" data-toggle="tab"> 正文</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="tpl4" role="tab" data-toggle="tab"> 分割线</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="tpl5" role="tab" data-toggle="tab"> 分享</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="tpl6" role="tab" data-toggle="tab"> 阅读全文</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="tpl7" role="tab" data-toggle="tab"> 互推</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="tpl8" role="tab" data-toggle="tab"> 其他</a></li>-->
+                        <?php
+                            foreach($types as $k=>$v) {
+                                if($k==1){
+                                    echo '<li class="active"><a href="javascript:void(0);" class="filter" data-filter="tpl'.$k.'" role="tab" data-toggle="tab"> '.$v.'</a></li>';
+                                } else {
+                                    echo '<li><a href="javascript:void(0);" class="filter" data-filter="tpl'.$k.'" role="tab" data-toggle="tab"> '.$v.'</a></li>';
+                                }
+                            }
+                        ?>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="symbol" role="tab" data-toggle="tab"> 特殊符号</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="emoji" role="tab" data-toggle="tab"> Emoji表情</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="mind" role="tab" data-toggle="tab"> 脑洞大开</a></li>
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="mytpl" role="tab" data-toggle="tab"> 我的模版</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="favorate" role="tab" data-toggle="tab"> 我的收藏</a></li>-->
                     </ul>
                 </div>
                 <div class="w2 fl">
@@ -136,6 +147,9 @@
                                 </ul>
                                 <div id="emojiIframe" style="display:none;">
                                     <iframe src="http://www.weixinquanquan.com/index.php/Home/New/emoji" width="100%" height="100%" frameborder="0"></iframe>
+                                </div>
+                                <div id="symbolWrap" style="display:none;">
+                                    {$symbols}
                                 </div>
                                 <div class="alert alert-warning m0 tplLogin">
                                     <p>

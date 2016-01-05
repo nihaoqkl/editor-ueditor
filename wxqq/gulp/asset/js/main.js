@@ -9,6 +9,28 @@ if(!window.localStorage || document.compatMode!='CSS1Compat' || /MSIE/i.test(nav
 
 var wxqqEditor=null;
 var client = new ZeroClipboard( document.getElementById("copyAllWxqqEditor") );
+function appendHtml(html){
+    wxqqEditor.execCommand('insertHtml', html);
+}
+function appendSymbol(obj){
+    appendHtml($(obj).find('span').text());
+}
+function appendMind(html){
+    var tpl='<section class="wxqq Powered-by-WeixinQuanquan.com">'+
+                '<fieldset class="wxqq-borderTopColor wxqq-borderRightColor wxqq-borderBottomColor wxqq-borderLeftColor" style="margin: 0px; padding: 5px; border: 1px solid rgb(0, 187, 236);">'+
+                '<legend style="margin: 0px 10px;">'+
+                    '<span style="padding: 5px 10px; color: #ffffff; font-weight: bold; font-size: 14px; background-color: #00BBEC;" class="wxqq-bg">今日脑洞大开</span>'+
+                '</legend>'+
+                '<blockquote style="margin: 0px; padding: 10px; ">'+
+                    html+
+                '</blockquote>'+
+                '</fieldset>'+
+            '</section>';
+    appendHtml(tpl);
+}
+function getContent(){
+    return wxqqEditor.getContent().replace(/(<p>\s*<br\s*\/>\s*<\/p>){2,}/ig,'<p><br><\/p>');
+}
 function resize(e){
     $('#edui1_iframeholder').height($(window).height()-137);
     $('.editor2').height($(window).height()-137);
@@ -27,6 +49,41 @@ function getLastStorage(){
 function helpOnce(){
     if(confirm('丢弃当前编辑器里的内容，恢复到操作前一分钟的状态？')){
         getLastStorage();
+    }
+}
+var modalCommon={
+    tpl:'<div class="modal fade" id="##modalID##" class="##modalClass##" role="dialog">'+
+            '<div class="modal-dialog" role="document">'+
+                '<div class="modal-content">'+
+                    '<div class="modal-header">'+
+                        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+                        '<h4 class="modal-title">##title##</h4>'+
+                    '</div>'+
+                    '<div class="modal-body">##html##</div>'+
+                '</div>'+
+            '</div>'+
+        '</div>',
+    open:function(objSel,html,callback){
+        var tpl='',selector='',type=1; //1->id 0->class
+        if(typeof objSel =='object') {
+            type=objSel.type=='id'?1:0;
+            selector=(type?'#':'.')+objSel.content;
+        }
+        if($(selector).size()<1) {
+            tpl = this.tpl.replace(/##modalID##/i, type?objSel.content:'wxqqModal'+Math.random()*100000);
+            tpl = tpl.replace(/##modalClass##/i, !type?objSel.content:'wxqqModal'+Math.random()*100000);
+            tpl = tpl.replace(/##title##/i, html['title']);
+            tpl = tpl.replace(/##html##/i, html['content']);
+            $('body').append($(tpl));
+            if (typeof callback == 'function') {
+                callback(selector);
+            }
+        }
+        $(selector).modal('show');
+        return selector;
+    },
+    close:function(selector){
+        $(selector).modal('hide');
     }
 }
 function getTpls(type){
@@ -115,6 +172,9 @@ function changeColorEditor(color){
         borderBottomColor:color
     });
 }
+
+
+//初始化编辑器
 wxqqEditor=UE.getEditor('editorContent',{
     toolbars: [
         ["bold","italic","underline","forecolor","backcolor","txtshadow","|","justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|","removeformat",'formatmatch',"autotypeset"],
@@ -131,6 +191,7 @@ wxqqEditor=UE.getEditor('editorContent',{
 //        allowDivTransToP:false
 });
 
+//编辑器准备好用的动作
 wxqqEditor.ready(function() {
 
     setTimeout(function () {
@@ -150,14 +211,15 @@ wxqqEditor.ready(function() {
 
     //localStorage
     setInterval(function(){
-        if( wxqqEditor.getContent().length > 200 ){
-            window.localStorage[_wxqqTmpContent]=wxqqEditor.getContent();
+        if( getContent().length > 200 ){
+            window.localStorage[_wxqqTmpContent]=getContent();
             $.toaster({ message : '成功为你缓存一次本地数据', title : '本地保存成功(每隔一分钟自动保存)', priority : 'success', timeout:90000 });
         }
     },60000);
 });
 
 
+//文档加载完毕的动作
 $(function(){
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -227,7 +289,7 @@ $(function(){
             $('body').css({background:'url('+$(this).data('url')+')'});
     });
 
-    //$('#bg-choose .chooser:last').trigger('click');
+    $('#bg-choose .chooser').eq(4).trigger('click');
     //$('#bg-choose .chooser').eq(Math.ceil(Math.random()*6)).trigger('click');
 
     //右侧的快捷按钮
@@ -242,7 +304,7 @@ $(function(){
         $('#preview-msg').modal('show');
     })
     client.on( "copy", function( event ) {
-        event.clipboardData.setData( "text/html", wxqqEditor.getContent());
+        event.clipboardData.setData( "text/html", getContent());
         $.toaster({ message : '请在微信后台ctrl+v即可', title : '复制成功', priority : 'success', timeout:90000 });
     });
 
@@ -352,18 +414,55 @@ $(function(){
             $('.editor-template-list li').show();
             $('.editor-template-list').show();
             $('#emojiIframe').hide();
+            $('#symbolWrap').hide();
         } else if(that.data('filter')=='emoji'){
             $('.editor-template-list').hide();
             $('#emojiIframe').show();
+            $('#symbolWrap').hide();
+        } else if(that.data('filter')=='symbol'){
+            $('.editor-template-list').hide();
+            $('#emojiIframe').hide();
+            $('#symbolWrap').show();
         } else if(that.data('filter')=='mytpl'){
             $.toaster({ message : '功能暂未开放，尽情期待', title : '温馨提醒', priority : 'warning', timeout:90000 });return ;
         } else if(that.data('filter')=='favorate'){
             $.toaster({ message : '功能暂未开放，尽情期待', title : '温馨提醒', priority : 'warning', timeout:90000 });return ;
+        }  else if(that.data('filter')=='mind'){
+            modalCommon.open({type:'id',content:'mindModal'},{
+                'title':'脑洞大开(给推文最后加上字谜，脑经急转弯等)',
+                'content':
+                            '<div class="container-fuild" style="margin-bottom:8px;">'+
+                                '<div class="row">'+
+                                    '<div class="col-xs-12">'+
+                                        '<button class="btn btn-success changeMind pull-right">换一批哦</button>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="container-fuild">'+
+                                '<div class="mindContent row">'+
+                                '</div>'+
+                            '</div>'
+            },function(selector){
+                $(selector).on('click','.mindInsert',function(){
+                    var that=$(this);
+                    appendMind(that.parents('.mindOne').find('.question').html());
+                    modalCommon.close(selector);
+                });
+                $(selector).on('click','.changeMind',function(){
+                    $.get('/index.php/Home/New/getMind?r='+Math.random()*100000,function(data){
+                        $(selector).find('.mindContent').html(data);
+                    });
+                });
+                $.get('/index.php/Home/New/getMind?r='+Math.random()*100000,function(data){
+                    $(selector).find('.mindContent').html(data);
+                });
+            });
         } else {
             $('.editor-template-list').show();
             $('.editor-template-list li').hide();
             $('.editor-template-list').find('.wxqq-'+that.data('filter')).show();
             $('#emojiIframe').hide();
+            $('#symbolWrap').hide();
         }
 
         $('#editor-template-scroll').scrollTop(0);
@@ -439,7 +538,7 @@ $(function(){
     });
 
     $(".syncwx").on("click", function(e) {
-        var that = $(this),data=wxqqEditor.getContent(),index=parseInt($("#syncMp").val());
+        var that = $(this),data=getContent(),index=parseInt($("#syncMp").val());
         if ("" == $("#syncTplName").val()) {
             $.toaster({ message : '请输入你要同步到微信官方的素材标题', title : '温馨提醒', priority : 'warning', timeout:90000 });
             return ;
