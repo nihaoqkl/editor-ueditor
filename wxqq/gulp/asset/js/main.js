@@ -480,7 +480,28 @@ $(function(){
         if(!isLogin){
             $('#loginModal').modal('show');
         } else {
+
+            //获取我授权的公众号可不选择
+            $.post("/index.php/Wechat/Tuoguan/isAuthTg", {}, function(data){
+                if(data.status=='1'){
+                    $('#saveMp').html(data.mps);
+
+                    //如果不是新模版，在重新编辑状态 把同步的托管的微信公众号自动选择
+                    $('#saveMp').find('option').each(function(i,v){
+                        if($(v).val()==$('#tplmpid').val()){
+                            $(v).prop('selected',true);
+                            return false;
+                        }
+                    });
+
+                } else {
+                    $('#saveMp').html('<option value="0">你还未授权公众号给微信圈圈[你可默认不做选择,直接保存]!</option>');
+                }
+            });
+
+            //显示保存弹出框
             $('#saveModal').modal('show');
+
         }
     });
 
@@ -488,15 +509,18 @@ $(function(){
     $(".wxqqSaveTpl").on("click", function(e) {
         var that = $(this),data=wxqqEditor.getContent();
         if ("" == $("#tplName").val()) {
-            $.toaster({ message : '请输入你要保存的模版名字', title : '温馨提醒', priority : 'warning', timeout:90000 }); return ;
+            $.toaster({ message : '请输入你要保存的模版名字', title : '温馨提醒', priority : 'warning', timeout:90000 });
+            return ;
         }
-        if ("" == data) {
-            $.toaster({ message : '请先创建好的需要的文案再保存吧', title : '温馨提醒', priority : 'warning', timeout:90000 });return ;
+        if ("" == data || data.length < 20) {
+            $.toaster({ message : '请先创建好的需要的文案再保存吧', title : '温馨提醒', priority : 'warning', timeout:90000 });
+            return ;
         }
         that.hide();
         var data={
             title: $("#tplName").val(),
-            code: data
+            code: data,
+            mpid: $("#saveMp").val()
         }
         if(!isnew){
             data.id=$("#tplid").val();
@@ -527,6 +551,7 @@ $(function(){
             if(data.status=='1'){
                 $('.syncModalTip').hide();
                 $('#syncMp').html(data.mps);
+                $('#saveMp').html(data.mps);
                 $('#syncModal').modal('show');
             } else if(data.status=='-1'){
                 $('#loginModal').modal('show');
@@ -543,7 +568,7 @@ $(function(){
             $.toaster({ message : '请输入你要同步到微信官方的素材标题', title : '温馨提醒', priority : 'warning', timeout:90000 });
             return ;
         }
-        if ("" == data) {
+        if ("" == data  || data.length < 20 ) {
             $.toaster({ message : '请先创建好的需要的文案再同步吧', title : '温馨提醒', priority : 'warning', timeout:90000 });
             return ;
         }

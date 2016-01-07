@@ -603,26 +603,34 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" onsubmit="return false;">
                                 <div class="form-group">
                                     <label for="tplName" class="col-sm-2 control-label">图文标题 *</label>
                                     <div class="col-sm-10">
                                         <input type="text" value="{$info['title']}" class="form-control" id="tplName" placeholder="请输入保存的模版名字">
                                         <input type="hidden" class="form-control" id="tplid" value="{$tpl['id']}">
                                         <input type="hidden" class="form-control" id="tpltype" value="{$tpl['type']}">
+                                        <input type="hidden" class="form-control" id="tplmpid" value="{$tpl['mp_id']}">
                                     </div>
                                 </div>
                                 <div class="form-group">
-
+                                    <label for="tplName" class="col-sm-2 control-label">保存到授权公众号 *</label>
+                                    <div class="col-sm-10">
+                                        <select id="saveMp" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label"></label>
                                     <div class="col-sm-9 controls">
-                                        <p style="font-weight:bold;font-size:14px;">将公众号授权给微信圈圈平台，可将编辑的文章直接同步到微信。</p>
+                                        <p style="font-weight:bold;font-size:14px;">将公众号授权给微信圈圈平台，再保存到授权公众号，<span style="color:#aaa;">[后续可以直接定时发送微信推文]</span>.</p>
                                         <p><br></p>
-                                        <p style="font-weight:bold;font-size:14px;">授权不会对微信公众号现有的各种第三方功能及微信原生功能产生影响。</p>
+                                        <p style="font-weight:bold;font-size:14px;">保存到授权公众号，<span style="color:#aaa;">[本模版有微信圈圈生成]替换成自己的授权公众号名称</span>.</p>
                                         <p><br></p>
                                         <p style="font-weight:bold;font-size:16px;">
-                                            <a href="/index.php/Wechat/Tuoguan/enter" style="color:red;" target="_blank">立即授权</a>，授权后直接操作【同步到微信】按钮
+                                            <a href="/index.php/Wechat/Tuoguan/enter" style="color:red;" target="_blank">立即授权</a>，授权后还可以同步素材到微信素材库
                                         </p>
+                                        <p><br></p>
+                                        <p style="font-weight:bold;font-size:14px;">授权不会对微信公众号现有的各种第三方功能及微信原生功能产生影响。</p>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -655,13 +663,13 @@
                         <div class="col-md-12">
                             <form class="form-horizontal" onsubmit="return false;">
                                 <div class="form-group">
-                                    <label for="tplName" class="col-sm-2 control-label">同步到微信的标题 *</label>
+                                    <label for="syncTplName" class="col-sm-2 control-label">同步到微信的标题 *</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="syncTplName" placeholder="请输入同步到微信的标题">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tplName" class="col-sm-2 control-label">选择同步的公众号 *</label>
+                                    <label for="syncMp" class="col-sm-2 control-label">选择同步的公众号 *</label>
                                     <div class="col-sm-10">
                                         <select id="syncMp" class="form-control"></select>
                                     </div>
