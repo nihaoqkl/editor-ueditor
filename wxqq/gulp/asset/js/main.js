@@ -559,6 +559,14 @@ $(function(){
                 $('.syncModalTip').show();
                 $('#syncModal').modal('show');
             }
+
+            //如果不是新模版，在重新编辑状态 把同步的托管的微信公众号自动选择
+            $('#syncMp').find('option').each(function(i,v){
+                if($(v).val()==$('#tplmpid').val()){
+                    $(v).prop('selected',true);
+                    return false;
+                }
+            });
         });
     });
 
@@ -578,6 +586,11 @@ $(function(){
         }
         that.hide();
         $.post("/index.php/Wechat/Tuoguan/syncmedia", {
+            ueid: $("#tplid").val(),
+            source_url: $("#source_url").val(),
+            author: $("#author").val(),
+            digest: $("#digest").val(),
+            cover: $("#show_cover_pic0").prop('checked')?0:1,
             id: $("#syncMp").val(),
             title: $("#syncTplName").val(),
             code: data
@@ -636,6 +649,51 @@ $(function(){
     //$('.editor-template-list li img').each(function(i,v){
     //    $(v).attr('src',$(v).data('src'));
     //});
+
+    //抓取微信文章内容
+    $('#crawler').on('click',function(){
+        modalCommon.open({type:'id',content:'crawlerModal'},{
+            'title':'抓取微信页面：(输入网址，将自动填写标题、封面和内容)',
+            'content':
+            '<div class="container-fuild" style="margin-bottom:8px;">'+
+                '<div class="row">'+
+                    '<div class="col-xs-12">'+
+                        '<form class="form-horizontal" onsubmit="return false;">'+
+                            '<div class="form-group">'+
+                                '<label for="syncTplName" class="col-sm-2 control-label">输入网址 *</label>'+
+                                    '<div class="col-sm-10">'+
+                                        '<input type="text" class="form-control" id="crawlerUrl" value="" placeholder="请输入微信文章网址">'+
+                                    '</div>'+
+                                '</div>'+
+                            '<div class="form-group">'+
+                                '<div class="col-sm-offset-2 col-sm-10">'+
+                                    '<button type="submit" class="crawlerNow btn btn-success" style="width:100px">立即抓取</button> &nbsp; &nbsp; &nbsp;'+
+                                    //'<a href="#" target="_blank" class="btn btn-info" data-toggle="tooltip" data-html="true" data-container="body" data-placement="top" title="">使用教程</a>'+
+                                ' </div>'+
+                            ' </div>'+
+                        '</form>'+
+                    '</div>'+
+                    '<div id="crawlerTip" class="col-xs-12 " style="display:none;"><img src="/static/new/images/circle_ball.gif" /></div>'+
+                '</div>'+
+            '</div>'
+        },function(selector){
+            $(selector).on('click','.crawlerNow',function(){
+                var that=$(this);
+                that.hide();
+                $('#crawlerTip').show();
+
+                $.post('/index.php/Home/New/crawler',{url: $.trim($('#crawlerUrl').val())}, function(data){
+                    if(data.status){
+                        wxqqEditor.execCommand('insertHtml',data.data);
+                    } else {
+                        $.toaster({ message : '抓取错误', title : '温馨提醒', priority : 'error', timeout:90000 });
+                    }
+                    $('#crawlerTip').hide();
+                });
+                modalCommon.close(selector);
+            });
+        });
+    });
 
 
     //加载所有的模版
