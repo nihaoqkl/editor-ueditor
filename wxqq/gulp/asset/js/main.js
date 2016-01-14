@@ -9,6 +9,7 @@ if(!window.localStorage || document.compatMode!='CSS1Compat' || /MSIE/i.test(nav
 
 var wxqqEditor=null;
 var client = new ZeroClipboard( document.getElementById("copyAllWxqqEditor") );
+var wxqq_tool_bar_copy_client = new ZeroClipboard( document.getElementById("wxqq_tool_bar_copy") );
 function appendHtml(html){
     wxqqEditor.execCommand('insertHtml', html);
 }
@@ -191,6 +192,96 @@ wxqqEditor=UE.getEditor('editorContent',{
 //        allowDivTransToP:false
 });
 
+
+//浮动快捷工具条
+
+// 删除样式周围的外边框
+function hideWrap (){
+    // 判断是否存在外边框,有的话，就删除
+    if($(wxqqEditor.document).find('#wxqqWrap').length>0){
+        var wrapNode = $(wxqqEditor.document).find('#wxqqWrap');
+        wrapNode.before(wrapNode.children());
+        wrapNode.remove();
+    }
+    // 判断是否存在工具条，存在的话删除它
+    // if($('#wxqq_tool_bar').length>0){
+    //     $('#wxqq_tool_bar').remove();
+    // }
+    $('#wxqq_tool_bar').hide();
+}
+
+// 在样式最外层插入虚线边框
+function insertWrap (event){
+    // 获取捕捉到的样式
+    var select_node = $(event.target).closest('.wxqq');
+    if(select_node.length == 0){
+        hideWrap();
+    }
+
+    // 判断是否在样式内点击
+    if(select_node.parent().attr('id')!='wxqqWrap' && select_node.length>0){
+        hideWrap();
+
+        var wraphtml = '<section id="wxqqWrap" style="border: dashed 1px #00bbec; padding: 5px;"></section>';
+
+        var wxqqWrap = select_node.wrap(wraphtml).parent();
+        var off_top = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
+        var off_right = $(wxqqEditor.document).width() - (wxqqWrap.offset().left + wxqqWrap.width());
+        $('#wxqq_tool_bar').show();
+        $('#wxqq_tool_bar').css({top:off_top+70,right:off_right});
+        wxqq_tool_bar_copy_client.off( "copy" ); //取消所有的注册事件
+        wxqq_tool_bar_copy_client.on( "copy", function( event ) {
+            event.clipboardData.setData( "text/html", wxqqWrap.html());
+            hideWrap();
+            $.toaster({ message : '当前选中的样式', title : '复制成功', priority : 'success', settings:{ debug:false,timeout:5000} });
+        });
+
+        // 删除按钮操作
+        $('#wxqq_tool_bar_del').on('click',function (){
+            wxqqWrap.remove();
+            // $('#wxqq_tool_bar').remove();
+            $('#wxqq_tool_bar').hide();
+        });
+
+        // 前插入空行
+        $('#wxqq_tool_bar_isBefore').on('click', function (){
+            // wxqqEditor.execCommand('insertrow',wxqqWrap);
+            wxqqWrap.before('<p><br /></p>');
+            var currentTop = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
+            $('#wxqq_tool_bar').css('top',currentTop + 47);
+        });
+
+        // 后插入空行
+        $('#wxqq_tool_bar_isAfter').on('click', function (){
+            wxqqWrap.after('<p><br /></p>');
+            wxqqEditor.focus(true);         //设置编辑器的光标到文档底部
+        });
+
+        // 当滚轮变动时，动态改变工具条的位置
+        $(wxqqEditor.document).on('mousewheel',function (){
+            if($('#wxqq_tool_bar').css('display')!='none'){
+                var current_top = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
+                $('#wxqq_tool_bar').css('top',current_top + 47);
+            }
+        });
+    }
+}
+
+// 样式工具条，整体删除，整体复制操作
+function styleToolBar (){
+    // 清空缓存中的虚线边框，工具条
+    hideWrap();
+    // 编辑器获取点击操作
+    wxqqEditor.addListener('mousedown',function (type,event){
+        var select_tagname = $(event.target).tagName;
+        if(select_tagname != "IMG"){
+            insertWrap(event);
+        }
+    });
+
+}
+//浮动快捷工具条 end
+
 //编辑器准备好用的动作
 wxqqEditor.ready(function() {
 
@@ -208,6 +299,9 @@ wxqqEditor.ready(function() {
 
         wxqqEditor.execCommand('focus');
     },1000);
+
+    //注册编辑器keydown事件
+    styleToolBar();
 
     //localStorage
     setInterval(function(){
