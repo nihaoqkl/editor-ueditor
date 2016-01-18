@@ -747,7 +747,7 @@ $(function(){
     //抓取微信文章内容
     $('#crawler').on('click',function(){
         modalCommon.open({type:'id',content:'crawlerModal'},{
-            'title':'抓取微信页面：(输入网址，将自动填写标题、封面和内容)',
+            'title':'抓取数据页面：(输入网址，将自动填写标题、封面和内容)',
             'content':
             '<div class="container-fuild" style="margin-bottom:8px;">'+
                 '<div class="row">'+
@@ -759,6 +759,13 @@ $(function(){
                                         '<input type="text" class="form-control" id="crawlerUrl" value="" placeholder="请输入微信文章网址">'+
                                     '</div>'+
                                 '</div>'+
+                            '<div class="form-group">'+
+                                '<label class="col-sm-2 control-label"></label>'+
+                                '<div class="col-sm-9 controls">'+
+                                    '<p style="font-weight:bold;font-size:14px;">暂只支持：微信公众号文章，QQ公众号文章。</p><p><br /></p>'+
+                                    '<p style="font-weight:bold;font-size:14px;">更多想获取的地址的支持请联系客服。</p>'+
+                                ' </div>'+
+                            ' </div>'+
                             '<div class="form-group">'+
                                 '<div class="col-sm-offset-2 col-sm-10">'+
                                     '<button type="submit" class="crawlerNow btn btn-success" style="width:100px">立即抓取</button> &nbsp; &nbsp; &nbsp;'+
@@ -783,6 +790,7 @@ $(function(){
                         $.toaster({ message : '抓取错误', title : '温馨提醒', priority : 'error', timeout:90000 });
                     }
                     $('#crawlerTip').hide();
+                    that.show();
                 });
                 modalCommon.close(selector);
             });
