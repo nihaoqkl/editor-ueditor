@@ -2,7 +2,6 @@
 * {margin:0;padding:0;box-sizing: border-box!important;-webkit-box-sizing: border-box!important;word-wrap: break-word!important;}
 body,h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif !important;}
 body{margin: 0 0;font-size:14px;background-image:none;background-color:#C9B3A5;background-size: cover;background-repeat: no-repeat;line-height:inherit}
-.135editor{max-width:100% !important;}
 h1,h2,h3,h4,h5,h6{font-weight:400;font-size:18px}
 
 #edui_fixedlayer{z-index:1000000 !important;}
@@ -159,7 +158,7 @@ img {vertical-align: baseline;max-width: 100%;}
 
 @media (max-width: 1360px) {
   .editorBox{margin-left:10%;width:450px;}
-  .editorslide{bottom:20%;top: initial;}
+  .editorslide{bottom:10%;top: initial;}
   .show-edui-more .edui-default .edui-toolbar:nth-child(3){max-width:450px;}
 }
 @media (max-width: 1180px) {
@@ -390,3 +389,44 @@ ol.sync-article-list li.placeholder:before {position: absolute;
   color:#fff;
 }
 
+//上传样式
+.fileinput-button {
+  position: relative;
+  overflow: hidden
+}
+
+.fileinput-button .fileinput-file, .fileinput-button #fileinput-file-upload {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+  margin: 0
+}
+
+.form-cover {
+  margin-bottom: 10px
+}
+
+.upload-preview-wrap .upload-preview-img {
+  object-fit: fill;
+  height: 180px;
+  max-height: 180px;
+}
+
+.upload-preview-wrap a {
+  margin-left: 10px;
+  vertical-align: bottom
+}
+
+
+//右侧浮动工具条样式
+#color-plan .right-plus-close {
+  position:absolute;
+  left:5px;
+  top:-24px;
+  font-size:26px;
+}

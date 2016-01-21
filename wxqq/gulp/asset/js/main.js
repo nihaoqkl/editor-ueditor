@@ -153,6 +153,30 @@ function tplFilter($search){
     }
 }
 
+/**
+ * 封面上传
+ */
+function upload(elementId){
+    $('.upload-preview-wrap').hide();
+    $.ajaxFileUpload({
+        url:'/index.php/Home/Task/upload',
+        fileElementId:elementId,
+        dataType: 'json',
+        success: function (data, status){
+            if(data.status){
+                $('.upload-preview-wrap').show().find('.upload-preview-img').attr('src',data.pic);
+                $('#upload-preview-blank').attr('href',data.pic);
+                $('#wxqq_thumb_pic').val(data.pic);
+            } else {
+                alert(data.data);
+            }
+        },
+        error: function (data, status, e) {
+            alert(data.data);
+        }
+    });
+}
+
 function changeColorEditor(color){
     $(wxqqEditor.document).find('.wxqq-color').css({
         color:color
@@ -683,6 +707,7 @@ $(function(){
             ueid: $("#tplid").val(),
             source_url: $("#source_url").val(),
             author: $("#author").val(),
+            wxqq_thumb_pic: $("#wxqq_thumb_pic").val(),
             digest: $("#digest").val(),
             cover: $("#show_cover_pic0").prop('checked')?0:1,
             id: $("#syncMp").val(),
@@ -795,6 +820,11 @@ $(function(){
                 modalCommon.close(selector);
             });
         });
+    });
+
+    //右侧浮动条
+    $('.right-plus-close').on('click',function(e){
+       $('.right-plus-content').toggle();
     });
 
 

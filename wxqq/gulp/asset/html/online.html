@@ -61,7 +61,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="" id="link-154" data-id="154" ref="help-center" target="_blank" class="  dropdown-toggle" data-toggle="dropdown">使用教程和常见问题(Q&A)<span class="caret"></span></a>
+                    <a href="" id="link-154" data-id="154" ref="help-center" target="_blank" class="  dropdown-toggle" data-toggle="dropdown">帮助中心<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="http://www.weixinquanquan.com/tpl/show/13895.html" ref="editor-helps" class=" ui-menu-first" target="_blank">授权/同步教程</a></li>
                         <li><a href="http://www.weixinquanquan.com/tpl/show/13418.html" ref="editor-helps" class=" ui-menu-first" target="_blank">上传图片时时同步到微信</a></li>
@@ -288,11 +288,12 @@
         <div class="panel panel-primary" style="border:0 none;background: transparent;">
 
             <ul class="nav nav-tabs" role="tablist" id="right-fix-tab" style="position:absolute;right:0px;">
+                <i class="fa fa-times-circle right-plus-close"></i>
                 <li role="presentation"><a data-toggle="#color-choosen" href="#color-choosen" aria-controls="home">配色方案</a></li>
                 <!--<li role="presentation"><a href="#features" data-toggle="#features" aria-controls="features">特色功能</a></li>-->
             </ul>
 
-            <div class="tab-content" style="padding: 10px 10px !important;width:120px;margin-right:32px;padding:0;background:rgba(58,51,50,0.9);">
+            <div class="right-plus-content tab-content" style="padding: 10px 10px !important;width:120px;margin-right:32px;padding:0;background:rgba(58,51,50,0.9);">
                 <div id="features" role="tabpanel" class="tab-pane" style="text-align: left;padding-left:5px;">
                     <small  id="more-popover-content" style="font-size:12px;">
                         <button class="btn btn-default btn-xs" id="set-image-radius"> 图片圆形  </button>
@@ -624,7 +625,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tplName" class="col-sm-2 control-label">保存到授权公众号 *</label>
+                                    <label for="tplName" class="col-sm-2 control-label">所属授权公众号 *</label>
                                     <div class="col-sm-10">
                                         <select id="saveMp" class="form-control"></select>
                                     </div>
@@ -679,15 +680,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="digest" class="col-sm-2 control-label">同步到微信的摘要 *</label>
+                                    <label for="author" class="col-sm-2 control-label">同步到微信的作者 *</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" id="digest" rows="3" placeholder="请输入同步到微信的摘要描述">{:stripslashes($info['digest'])}</textarea>
+                                        <input type="text" class="form-control" id="author" value="{:stripslashes($info['author'])}" placeholder="请输入同步到微信的公众号前的作者名，可留空">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="author" class="col-sm-2 control-label">同步到微信的作者 *</label>
+                                    <label for="digest" class="col-sm-2 control-label">同步到微信的摘要 *</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="author" value="{:stripslashes($info['author'])}" placeholder="请输入同步到微信的公众号前的作者名">
+                                        <textarea class="form-control" id="digest" rows="3" placeholder="请输入同步到微信的摘要描述">{:stripslashes($info['digest'])}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -697,20 +698,46 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="author" class="col-sm-2 control-label">封面 *</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-cover">
+                                            <div class="upload-wrap">
+                                              <span class="btn btn-primary fileinput-button">
+                                                  <i class="fa fa-upload"></i>
+                                                  <span>&nbsp;上 传 （大图片建议尺寸：900像素*500像素 格式：png、gif、jpg）</span>
+                                                  <input type="hidden" name="wxqq_thumb_pic" id="wxqq_thumb_pic" value="{$info['wxqq_thumb_pic']}">
+                                                  <input type="file" name="pic" id="fileinput-file-upload" onchange="upload('fileinput-file-upload');">
+                                              </span>
+                                            </div>
+                                            <?php if($info['wxqq_thumb_pic']) { ?>
+                                            <div class="upload-preview-wrap clearfix">
+                                                <img class="upload-preview-img" src="{$info['wxqq_thumb_pic']}" alt="">
+                                                <a href="{$info['wxqq_thumb_pic']}" id="upload-preview-blank" target="_blank">查看大图</a>
+                                            </div>
+                                            <?php } else { ?>
+                                            <div class="upload-preview-wrap clearfix" style="display:none;">
+                                                <img class="upload-preview-img" src="{$info['wxqq_thumb_pic']}" alt="">
+                                                <a href="{$info['wxqq_thumb_pic']}" id="upload-preview-blank" target="_blank">查看大图</a>
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="source_url" class="col-sm-2 control-label">是否显示封面 *</label>
                                     <div class="col-sm-10">
                                         <label class="radio-inline">
                                             <?php if(!$info['show_cover_pic']){  ?>
-                                                <input type="radio" name="show_cover_pic" id="show_cover_pic0" value="0" checked> 不显示
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic0" value="0" checked> 不显示
                                             <?php }else{  ?>
-                                                <input type="radio" name="show_cover_pic" id="show_cover_pic0" value="0"> 不显示
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic0" value="0"> 不显示
                                             <?php } ?>
                                         </label>
                                         <label class="radio-inline">
                                             <?php if($info['show_cover_pic']){  ?>
-                                                <input type="radio" name="show_cover_pic" id="show_cover_pic1" value="1" checked> 显示
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic1" value="1" checked> 显示
                                             <?php }else{  ?>
-                                                <input type="radio" name="show_cover_pic" id="show_cover_pic1" value="1" > 显示
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic1" value="1" > 显示
                                             <?php } ?>
                                         </label>
                                     </div>
@@ -812,6 +839,7 @@
 <script type="text/javascript" src="/static/new/js/colorPicker/jqColor.js"></script>
 <script type="text/javascript" src="/static/new/js/jquery.toaster.js"></script>
 <script type="text/javascript" src="/static/new/js/jquery.cookie.js"></script>
+<script src="/static/js/jquery.ajaxfileupload.js"></script>
 <script>
     ZeroClipboard.config( { swfPath: "/static/new/js/ZeroClipboard/ZeroClipboard.swf" } );
 </script>
