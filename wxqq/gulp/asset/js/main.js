@@ -375,12 +375,20 @@ $(function(){
         });
 
         var style_item = $(this).find('.wxqq'); //第一级的
+        var html = $(this).html();
+
+        function cdnReplace(){
+            return 'src="' + decodeURIComponent(arguments[1]) + '"';
+        }
+
+        //替换微信cdn前缀
+        html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\"/g,cdnReplace);
+        html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\"/g,cdnReplace);
 
         if(style_item.size()){
-            var html = $(this).html();
             ret=wxqqEditor.execCommand('insertHtml', html + "<p><br/></p>");
         } else {
-            ret = wxqqEditor.execCommand('insertHtml', "<section class=\"wxqq\">" + $(this).html() + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
+            ret = wxqqEditor.execCommand('insertHtml', "<section class=\"wxqq\">" + html + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
         }
 
         if(ret){
