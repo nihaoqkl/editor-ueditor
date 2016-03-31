@@ -385,6 +385,14 @@ $(function(){
         html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\"/g,cdnReplace);
         html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\"/g,cdnReplace);
 
+        function cdnReplace2(){
+            return 'url(' + decodeURIComponent(arguments[1]) + ')';
+        }
+
+        //替换微信cdn前缀
+        html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\)/g,cdnReplace2);
+        html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\)/g,cdnReplace2);
+
         if(style_item.size()){
             ret=wxqqEditor.execCommand('insertHtml', html + "<p><br/></p>");
         } else {
