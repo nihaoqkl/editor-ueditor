@@ -30,7 +30,28 @@ function appendMind(html){
     appendHtml(tpl);
 }
 function getContent(){
-    return wxqqEditor.getContent().replace(/(<p>\s*<br\s*\/>\s*<\/p>){2,}/ig,'<p><br><\/p>');
+
+    var html = wxqqEditor.getContent();
+
+    function cdnReplace(){
+        return 'src="' + decodeURIComponent(arguments[1]) + '"';
+    }
+
+    //替换微信cdn前缀
+    //html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\"/g,cdnReplace);
+    //html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\"/g,cdnReplace);
+    html = html.replace(/src=\"http:\/\/remote\.wx135\.com\/oss\/view\?d=(.+?)\"/g,cdnReplace);
+
+    function cdnReplace2(){
+        return 'url(' + decodeURIComponent(arguments[1]) + ')';
+    }
+
+    //替换微信cdn前缀
+    //html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\)/g,cdnReplace2);
+    //html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\)/g,cdnReplace2);
+    html = html.replace(/url\(http:\/\/remote\.wx135\.com\/oss\/view\?d=(.+?)\)/g,cdnReplace2);
+
+    return html.replace(/(<p>\s*<br\s*\/>\s*<\/p>){2,}/ig,'<p><br><\/p>');
 }
 function resize(e){
     $('#edui1_iframeholder').height($(window).height()-137);
@@ -377,21 +398,23 @@ $(function(){
         var style_item = $(this).find('.wxqq'); //第一级的
         var html = $(this).html();
 
-        function cdnReplace(){
-            return 'src="' + decodeURIComponent(arguments[1]) + '"';
-        }
-
-        //替换微信cdn前缀
-        html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\"/g,cdnReplace);
-        html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\"/g,cdnReplace);
-
-        function cdnReplace2(){
-            return 'url(' + decodeURIComponent(arguments[1]) + ')';
-        }
-
-        //替换微信cdn前缀
-        html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\)/g,cdnReplace2);
-        html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\)/g,cdnReplace2);
+        //function cdnReplace(){
+        //    return 'src="' + decodeURIComponent(arguments[1]) + '"';
+        //}
+        //
+        ////替换微信cdn前缀
+        ////html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\"/g,cdnReplace);
+        ////html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\"/g,cdnReplace);
+        //html = html.replace(/src=\"http:\/\/remote\.wx135\.com\/oss\/view\?d=(.+?)\"/g,cdnReplace);
+        //
+        //function cdnReplace2(){
+        //    return 'url(' + decodeURIComponent(arguments[1]) + ')';
+        //}
+        //
+        ////替换微信cdn前缀
+        ////html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\)/g,cdnReplace2);
+        ////html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\)/g,cdnReplace2);
+        //html = html.replace(/url\(http:\/\/remote\.wx135\.com\/oss\/view\?d=(.+?)\)/g,cdnReplace2);
 
         if(style_item.size()){
             ret=wxqqEditor.execCommand('insertHtml', html + "<p><br/></p>");
@@ -738,7 +761,7 @@ $(function(){
                 $('.syncModalTip').show();
                 $.toaster({ message : "公众号登录超时了 <br />请重新授权一次你需要同步的公众号", title : '温馨提醒', priority : 'danger', timeout:90000 });
             } else {
-                $.toaster({ message : '同步失败，你可联系客服咨询', title : '错误提醒', priority : 'danger', timeout:90000 });
+                $.toaster({ message : '同步失败，你可联系客服咨询<br />'+data.data, title : '错误提醒', priority : 'danger', timeout:90000 });
                 $('#syncModal').modal('hide');
             }
             that.show();
