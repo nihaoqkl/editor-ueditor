@@ -283,8 +283,15 @@
                                 <li><a href="javascript:;" id="copyAllWxqqEditor" class="btn btn-warning btn-xs"  data-container="body" data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="复制内容到剪切板，若复制失败请查看使用帮助"><i  class="fa fa-copy"></i>复制</a></li>
                                 <li><button type="button" id="save-as-template" tabindex="2"  class="btn btn-warning btn-xs" data-toggle="tooltip" data-container="body" data-placement="right" title="保存内容"><i class="fa fa-save"></i>保存</button></li>
                                 <li><button type="button"  id="clearWxqqEditor" class="btn btn-warning btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
-                                <!--<li><button type="button" id="html-to-image" class="btn btn-default btn-xs"  data-toggle="tooltip" data-container="body" data-placement="right"   title="转为长图片格式，<br/>用于发微博、控制版权等"><i  class="fa fa-image"></i>长图</button></li>-->
                                 <li><a href="javascript:;" id="syncOpen" class="btn btn-success btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="授权给微信圈圈<br/>自动同步素材到微信官方素材库"><i class="fa fa-exchange"></i>同步</a></li>
+                                <li>
+                                    <a tabindex="0" id="html2More" class="btn btn-info btn-xs" role="button" data-placement="left" data-toggle="popover" data-html="true" data-container="body" data-trigger="focus" title="生成微博长图、PDF、html，导出下载"
+                                       data-content='
+                                       <a href="javascript:void(0);" class="btn btn-success btn-xs exportMore" style="font-size"12px;" data-type="pic" onclick="htmltoMore(this);"><i class="fa fa-picture-o"></i> 生成长图</a>
+                                       <a href="javascript:void(0);" class="btn btn-success btn-xs exportMore" style="font-size"12px;" data-type="pdf" onclick="htmltoMore(this);"><i class="fa fa-file-pdf-o"></i> 生成PDF</a>
+                                       <a href="javascript:void(0);" class="btn btn-success btn-xs exportMore" style="font-size"12px;" data-type="html" onclick="htmltoMore(this);"><i class="fa fa-file-text-o"></i> 生成网页</a>
+                                       '><i class="fa fa-download"></i>导出</a>
+                                </li>
                                 <li><button type="button"  id="helpOnce" class="btn btn-danger btn-xs"  data-container="body" data-toggle="tooltip" data-html="true" role="button" tabindex="1" data-placement="right"  title="补救一次<br />获得误操作前一分钟的本模版的系统缓存<br /><br />或者<br /><br />获取最后一次的缓存！"><i class="fa fa-life-bouy"></i>补救</button></li>
                                 <li><a href="javascript:;" id="previewEditor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
                                 <li><a href="javascript:;" id="crawler" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="抓取微信页面<br/>(输入网址，将抓取网址的微信文章内容)"><i class="fa fa-external-link"></i>抓取</a></li>
@@ -347,9 +354,19 @@
                         <i id="btn-favor-color" title="点击新增颜色，最多新增20种" data-toggle="tooltip" data-container="body" data-placement="left"  style="position:absolute;left:5px;color:#FFF;cursor:pointer;top:5px;" class="fa fa-plus-circle"></i>
                     </div>
 
-                    <div style="margin:0 0;color:#dad9d8;line-height:18px;text-align: center;">
+                    <div style="margin:0 0;color:#dad9d8;line-height:18px;text-align: left;font-size:12px;">
                         <label style="cursor:pointer;margin-bottom:0px;">
-                            <input style="margin-top:8px;" type="checkbox" id="replace-color-all" value="1"> 全文换色
+                            <input style="margin-top:8px;" type="checkbox" id="replace-color-nav" value="1" checked> 左侧导航
+                        </label>
+                    </div>
+                    <div style="margin:0 0;color:#dad9d8;line-height:18px;text-align: left;font-size:12px;">
+                        <label style="cursor:pointer;margin-bottom:0px;">
+                            <input style="margin-top:8px;" type="checkbox" id="replace-color-edit" value="1"> 编辑全部内容
+                        </label>
+                    </div>
+                    <div style="margin:0 0;color:#dad9d8;line-height:18px;text-align: left;font-size:12px;">
+                        <label style="cursor:pointer;margin-bottom:0px;">
+                            <input style="margin-top:8px;" type="checkbox" id="replace-color-select" value="1"> 选中内容换色
                         </label>
                     </div>
 
@@ -411,7 +428,7 @@
                         <li class="color-swatch" style="background-color: #f5f5f4"></li>
 
                     </ul>
-                    <a href="javascript:showMoreColorSwatch();" title="点击“更多”后<br>在左侧列表区域<br>选择配色方案"  data-html="true" data-toggle="tooltip" data-container="body" data-placement="bottom" class="btn btn-warning btn-xs btn-block" style="display:block;text-align:center;color:white;"> <i class="fa fa-angle-double-down"></i> 更多配色</a>
+                    <!--<a href="javascript:showMoreColorSwatch();" title="点击“更多”后<br>在左侧列表区域<br>选择配色方案"  data-html="true" data-toggle="tooltip" data-container="body" data-placement="bottom" class="btn btn-warning btn-xs btn-block" style="display:block;text-align:center;color:white;"> <i class="fa fa-angle-double-down"></i> 更多配色</a>-->
                 </div>
 
             </div>

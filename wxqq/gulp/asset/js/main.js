@@ -73,6 +73,29 @@ function helpOnce(){
         getLastStorage();
     }
 }
+//提交创建from自动提交生成长图，pdf等
+function htmltoMore(obj){
+    var html = wxqqEditor.getContent();
+    if(html.length < 200) {
+        alert('请先创建你的文案再来保存');
+        return ;
+    }
+    var that=$(obj);
+    var form = $('#htmltoMoreForm');
+    if(form.size() <= 0) {
+        form = $('<form action="/index.php/Home/New/render" method="post" id="htmltoMoreForm" target="_blank"><input name="type" id="htmltoMoreType"><textarea name="html" id="htmltoMoreHtml"></textarea></form>');
+    }
+    $('body').append(form);
+
+    form.find('#htmltoMoreType').val(that.data('type'));
+    form.find('#htmltoMoreHtml').val(html);
+    form.submit();
+
+    setTimeout(function(){
+        form.remove();
+    },1000);
+
+}
 var modalCommon={
     tpl:'<div class="modal fade" id="##modalID##" class="##modalClass##" role="dialog">'+
             '<div class="modal-dialog" role="document">'+
@@ -362,6 +385,7 @@ wxqqEditor.ready(function() {
 $(function(){
 
     $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
 
     $(window).resize(resize);
 
@@ -487,26 +511,75 @@ $(function(){
             elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
         },
         displayCallback:function(colors, mode,options){
-            $('.editor-template-list').find('.wxqq-bg').css({
-                backgroundColor:'#'+colors.HEX
-            });
-            $('.editor-template-list').find('.wxqq-color').css({
-                color:'#'+colors.HEX
-            });
-            $('.editor-template-list').find('.wxqq-borderTopColor').css({
-                borderTopColor:'#'+colors.HEX
-            });
-            $('.editor-template-list').find('.wxqq-borderLeftColor').css({
-                borderLeftColor:'#'+colors.HEX
-            });
-            $('.editor-template-list').find('.wxqq-borderRightColor').css({
-                borderRightColor:'#'+colors.HEX
-            });
-            $('.editor-template-list').find('.wxqq-borderBottomColor').css({
-                borderBottomColor:'#'+colors.HEX
-            });
-            if($('#replace-color-all').prop('checked')){ //全文换色
-                changeColorEditor('#'+colors.HEX);
+
+            var color = '#'+colors.HEX;
+
+            if($('#replace-color-nav').prop('checked')){ //左侧导航
+                $('.editor-template-list').find('.wxqq-bg').css({
+                    backgroundColor:'#'+colors.HEX
+                });
+                $('.editor-template-list').find('.wxqq-color').css({
+                    color:'#'+colors.HEX
+                });
+                $('.editor-template-list').find('.wxqq-borderTopColor').css({
+                    borderTopColor:'#'+colors.HEX
+                });
+                $('.editor-template-list').find('.wxqq-borderLeftColor').css({
+                    borderLeftColor:'#'+colors.HEX
+                });
+                $('.editor-template-list').find('.wxqq-borderRightColor').css({
+                    borderRightColor:'#'+colors.HEX
+                });
+                $('.editor-template-list').find('.wxqq-borderBottomColor').css({
+                    borderBottomColor:'#'+colors.HEX
+                });
+            }
+
+            if($('#replace-color-select').prop('checked')){ //选中
+                var _range=wxqqEditor.selection.getRange(),
+                    anchorNode=wxqqEditor.selection.getStart();
+
+                if(anchorNode.nodeType!=1){ anchorNode=anchorNode.parentNode;}
+                //字体
+                if($(anchorNode).hasClass('wxqq-color')){
+                    $(anchorNode).css({color:color});
+                } else {
+                    $(anchorNode).closest('.wxqq').find('.wxqq-color').css({color:color});
+                }
+                //背景
+                if($(anchorNode).hasClass('wxqq-bg')){
+                    $(anchorNode).css({backgroundColor:color});
+                } else {
+                    $(anchorNode).closest('.wxqq').find('.wxqq-bg').css({backgroundColor:color});
+                }
+
+                //border颜色
+                if($(anchorNode).hasClass('wxqq-borderTopColor')){
+                    $(anchorNode).css({borderTopColor:color});
+                } else {
+                    $(anchorNode).closest('.wxqq').find('.wxqq-borderTopColor').css({borderTopColor:color});
+                }
+                if($(anchorNode).hasClass('wxqq-borderLeftColor')){
+                    $(anchorNode).css({borderLeftColor:color});
+                } else {
+                    $(anchorNode).closest('.wxqq').find('.wxqq-borderLeftColor').css({borderLeftColor:color});
+                }
+                if($(anchorNode).hasClass('wxqq-borderRightColor')){
+                    $(anchorNode).css({borderRightColor:color});
+                } else {
+                    $(anchorNode).closest('.wxqq').find('.wxqq-borderRightColor').css({borderRightColor:color});
+                }
+                if($(anchorNode).hasClass('wxqq-borderBottomColor')){
+                    $(anchorNode).css({borderBottomColor:color});
+                } else {
+                    $(anchorNode).closest('.wxqq').find('.wxqq-borderBottomColor').css({borderBottomColor:color});
+                }
+                //border end颜色
+
+            }
+
+            if($('#replace-color-edit').prop('checked')){ //编辑器全部
+                changeColorEditor(color);
             }
         }
     }).each(function(idx, elm) {
@@ -514,13 +587,34 @@ $(function(){
     });
 
     $('.color-swatch').on('click',function(){
-        var _range=wxqqEditor.selection.getRange(),
-            anchorNode=wxqqEditor.selection.getStart(),
-            color=$(this).css('background-color');
 
-        if($('#replace-color-all').prop('checked')){ //全文换色
-            changeColorEditor(color);
-        } else {
+        var color=$(this).css('background-color');
+
+        if($('#replace-color-nav').prop('checked')){ //左侧导航
+            $('.editor-template-list').find('.wxqq-bg').css({
+                backgroundColor:color
+            });
+            $('.editor-template-list').find('.wxqq-color').css({
+                color:color
+            });
+            $('.editor-template-list').find('.wxqq-borderTopColor').css({
+                borderTopColor:color
+            });
+            $('.editor-template-list').find('.wxqq-borderLeftColor').css({
+                borderLeftColor:color
+            });
+            $('.editor-template-list').find('.wxqq-borderRightColor').css({
+                borderRightColor:color
+            });
+            $('.editor-template-list').find('.wxqq-borderBottomColor').css({
+                borderBottomColor:color
+            });
+        }
+
+        if($('#replace-color-select').prop('checked')){ //选中
+            var _range=wxqqEditor.selection.getRange(),
+                anchorNode=wxqqEditor.selection.getStart();
+
             if(anchorNode.nodeType!=1){ anchorNode=anchorNode.parentNode;}
             //字体
             if($(anchorNode).hasClass('wxqq-color')){
@@ -558,6 +652,10 @@ $(function(){
             }
             //border end颜色
 
+        }
+
+        if($('#replace-color-edit').prop('checked')){ //编辑器全部
+            changeColorEditor(color);
         }
 
     });
