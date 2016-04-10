@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <base target="_top"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="x-rim-auto-match" content="none">
+    <title>微信图文排版_微信图文编辑器_微信公众号助手_推文定时群发器_最好的微信编辑器_在线微信编辑首选 - 微信圈圈</title>
+    <meta name="Keywords" content="微信图文排版,微信图文编辑器,推文定时群发,微信公众号助手,在线微信编辑首选,最好的微信编辑器,微信图文美化编辑器,微信排版工具,微信公众号内容编辑,最方便的微信编辑器,素材一键同步" />
+    <meta name="Description" content="圈圈微信在线微信图文排版助手是一个方便微信公众号用户在线生成微信文章关于关注,标题,正文,分割线,阅读全文,卡片等多种的丰富模版样式的一个在线微信公众号编辑器，还可以图文、图片等素材一键同步到微信素材库和带专为运营者开发的多图文素材定时群发器，真不愧是不可得多的的微信编辑文章的最佳首选。" />
+    <link rel="stylesheet" type="text/css" href="/static/new/css/enter.css" />
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var isnew ={$tpl['isnew']},isLogin={$isLogin},_wxqqTmpContent='_wxqqTmpContent{$tpl['editName']}';
+    </script>
+</head>
+<body style="overflow-y:hidden;overflow-x:auto;background-size: cover !important;" oncontextmenu="return false;">
+<div id="full-page" class="bg" style="max-width: 1200px;margin: 0 auto;padding:0 5px;">
+    <div id="nav-header">
+        <div class="clearfix" style="text-align:center;margin-left: 80px;background: rgba(0, 0, 0, 0.25);">
+            <php>if(session('uid')) {</php>
+            <ul id="login-menus"  class="pull-right nav  editor-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="position:relative;">
+                        <?php
+                            if($msgcount && $msgcount>=1){
+                                $showcount=$msgcount>99?'99+':$msgcount;
+                                echo '<i style="position:absolute;right:-5px;top:2px;border-radius:50%;width:15px;height:15px;background:red;color:#fff;font-style:normal;line-height:15px;font-size:12px;text-align: center;">'.$showcount.'</i>';
+                            }
+                        ?>
+                        <span id="login-user-name" title="">{$Think.session.nickname}</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" style="right: 0px;left: auto;">
+                        <li><a href="/index.php/Home/User/center" target="_blank"><i class="fa fa-user"></i> 个人中心</a></li>
+                        <li>
+                            <a href="/index.php/Home/User/msg" target="_blank" style="position:relative;">
+                                <?php
+                                    if($msgcount && $msgcount>=1){
+                                        $showcount=$msgcount>99?'99+':$msgcount;
+                                        echo '<i style="position:absolute;right:8px;top:2px;border-radius:50%;width:15px;height:15px;background:red;color:#fff;font-style:normal;line-height:15px;font-size:12px;text-align: center;">'.$showcount.'</i>';
+                                    }
+                                ?>
+                                <i class="fa fa-envelope"></i> 消息中心
+                            </a>
+                        </li>
+                        <li><a href="/index.php/Home/User/myweixin" target="_blank"><i class="fa fa-wechat"></i> 公众号管理</a></li>
+                        <li><a href="/index.php/Home/User/mytuwen" target="_blank"><i class="fa fa-th-list"></i> 我的模版</a></li>
+                        <li><a href="/index.php/Home/User/logout" title="退出登录"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <php>} else {</php>
+            <ul id="login-links" class="fr nav  editor-nav">
+                <li class="dropdown">
+                    <a href="javascript:void(0);">注册并登录</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/index.php/Home/Auth/qqlogin" title="QQ直接注册登录微信圈圈"><img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_1.png" alt="QQ直接注册登录微信圈圈">QQ注册/登录</a></li>
+                        <li><a href="/index.php/Home/Auth/sinalogin" title="新浪微博直接注册登录微信圈圈"><img height="18" src="http://www.sinaimg.cn/blog/developer/wiki/LOGO_24x24.png" alt="新浪微博直接注册登录微信圈圈">微博注册/登录</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <php>}</php>
+
+            <ul class="fr nav editor-nav category-nav">
+                <li class="dropdown">
+                    <a href="#" id="link-147" data-id="147" ref="thirdplat" class=" ui-menu-last  dropdown-toggle" target="_blank" data-toggle="dropdown">微信圈圈<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://www.weixinquanquan.com" class=" ui-menu-first" target="_blank">公众号大全</a></li>
+                        <li><a href="/tpl/" class=" ui-menu-first" target="_blank">用户模版大全</a></li>
+                        <li><a href="/add" class=" ui-menu-first" target="_blank">立即入驻公众号</a></li>
+                        <li><a href="/map" class=" ui-menu-first" target="_blank">公众号地图</a></li>
+                        <li><a href="/n/" class=" ui-menu-first" target="_blank">最新资讯</a></li>
+                        <li><a href="http://www.saomaqun.com/" class="ui-menu-first" target="_blank" title="微信群，微信公众号互推，个人微信交友">微信互推</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="" id="link-154" data-id="154" ref="help-center" target="_blank" class="  dropdown-toggle" data-toggle="dropdown">帮助中心<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://www.weixinquanquan.com/tpl/show/13895.html" ref="editor-helps" class=" ui-menu-first" target="_blank">授权/同步教程</a></li>
+                        <li><a href="http://www.weixinquanquan.com/tpl/show/13418.html" ref="editor-helps" class=" ui-menu-first" target="_blank">上传图片时时同步到微信</a></li>
+                        <li><a href="http://www.weixinquanquan.com/tpl/show/13350.html" ref="editor-helps" class=" ui-menu-first" target="_blank">无法同步图片手动解决</a></li>
+                        <!--<li><a href="javascript:alert('功能未开放');" ref="editor-helps" class=" ui-menu-first" target="_blank">使用教程</a></li>-->
+                        <!--<li><a href="/use-principle.html" id="link-152" data-id="152" ref="use-principle" class=" ui-menu-last" target="_blank">使用原则</a></li>-->
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div><!-- end nav-header -->
+
+    <div class="box p-r clearfix" style="margin:0 auto;"><!--box start-->
+
+        <div class="w0 p-r clearfix">
+            <div id="style-operate-area" style="display:inline-block;position:relative;float:left;margin-top: -40px;">
+                <div class="w1 fl" style="background:RGBA(0,0,0,0.3);height:900px;">
+                    <a href="/"><img src="/static/new/images/logo.png" style="width:80px;padding:10px;" title="微信编辑器 - 微信圈圈"></a>
+                    <ul class="n1-1" id="left-operate-menu" style="height: auto;">
+                        <li style="
+    position: relative;
+    background-color: rgba(47, 203, 5,.6);
+    color: #eee;
+" onmouseover="javascript:$(this).find('ul').height($(this).parent().height()).show();" onmouseout="javascript:$(this).find('ul').hide()">
+                            <a href="javascript:void(0);" class="filter active" data-filter="all" style="
+    color: #000;
+"> 所有样式</a>
+                            <ul class="dropdown-menu" style="margin: 0px; padding: 0px; border-radius: 0px; min-width: 80px; max-width: 80px; width: 80px; left: 0px; top: 0px; display: none; height: 642px;">
+                                <li style="width:80px;height:38px;line-height:38px;margin:0;padding:0;"><a style="padding:0;width:80px;height:38px;line-height:38px;" data-id="119">编号标题</a><a style="padding:0;width:80px;height:38px;line-height:38px;" data-id="119">编号标题</a><a style="padding:0;width:80px;height:38px;line-height:38px;" data-id="119">编号标题</a><a style="padding:0;width:80px;height:38px;line-height:38px;" data-id="119">编号标题</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="javascript:void(0);" class="filter active" data-filter="all"> 所有样式</a></li>
+                        <?php
+                            foreach($types as $k=>$v) {
+                                if($k==1){
+                                    echo '<li class="active"><a href="javascript:void(0);" class="filter" data-filter="tpl'.$k.'" role="tab" data-toggle="tab"> '.$v.'</a></li>';
+                                } else {
+                                    echo '<li><a href="javascript:void(0);" class="filter" data-filter="tpl'.$k.'" role="tab" data-toggle="tab"> '.$v.'</a></li>';
+                                }
+                            }
+                        ?>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="symbol" role="tab" data-toggle="tab"> 特殊符号</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="emoji" role="tab" data-toggle="tab"> <i class="fa fa-meh-o"></i> 手机表情</a></li>
+                        <li><a href="javascript:void(0);" class="filter" data-filter="mind" role="tab" data-toggle="tab"> <i class="fa fa-gamepad"></i> 脑洞大开</a></li>
+                        <li style="margin-top:12px;height:20px;">
+                            <a href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank" style="height:20px;line-height: 20px;"
+                               data-container="body" data-toggle="tooltip" data-html="true" role="button" tabindex="1" data-placement="left" title="广告位购买联系<br />位置和价格可以沟通协商">
+                                <span style="color:#aaa;font-size:12px;margin:0;border-bottom: 1px solid rgba(255,255,255,0.06);display: block;text-align: left;padding:0 0 0 5px;">合作推广：</span>
+                            </a>
+                        </li>
+                        <!--<li style="position:relative;">-->
+                            <!--<i style="position:absolute;top:-5px; right: 0;width: 20px;height: 20px;border: 2px solid #f88825;border-radius: 12px;color: #f88825;font-size: 12px;font-style: normal;">荐</i>-->
+                            <!--<a href="http://www.baidu.com" data-toggle="tooltip" data-container="body" data-html="true" data-placement="right" title="微信吸粉微信吸粉微信吸粉微信吸粉" target="_blank"> 微信吸粉</a>-->
+                        <!--</li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="mytpl" role="tab" data-toggle="tab"> 我的模版</a></li>-->
+                        <!--<li><a href="javascript:void(0);" class="filter" data-filter="favorate" role="tab" data-toggle="tab"> 我的收藏</a></li>-->
+                    </ul>
+                </div>
+                <div class="w2 fl">
+                    <div style="line-height:30px;margin: 0 0px;">
+                        <div style="height:40px;padding:5px;color: #FFF;">
+                            <input type="text" placeholder="输入关键字搜索快速定位样式" style="height:30px;width:240px;color: #FFF;background-color: transparent; border: 0 none; padding:0 10px;" id="txtStyleSearch">
+                            <span style="cursor:pointer;float:right;margin-right:20px;" data-toggle="tooltip" data-container="body" data-placement="bottom" title="搜索/刷新样式" id="refreshSearch"><i class="fa fa-refresh"></i></span>
+                        </div>
+                        <div id="styleSearchResult" style="position:absolute;display:none;top:40px;left:80px;width:384px;z-index: 100;border: 5px solid rgba(154, 188, 56, 0.3);background:#FFF;">
+                            <span title="关闭" class="btn" style="float:right;font-size: 24px;color: #999;font-weight: bold;text-shadow: 0 1px 0 #ffffff;" onclick="$('#styleSearchResult').hide();"> × </span>
+                            <h3 style="border-bottom:2px solid #CCC;margin:0;padding:15px 10px"> 搜索结果 </h3>
+                            <div id="styleSearchResultList" style="height:500px;width:100%;padding:10px;overflow-y:auto;">
+                                <img src="/static/new/images/circle_ball.gif">
+                            </div>
+                        </div>
+                        <div id="moreColorSwatch" style="position:absolute;display:none;top:40px;left:80px;width:384px;z-index: 100;border: 5px solid rgba(154, 188, 56, 0.3);background:#FFF;">
+                            <span title="关闭" class="btn" style="float:right;font-size: 24px;color: #999;font-weight: bold;text-shadow: 0 1px 0 #ffffff;" onclick="$('#moreColorSwatch').hide();"> × </span>
+                            <h3 style="border-bottom:2px solid #CCC;margin:0;padding:15px 10px"> 更多配色方案 </h3>
+                            <div id="moreColorSwatchList" style="height:500px;width:100%;padding:10px;overflow-y:auto;"></div>
+                        </div>
+                    </div>
+
+
+                    <div id="insert-style-list" class="item tab-content" style="height:860px;">
+                        <div id="editor-template" class="tab-pane active">
+                            <div style="background-color:rgba(245,245,245,0.9);height:90px; text-align:center;">
+                                <div style="height:60px;text-align: left;padding:20px 0 0 20px">
+                                    <i class="fa fa-envelope-o" style="font-size:16px;color:#f00;"></i> 微信圈圈新版上线： 操作更快捷方便，更强大功能!
+                                </div>
+                                <div id="style-sorts" style="text-align:right;height:30px;padding:5px 10px;z-index:1;background-color:rgba(235,235,235,0.8);">
+                                    
+                                </div>
+                            </div>
+                            <div id="editor-template-scroll" style="height: 741px; overflow-y: auto; overflow-x: hidden;">
+                                <!--<div class="alert alert-warning m0">-->
+                                    <!--<p>-->
+                                        <!--想要更多样式？前往<a href="/users/login?referer=/style-center?cate_id=1" target="_blank">样式中心</a>收藏使用吧！-->
+                                    <!--</p>-->
+                                <!--</div>-->
+                                <ul class="editor-template-list ui-portlet-list">
+                                </ul>
+                                <div id="emojiIframe" style="display:none;">
+                                    <iframe src="http://www.weixinquanquan.com/index.php/Home/New/emoji" width="100%" height="100%" frameborder="0"></iframe>
+                                </div>
+                                <div id="symbolWrap" style="display:none;">
+                                    {$symbols}
+                                </div>
+                                <div class="alert alert-warning m0 tplLogin">
+                                    <p>
+                                        登录后可保存样式模版，点击QQ或微博<a href="javascript:void(0);" onclick="$('#loginModal').modal('show');">立即登录</a>
+                                    </p>
+                                </div>
+                                <div id="pageTitle" style="display:none;">
+                                    -
+                                </div>
+                            </div><!-- end with editor-template-scroll 样式列表 -->
+                        </div>
+                        <div id="image-list" class="tab-pane"  style="padding:0 10px;">
+                            <div style="padding:10px 0;">
+                                <!-- <button onclick="edit_image();" class="btn btn-primary">美图上传</button>  -->
+                                <button onclick="meitu_upload();" class="btn btn-primary btn-xs">美图上传</button>
+                                <button onclick="pingtu_upload();" class="btn btn-primary btn-xs">简易拼图</button>
+                            </div>
+
+                            <ul id="editor-image-navtab" class="nav nav-tabs" style="border:0 none;text-align:center;">
+                                <li class="ignore col-xs-3"  style="padding:0 0;"><a style="padding:5px 5px;" data-url="/uploadfiles/mine?inajax=1 #my-file-list" href="#upload-image-list-li" role="tab" data-toggle="tab">我的上传</a></li>
+                                <li class="ignore col-xs-3  active"  style="padding:0 0;"><a style="padding:5px 5px;" data-url="/editor_styles/favimages?inajax=1" href="#favor-image-li" role="tab" data-toggle="tab">收藏图片</a></li>
+                                <li class="ignore col-xs-3"  style="padding:0 0;"><a style="padding:5px 5px;" data-url="/editor_styles/imglist?inajax=1 #system-img-list" href="#split-image-list-li" role="tab" data-toggle="tab">分割线</a></li>
+                                <li class="ignore col-xs-3"  style="padding:0 0;"><a style="padding:5px 5px;" data-url="/editor_styles/imglist?inajax=1&cate_id=56 #system-img-list" href="#guide-image-list-li" role="tab" data-toggle="tab">引导图</a></li>
+                            </ul>
+                            <div class="tab-content"  style="padding:10px 0;overflow-x:hidden;" id="editor-image-list">
+                                <div id="favor-image-li" class="tab-pane active clearfix" style="position: relative;"></div>
+                                <div id="split-image-list-li" class="tab-pane  clearfix" style="padding: 0 10px 10px;position: relative;"></div>
+                                <div id="guide-image-list-li" class="tab-pane  clearfix" style="padding: 0 10px 10px;position: relative;"></div>
+                                <div id="upload-image-list-li" class="tab-pane  clearfix" style="padding: 0 10px 10px;position: relative;"></div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="editor-tpls" style="padding: 10px 10px;position:relative;">
+                            <ul id="editor-tpls-navtab" class="nav nav-tabs" style="border:0 none;">
+                                <li class="ignore col-xs-4" id="personal-tpl-list-li"><a href="#personal-tpl-list-1" data-url="/user_styles/myStyles" role="tab" data-toggle="tab">个人样式</a></li>
+                                <li class="ignore col-xs-4" id="favorite-tpl-list-li"><a href="#favorite-tpl-list-1" data-url="/editor_styles/favorTemplates" role="tab" data-toggle="tab">收藏模板</a></li>
+                                <li class="ignore  col-xs-4">
+                                    <a href="#recommend-tpl-list-1" data-url="/editor_styles/systemTemplates"  role="tab" data-toggle="tab">系统推荐</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content"  style="padding:0px;overflow-x:hidden;" id="tpl-tab-content">
+                                <div id="personal-tpl-list-1" class="tab-pane"></div>
+                                <div id="favorite-tpl-list-1" class="tab-pane"></div>
+                                <div id="recommend-tpl-list-1" class="tab-pane"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" style="padding:10px;" id="editor-others">
+                            <button id="btn-choose-auto-qa" class="btn btn-primary">每日一题</button>
+
+                        </div>
+                        <div class="tab-pane" style="padding:10px;" id="parse-rule-lists"></div>
+
+
+                        <div id="editor-my-msgs" class="tab-pane" style="padding: 10px 10px;position: relative;">
+
+
+                            <ul class="nav nav-tabs" style="border:0 none;">
+                                <li class="ignore col-xs-4 active" onclick="return $('#tab-wxmsg-trigger').trigger('click');" ><a href="#personal-article-list" role="tab" data-toggle="tab"><i class="fa fa-list"></i> 微信圈圈文章</a></li>
+                                <li class="ignore col-xs-4"><a href="#wechat-article-list" data-url="/wx_msgs/wechat?pagesize=5 #wechat-msg-mine-list"  data-refresh="always" role="tab" data-toggle="tab"><i class="fa fa-wechat"></i> 微信文章</a></li>
+                                <li class="ignore col-xs-4"><a href="#article-trash-list" style="color:red;" data-url="/wx_msgs/mine?deleted=1 #wxmsg-mine-list" data-refresh="always" role="tab" data-toggle="tab"><i class="fa fa-trash"></i> 回收站</a></li>
+                            </ul>
+                            <div class="tab-content"  style="padding:0px;overflow-x:hidden;" id="my-article-list">
+                                <div id="personal-article-list" class="tab-pane active">
+                                    <div class="alert alert-warning m0" style="padding:10px 0; background: transparent; z-index: 1;">
+                                        <small>
+                                            <p style="clear:none;"><a href="" target="_blank">公众号授权给微信圈圈</a>后，可将文章同步保存到微信</p>
+                                            <a href="#" id="syncToWechat" class="btn btn-warning btn-block btn-sm">将图文同步保存到微信</a>
+                                        </small>
+                                    </div>
+                                    <div id="editor-msg-list">
+                                    </div>
+                                </div>
+                                <div id="wechat-article-list" class="tab-pane"></div>
+                                <div id="article-trash-list" class="tab-pane"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w3 clearfix" style="margin-left:464px;">
+                <div class="editor1 fl">
+
+                </div>
+                <div class="editor2 p-r fl" style="height:800px;">
+                    <!-- <textarea class="editorBox" name="" id="" cols="30" rows="10"></textarea>-->
+                    <form action="" class="form-horizontal editorBox" style="background-color:transparent;position: relative;" role="form" target="_blank" id="WxMsgViewForm" method="post" accept-charset="utf-8">
+                        <div id="image-preview"></div>
+                        <script id="editorContent" type="text/plain">{$info['code']}</script>
+                        <div id="wxqq_tool_bar">
+                            <div class="wxqq_tool_bar_content">
+                                <span title="复制" id="wxqq_tool_bar_copy"><i class="fa fa-copy"></i></span>
+                                <span title="删除" id="wxqq_tool_bar_del"><i class="fa fa-trash"></i></span>
+                                <span title="前插入空行" id="wxqq_tool_bar_isBefore"><i class="fa fa-hand-o-up"></i></span>
+                                <span title="后插入空行" id="wxqq_tool_bar_isAfter"><i class="fa fa-hand-o-down"></i></span>
+                            </div>
+                        </div>
+                        <input type="hidden" name="template_id" id="template_id" />
+                        <input type="hidden" name="template_name"  id="template_name"/>
+                        <input type="hidden" name="msg_id" />
+
+                        <div class="editorslide">
+                            <ul>
+                                <li><a href="/wxeditor" id="newWxqqEditor" class="btn btn-xs"  data-container="body" data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="新建一个模版从头开始"><i  class="fa fa-copy"></i>新建</a></li>
+                                <li><a href="javascript:;" id="copyAllWxqqEditor" class="btn btn-warning btn-xs"  data-container="body" data-toggle="tooltip" role="button" tabindex="1" data-placement="right"  title="复制内容到剪切板，若复制失败请查看使用帮助"><i  class="fa fa-copy"></i>复制</a></li>
+                                <li><button type="button" id="save-as-template" tabindex="2"  class="btn btn-warning btn-xs" data-toggle="tooltip" data-container="body" data-placement="right" title="保存内容"><i class="fa fa-save"></i>保存</button></li>
+                                <li><button type="button"  id="clearWxqqEditor" class="btn btn-warning btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="清空内容<br/>创建新文档"><i class="fa fa-trash"></i>清空</button></li>
+                                <li><a href="javascript:;" id="syncOpen" class="btn btn-success btn-xs"  data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="授权给微信圈圈<br/>自动同步素材到微信官方素材库"><i class="fa fa-exchange"></i>同步</a></li>
+                                <li>
+                                    <a tabindex="0" id="html2More" class="btn btn-info btn-xs" role="button" data-placement="left" data-toggle="popover" data-html="true" data-container="body" data-trigger="focus" title="生成微博长图、PDF、html，导出下载"
+                                       data-content='
+                                       <a href="javascript:void(0);" class="btn btn-success btn-xs exportMore" style="font-size"12px;" data-type="pic" onclick="htmltoMore(this);"><i class="fa fa-picture-o"></i> 生成长图</a>
+                                       <a href="javascript:void(0);" class="btn btn-success btn-xs exportMore" style="font-size"12px;" data-type="pdf" onclick="htmltoMore(this);"><i class="fa fa-file-pdf-o"></i> 生成PDF</a>
+                                       <a href="javascript:void(0);" class="btn btn-success btn-xs exportMore" style="font-size"12px;" data-type="html" onclick="htmltoMore(this);"><i class="fa fa-file-text-o"></i> 生成网页</a>
+                                       '><i class="fa fa-download"></i>导出</a>
+                                </li>
+                                <li><button type="button"  id="helpOnce" class="btn btn-danger btn-xs"  data-container="body" data-toggle="tooltip" data-html="true" role="button" tabindex="1" data-placement="right"  title="补救一次<br />获得误操作前一分钟的本模版的系统缓存<br /><br />或者<br /><br />获取最后一次的缓存！"><i class="fa fa-life-bouy"></i>补救</button></li>
+                                <li><a href="javascript:;" id="previewEditor" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="预览实际效果<br/>以手机为准"><i class="fa fa-search"></i>预览</a></li>
+                                <li><a href="javascript:;" id="crawler" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="抓取微信页面<br/>(输入网址，将抓取网址的微信文章内容)"><i class="fa fa-external-link"></i>抓取</a></li>
+                                <li><a href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="疑问咨询<br/>反馈建议"><i class="fa fa-qq"></i>客服</a></li>
+                                <li><a href="/index.php/Home/Task/ready" target="_blank" class="btn btn-default btn-xs" data-toggle="tooltip" data-html="true" data-container="body" data-placement="right" title="多图文定时群发<br />你还可以在[我的模版里]下定时群发单图文<br />不过只支持微信认证公众号"><i class="fa fa-clock-o"></i>定时</a></li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-primary" id="qrcode-pannel" style="position:fixed;display:none;z-index:10001;right:2px;bottom:0px;">
+        <div class="panel-heading"> <span class="pull-right" onclick="$('#qrcode-pannel').toggle();" style="cursor:pointer;">&times;</span>微信圈圈编辑器公众号</div>
+        <div class="panel-body" style="padding:0 0;">
+            <img style="width:180px;" src="https://mmbiz.qlogo.cn/mmbiz/yqVAqoZvDibHUYL1W4jVtKs2cuj8licOibPXibhFokJEACsh91ZicQd2CyFpMkwjX0S2zJLqiaqOgtDRCibEPI9dq6ic2A/0">
+        </div>
+    </div>
+
+    <div  id="more-popover">
+
+    </div>
+
+    <section id="color-plan" style="">
+        <div class="panel panel-primary" style="border:0 none;background: transparent;">
+
+            <ul class="nav nav-tabs" role="tablist" id="right-fix-tab" style="position:absolute;right:0px;">
+                <i class="fa fa-times-circle right-plus-close"></i>
+                <li role="presentation"><a data-toggle="#color-choosen" href="#color-choosen" aria-controls="home">配色方案</a></li>
+                <!--<li role="presentation"><a href="#features" data-toggle="#features" aria-controls="features">特色功能</a></li>-->
+            </ul>
+
+            <div class="right-plus-content tab-content" style="padding: 10px 10px !important;width:120px;margin-right:32px;padding:0;background:rgba(58,51,50,0.9);">
+                <div id="features" role="tabpanel" class="tab-pane" style="text-align: left;padding-left:5px;">
+                    <small  id="more-popover-content" style="font-size:12px;">
+                        <button class="btn btn-default btn-xs" id="set-image-radius"> 图片圆形  </button>
+                        <button class="btn btn-default btn-xs" id="set-image-border"> 图片边框 </button>
+
+                        <button class="btn btn-default btn-xs" id="flat-strip-radius"> 去圆角</button>
+                        <button class="btn btn-default btn-xs" id="flat-add-radius"> 加圆角</button>
+                        <button class="btn btn-default btn-xs" id="flat-strip-border"> 去边框</button>
+                        <!--  <button class="btn btn-default btn-xs" id="flat-add-border"> 加边框</button>  -->
+                        <button class="btn btn-default btn-xs" id="flat-strip-shadow"> 去阴影 </button>
+                        <button class="btn btn-default btn-xs" id="flat-add-shadow"> 加阴影 </button>
+
+                        <button class="btn btn-default btn-xs" id="wxqq-random-color">
+                            随机换色
+                        </button>
+
+                        <button class="btn btn-default btn-xs" id="wxqq-random-transform">
+                            随机倾斜
+                        </button>
+                    </small>
+                </div>
+                <div role="tabpanel" class="tab-pane active"  id="color-choosen">
+                    <div style="margin:5px 0px;color:#FFF;line-height:32px;text-align: center;position:relative;" >
+                        <input id="custom-color-text" class="colorPicker form-control" style="font-size:12px;width:100px;color:#FFF;padding:4px 8px 4px 20px;height:24px;line-height:16px" id="custom-color" value="#EF7060" />
+                        <i id="btn-favor-color" title="点击新增颜色，最多新增20种" data-toggle="tooltip" data-container="body" data-placement="left"  style="position:absolute;left:5px;color:#FFF;cursor:pointer;top:5px;" class="fa fa-plus-circle"></i>
+                    </div>
+
+                    <div style="margin:0 0;color:#dad9d8;line-height:18px;text-align: left;font-size:12px;">
+                        <label style="cursor:pointer;margin-bottom:0px;">
+                            <input style="margin-top:8px;" type="checkbox" id="replace-color-nav" value="1" checked> 左侧导航
+                        </label>
+                    </div>
+                    <div style="margin:0 0;color:#dad9d8;line-height:18px;text-align: left;font-size:12px;">
+                        <label style="cursor:pointer;margin-bottom:0px;">
+                            <input style="margin-top:8px;" type="checkbox" id="replace-color-edit" value="1"> 编辑全部内容
+                        </label>
+                    </div>
+                    <div style="margin:0 0;color:#dad9d8;line-height:18px;text-align: left;font-size:12px;">
+                        <label style="cursor:pointer;margin-bottom:0px;">
+                            <input style="margin-top:8px;" type="checkbox" id="replace-color-select" value="1"> 选中内容换色
+                        </label>
+                    </div>
+
+                    <ul id="favor-colors" class="clearfix" style="list-style:none;padding:0 0px 0px;margin:0 0;">
+                    </ul>
+                    <hr style="margin:2px 20px;border-color:#ddd;"/>
+                    <ul class="clearfix" title="提示：点击选中样式后，对样式单独换色；" data-toggle="tooltip" data-container="body" data-placement="left"  style="list-style:none;padding:0 0px;margin:0 0;">
+                        <li class="color-swatch" style="background-color: #ac1d10"></li>
+                        <li class="color-swatch" style="background-color: #d82821;"></li>
+                        <li class="color-swatch default-color" style="background-color: #ef7060;"></li>
+                        <li class="color-swatch" style="background-color: #fde2d8;"></li>
+
+                        <li class="color-swatch" style="background-color: #d32a63;"></li>
+                        <li class="color-swatch" style="background-color: #eb6794;"></li>
+                        <li class="color-swatch" style="background-color: #f5bdd1;"></li>
+                        <li class="color-swatch" style="background-color: #ffebf0;"></li>
+
+
+
+                        <li class="color-swatch" style="clear:left;background-color: #e2561b;"></li>
+                        <li class="color-swatch" style="background-color: #ff8124;"></li>
+                        <li class="color-swatch" style="background-color: #fcb42b;"></li>
+                        <li class="color-swatch" style="background-color: #feecaf;"></li>
+
+                        <li class="color-swatch" style="clear:left;background-color: #0c8918;"></li>
+                        <li class="color-swatch" style="background-color: #80b135;"></li>
+                        <li class="color-swatch" style="background-color:#c2c92a;"></li>
+                        <li class="color-swatch" style="background-color:#e5f3d0;"></li>
+
+                        <!-- <li class="color-swatch" style="clear:left;background-color: #1f877a;"></li>
+                        <li class="color-swatch" style="background-color: #27abc1;"></li>
+                        <li class="color-swatch" style="background-color: #5acfe1;"></li>
+                        <li class="color-swatch" style="background-color: #b6f2ea;"></li> -->
+
+                        <li class="color-swatch" style="clear:left;background-color:#374aae;"></li>
+                        <li class="color-swatch" style="background-color:#1e9be8;"></li>
+                        <li class="color-swatch" style="background-color:#59c3f9;"></li>
+                        <li class="color-swatch" style="background-color:#b6e4fd;"></li>
+
+                        <!-- <li class="color-swatch" style="clear:left;background-color:#5b39b4;"></li>
+                        <li class="color-swatch" style="background-color: #4c6ff3;"></li>
+                        <li class="color-swatch" style="background-color:#91a8fc;"></li>
+                        <li class="color-swatch" style="background-color:#d0dafe;"></li> -->
+
+                        <!-- 紫色 -->
+                        <li class="color-swatch" style="clear:left;background-color:#8d4bbb;"></li>
+                        <li class="color-swatch" style="background-color: rgb(166, 91, 203);"></li>
+                        <li class="color-swatch" style="background-color:#cca4e3;"></li>
+                        <li class="color-swatch" style="background-color: rgb(190, 119, 99);"></li>
+
+                        <!-- <li class="color-swatch" data-color="#efefef" style="clear:left;background-color:#3c2822;"></li>
+                        <li class="color-swatch" style="background-color:#6b4d40;"></li>
+                        <li class="color-swatch" style="background-color:#9f887f;"></li>
+                        <li class="color-swatch" style="background-color:#d7ccc8;"></li> -->
+
+                        <li class="color-swatch" style="background-color: #212122;"></li>
+                        <li class="color-swatch" style="background-color: #757576;"></li>
+                        <li class="color-swatch" style="background-color: #c6c6c7"></li>
+                        <li class="color-swatch" style="background-color: #f5f5f4"></li>
+
+                    </ul>
+                    <!--<a href="javascript:showMoreColorSwatch();" title="点击“更多”后<br>在左侧列表区域<br>选择配色方案"  data-html="true" data-toggle="tooltip" data-container="body" data-placement="bottom" class="btn btn-warning btn-xs btn-block" style="display:block;text-align:center;color:white;"> <i class="fa fa-angle-double-down"></i> 更多配色</a>-->
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <div class="modal fade" id="preview-msg" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog"  style="width:400px;margin-top:20px;">
+            <div class="modal-content">
+                <div class="modal-header" style="border:0 none;padding:10px 15px;">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">图文预览</h4>
+                </div>
+                <div class="modal-body" style="overflow: hidden;padding: 0;margin: 10px;">
+                    <section data-id="85568" class="wxqqeditor" style="padding: 2px;">
+                        <section style="margin:0;  box-sizing: border-box; padding: 0px; border: 0px; ">
+                            <section style="margin: 0px; width: 100%; height:auto !important;box-sizing: border-box;border-top-right-radius: 1em;border-top-left-radius: 1em;border-left: 10px solid rgb(33,33,34);border-right: 10px solid rgb(33,33,34);border-top: 45px solid rgb(33,33,34);padding-bottom: 10px;" data-width="100%">
+                                <section style="margin: 0px; border-radius: 6px; ">
+                                    <section class="wxqq" style="border: 0px none; padding: 0px 5px;background-color: rgba(192,192,192,0.3);">
+                                        <section style="margin: 0px;text-align:right;padding: 2px 0px;width: 100%;" data-width="100%">
+                                            <section style="margin: 0px 6px;display: inline-block;vertical-align: top;">
+                                                <section style="width: 20px;height: 20px;border-radius: 0 60px 0 0;-moz-border-radius: 0 60px 0 0;-webkit-border-radius: 0 60px 0 0;border-style: double;border-width: 12px 12px 0 0;border-color: rgb(33,33,34);display: inline-block;-webkit-transform: rotate(-45deg);transform: rotate(-45deg);" data-width="20px"></section>
+                                                <section style="width: 6px;height: 6px;border-radius: 8px;-moz-border-radius: 8px;-webkit-border-radius: 8px;background: rgb(33,33,34);margin-top: -6px;margin-left: 7px;" data-width="6px"></section>
+                                            </section>
+                                            <section style="margin: 0px 4px; padding: 0px; display:inline-block;">
+                                                <section style="width: 4px;height: 4px;background: rgb(33,33,34);display: inline-block;margin-right: 1px;" data-width="4px"></section>
+                                                <section style="width: 4px;height: 7px;background: rgb(33,33,34);display: inline-block;margin-right: 1px" data-width="4px"></section>
+                                                <section style="width: 4px;height: 12px;background: rgb(33,33,34);display: inline-block;margin-right: 1px;" data-width="4px"></section>
+                                                <section style="width: 4px;height: 18px;background: rgb(33,33,34);display: inline-block;margin-right: 1px;" data-width="4px"></section>
+                                                <section style="width: 4px;height: 24px;background: rgb(33,33,34);display: inline-block;" data-width="4px"></section>
+                                            </section>
+                                            <section style="margin: 0px 4px;display: inline-block;">
+                                                <section style="width: 25px;height: 15px;margin-top: 2px;border: 3px solid rgb(33,33,34);display: inline-block;border-radius: 2px;" data-width="25px">
+                                                    <section style="height: 10px;width: 10px;background: rgb(33,33,34);" data-width="10px"></section>
+                                                </section>
+                                                <section style="height: 8px;width: 2px;background: rgb(33,33,34);display: inline-block;margin-bottom: 4px;margin-left: 0px;" data-width="2px"></section>
+                                            </section>
+                                            <section style="margin: 0px 4px;display:inline-block;">
+                                                <span style="font-size:14px">01:35</span>
+                                            </section>
+                                        </section>
+                                    </section>
+                                    <section id="previewBox"  data-style="text-align: center;" style="padding: 10px 10px;overflow-x:hidden;overflow-y:auto;min-height:300px;max-height:500px;">
+                                    </section>
+                                </section>
+                            </section>
+                            <section style="width:100%;  margin-top: -0.5em; border-bottom-left-radius: 0.6em; border-bottom-right-radius: 0.6em; box-sizing: border-box; text-align: center; background-color: rgb(33,33,34);padding: 20px;" data-width="100%">
+                                <section data-bcless="spin" data-bclessp="180" style="width: 25px;height: 25px;border-radius:50%;border:1px solid rgb(255,0,0);display:inline-block;" data-width="25px"></section>
+                            </section>
+                        </section>
+                        <section style="display: block; width: 0; height: 0; clear: both;"></section>
+                    </section>
+
+                </div>
+                <div class="modal-footer text-center">
+                    <p style="text-align:center;margin-bottom:10px;"><a style="font-size: 18px;color:red;" href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank">欢迎反馈问题与建议</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-primary" id="tpl-brush-board" style="position: absolute;display:none;width:400px; z-index: 10001;left: 30px; top: 60px;">
+        <div class="panel-heading"> <span class="pull-right" onclick="$('#tpl-brush-board').toggle();" style="cursor:pointer;">×</span>模板秒刷</div>
+        <div class="panel-body" id="tpl-brush-board-content" style="padding: 10px 20px;overflow-y:auto;">
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="meitu-beautify" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog"  style="width:720px;margin-top:20px;">
+            <div class="modal-content">
+                <div class="modal-header" style="border:0 none">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">编辑图片</h4>
+                </div>
+                <div class="modal-body" style="overflow: hidden;padding: 0;margin: 10px;">
+                    <div id="MeituContent">正在加载美图秀秀编辑器...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="meitu-pingtu" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog"  style="width:720px;margin-top:20px;">
+            <div class="modal-content">
+                <div class="modal-header" style="border:0 none">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">简易拼图上传</h4>
+                </div>
+                <div class="modal-body" style="overflow: hidden;padding: 0;margin: 10px;">
+                    <div id="MeituPingTuContent">正在加载美图秀秀编辑器...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="meitu-full" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog"  style="width:960px;margin-top:20px;">
+            <div class="modal-content">
+                <div class="modal-header" style="border:0 none">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">美图编辑上传</h4>
+                </div>
+                <div class="modal-body" style="overflow: hidden;padding: 0;margin: 10px;">
+                    <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        打开大图片美化时，特效处理会很耗时，可能会造成浏览器卡死。请选择压缩图片！</div>
+                    <div id="MeituFullContent">正在加载美图秀秀编辑器...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="paragraph-setting" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog"  style="width:600px;margin-top:20px;">
+            <div class="modal-content">
+                <div class="modal-header" style="border:0 none">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">段落设置</h4>
+                </div>
+                <div class="modal-body" style="overflow: hidden;padding: 0;margin: 10px;">
+                    <form class="form-horizontal">
+                        <div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">行高</label>
+                                    <div class="col-sm-7 controls">
+                                        <input class="form-control" value="1.5em" id="paragraph-lineHeight" type="text">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">字体</label>
+                                    <div class="col-sm-7 controls">
+                                        <select  class="form-control" id="paragraph-fontFamily">
+                                            <option value="微软雅黑">微软雅黑</option>
+                                            <option value="宋体">宋体</option>
+                                            <option value="楷体">楷体</option>
+                                            <option value="黑体">黑体</option>
+                                            <option value="隶书,SimLi">隶书</option>
+                                            <option value="arial">arial</option>
+                                            <option value="sans-serif">sans-serif</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">字号</label>
+                                    <div class="col-sm-7 controls">
+                                        <input class="form-control" placeholder="字号" value="14px" id="paragraph-fontSize" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">首行缩进</label>
+                                    <div class="col-sm-7 controls">
+                                        <input class="form-control" id="paragraph-textIndent" value="0em" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">段前距</label>
+                                    <div class="col-sm-7 controls">
+                                        <input class="form-control" id="paragraph-paddingTop" value="5px" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-5 control-label">段后距</label>
+                                    <div class="col-sm-7 controls">
+                                        <input class="form-control" id="paragraph-paddingBottom" value="5px" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" onclick="applyParagraph('active');" class="btn btn-primary" data-dismiss="modal">应用到本样式</button>
+                    <button type="button" onclick="applyParagraph('all');" class="btn btn-warning" data-dismiss="modal">应用到全文</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- end full-page -->
+
+
+<div style="position:fixed;z-index:10000;bottom:0px;width:100%;height:36px;background:rgba(45,45,45,0.5);color:#999;line-height:36px;">
+    <div style="position:relative;max-width: 1200px; margin: 0px auto;">
+        <div style="float:right;margin-right:5px;top:0px;">
+            <a target="_blank" href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" class="btn btn-default btn-xs">反馈意见</a>
+        </div>
+
+        <div class="ifo" style="width:1120px;margin:0 auto;">
+            <p  style="font-size:12px;clear:none;color:#999;padding: 0;display:inline-block;">
+                Powered By qklinSoft. <a href="http://wpa.qq.com/msgrd?V=1&uin=1187328898&Site=weixinquanquan.com&Menu=yes" target="_blank">联系客服</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!--bottomRight-->
+<div id="feedsModal" class="panel panel-primary" style="position:fixed;z-index:10001;width:300px;margin-bottom: 0px;border:0 none;right:2px;bottom:0px;">
+    <div class="panel-body" style="padding:0 0;">
+        <button type="button" class="close float-right" style="position: absolute;right: 10px;opacity: 0.8;" onclick="$('#feedsModal').hide();"><span style="font-size: 16px;">关闭</span></button>
+        <div style="padding:10px 20px;">
+            {$rightTip['code']}
+        </div>
+    </div>
+</div>
+<!--bottomRight-->
+
+<!--modal-->
+<div class="modal fade" id="saveModal" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">保存模版</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" onsubmit="return false;">
+                                <div class="form-group">
+                                    <label for="tplName" class="col-sm-2 control-label">图文标题 *</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" value="{:stripslashes($info['title'])}" class="form-control" id="tplName" placeholder="请输入保存的模版名字">
+                                        <input type="hidden" class="form-control" id="tplid" value="{$tpl['id']}">
+                                        <input type="hidden" class="form-control" id="tpltype" value="{$tpl['type']}">
+                                        <input type="hidden" class="form-control" id="tplmpid" value="{$tpl['mp_id']}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tplName" class="col-sm-2 control-label">所属授权公众号 *</label>
+                                    <div class="col-sm-10">
+                                        <select id="saveMp" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-9 controls">
+                                        <p style="font-weight:bold;font-size:14px;">将公众号授权给微信圈圈平台，再保存到授权公众号，<span style="color:#aaa;">[可以直接<a href="/index.php/Home/task/multiple" target="_blank">定时群发</a>推文，解放你的时间]</span>.</p>
+                                        <p><br></p>
+                                        <p style="font-weight:bold;font-size:14px;">保存到授权公众号，<span style="color:#aaa;">[本模版有微信圈圈生成]替换成自己的授权公众号名称</span>.</p>
+                                        <p><br></p>
+                                        <p style="font-weight:bold;font-size:16px;">
+                                            <a href="/index.php/Wechat/Tuoguan/enter" style="color:red;" target="_blank">立即授权</a>，授权后还可以同步素材到微信素材库
+                                        </p>
+                                        <p><br></p>
+                                        <p style="font-weight:bold;font-size:14px;">授权不会对微信公众号现有的各种第三方功能及微信原生功能产生影响。</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="wxqqSaveTpl btn btn-success" style="width:100px">保 存</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                <!--<button type="button" class="btn btn-primary">保存</button>-->
+            <!--</div>-->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="syncModal" role="dialog">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">同步到微信 (建议保存成功后再同步，同步后不会重新创建推文)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" onsubmit="return false;">
+                                <div class="form-group">
+                                    <label for="syncTplName" class="col-sm-2 control-label">同步到微信的标题 *</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="syncTplName" value="{:stripslashes($info['title'])}" placeholder="请输入同步到微信的推文标题">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="author" class="col-sm-2 control-label">同步到微信的作者 *</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="author" value="{:stripslashes($info['author'])}" placeholder="请输入同步到微信的公众号前的作者名，可留空">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="digest" class="col-sm-2 control-label">同步到微信的摘要 *</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" id="digest" rows="3" placeholder="请输入同步到微信的摘要描述">{:stripslashes($info['digest'])}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="source_url" class="col-sm-2 control-label">阅读原文的连接 *</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="source_url" value="{:stripslashes($info['source_url'])}" placeholder="请输入阅读原文的连接">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="author" class="col-sm-2 control-label">封面 *</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-cover">
+                                            <div class="upload-wrap">
+                                              <span class="btn btn-primary fileinput-button">
+                                                  <i class="fa fa-upload"></i>
+                                                  <span>&nbsp;上 传 （大图片建议尺寸：900像素*500像素 格式：png、gif、jpg）</span>
+                                                  <input type="hidden" name="wxqq_thumb_pic" id="wxqq_thumb_pic" value="{$info['wxqq_thumb_pic']}">
+                                                  <input type="file" name="pic" id="fileinput-file-upload" onchange="upload('fileinput-file-upload');">
+                                              </span>
+                                            </div>
+                                            <?php if($info['wxqq_thumb_pic']) { ?>
+                                            <div class="upload-preview-wrap clearfix">
+                                                <img class="upload-preview-img" src="{$info['wxqq_thumb_pic']}" alt="">
+                                                <a href="{$info['wxqq_thumb_pic']}" id="upload-preview-blank" target="_blank">查看大图</a>
+                                            </div>
+                                            <?php } else { ?>
+                                            <div class="upload-preview-wrap clearfix" style="display:none;">
+                                                <img class="upload-preview-img" src="{$info['wxqq_thumb_pic']}" alt="">
+                                                <a href="{$info['wxqq_thumb_pic']}" id="upload-preview-blank" target="_blank">查看大图</a>
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="source_url" class="col-sm-2 control-label">是否显示封面 *</label>
+                                    <div class="col-sm-10">
+                                        <label class="radio-inline">
+                                            <?php if(!$info['show_cover_pic']){  ?>
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic0" value="0" checked> 不显示
+                                            <?php }else{  ?>
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic0" value="0"> 不显示
+                                            <?php } ?>
+                                        </label>
+                                        <label class="radio-inline">
+                                            <?php if($info['show_cover_pic']){  ?>
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic1" value="1" checked> 显示
+                                            <?php }else{  ?>
+                                            <input type="radio" name="show_cover_pic" id="show_cover_pic1" value="1" > 显示
+                                            <?php } ?>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="syncMp" class="col-sm-2 control-label">选择同步的公众号 *</label>
+                                    <div class="col-sm-10">
+                                        <select id="syncMp" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group syncModalTip">
+
+                                    <label class="col-sm-2 control-label"></label>
+                                    <div class="col-sm-9 controls">
+                                        <p style="font-weight:bold;font-size:16px;">
+                                            你还未授权/选中的公众号授权超时，请<a href="/index.php/Wechat/Tuoguan/enter" style="color:red;" target="_blank">立即授权</a>，才可以同步
+                                        </p>
+                                        <p><br></p>
+                                        <p style="font-weight:bold;font-size:14px;">跳转到授权页面后授权成功后关掉页面回来后，即可直接【立即同步】</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="syncwx btn btn-success" style="width:100px">立即同步</button> &nbsp; &nbsp; &nbsp;
+                                        <a href="/index.php/Wechat/Tuoguan/enter" target="_blank" class="btn btn-info" data-toggle="tooltip" data-html="true" data-container="body" data-placement="top" title="点击跳转到授权页面<br />切换新的公众号授权即可<br />然后返回刷新页面即可">新增授权公众号</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                <!--<button type="button" class="btn btn-primary">保存</button>-->
+            <!--</div>-->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">注册 或 登录</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6" style="text-align: right">
+                            <a href="/index.php/Home/Auth/qqlogin"><img src="/static/new/images/logo_qq.png" alt="QQ登录"></a>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="/index.php/Home/Auth/sinalogin"><img src="/static/new/images/logo_weibo.png" alt="新浪微博登录"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="notSupportModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+                <h4 class="modal-title">你目前使用的浏览器不太适应微信圈圈编辑器</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12" style="text-align: left">
+                            你的浏览器不支持微信圈圈编辑器，请下载现在浏览器使用本站，如下都可以：<br />
+                            <a href="http://down.tech.sina.com.cn/page/40975.html" target="_blank">chrome</a><br />
+                            <a href="http://www.firefox.com.cn/" target="_blank">火狐</a><br />
+                            <a href="http://chrome.360.cn/" target="_blank">360极速浏览器</a><br />
+                            <a href="http://browser.qq.com/" target="_blank">QQ浏览器等</a><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--modal end-->
+
+<!--[if lt IE 9]>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<![endif]-->
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/static/new/js/ZeroClipboard/ZeroClipboard.min.js"></script>
+<script type="text/javascript" src="/static/new/js/colorPicker/lib/color.all.min.js"></script>
+<script type="text/javascript" src="/static/new/js/colorPicker/jqColor.js"></script>
+<script type="text/javascript" src="/static/new/js/jquery.toaster.js"></script>
+<script type="text/javascript" src="/static/new/js/jquery.cookie.js"></script>
+<script src="/static/js/jquery.ajaxfileupload.js"></script>
+<script>
+    ZeroClipboard.config( { swfPath: "/static/new/js/ZeroClipboard/ZeroClipboard.swf" } );
+</script>
+<script type="text/javascript" src="/static/new/js/dev.js"></script>
+
+<div id="bg-choose" title="点击更换编辑器背景图" data-toggle="tooltip" data-placement="right" data-container="body" style="position:fixed;bottom:28px;left:0px;z-index:10;height:auto;width:30px;border:0;padding:5px 0;background:rgba(58,51,50,0.5);">
+    <div class="chooser" style="background:#c9b3a5;" data-bg="#c9b3a5;" data-url="http://i4.tietuku.cn/60136a869615925e.jpg"></div>
+    <div class="chooser" style="background:#ba907b;" data-bg="#ba907b;" data-url="http://i4.tietuku.cn/60136a869615925e.jpg"></div>
+    <div class="chooser" style="background:#fcdebd;" data-bg="#fcdebd;" data-url="http://i4.tietuku.cn/149135d1eefd9eb1s.jpg"></div>
+    <div class="chooser" style="background:#b0bbb7;" data-bg="#b0bbb7;" data-url="http://i4.tietuku.cn/149135d1eefd9eb1s.jpg"></div>
+    <div class="chooser" style="background:#584446;" data-bg="#584446;" data-url="http://i4.tietuku.cn/149135d1eefd9eb1s.jpg"></div>
+    <div class="chooser" style="background:#D06F79;" data-bg="#D06F79;" data-url="http://i4.tietuku.cn/149135d1eefd9eb1s.jpg"></div>
+    <div class="chooser" style="background:#475016;" data-bg="#475016;" data-url="http://i4.tietuku.cn/149135d1eefd9eb1s.jpg"></div>
+</div>
+<div style="display: none;">
+    <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1253561866'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s23.cnzz.com/stat.php%3Fid%3D1253561866' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+</body>
+</html>

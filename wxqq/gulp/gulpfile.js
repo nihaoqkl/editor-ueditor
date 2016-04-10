@@ -46,7 +46,7 @@ gulp.task('less', function () {
 });
 
 gulp.task('rev',['html'], function() {
-    return gulp.src(['asset/rev/**/*.json', 'asset/rev/wxqq.html'])   //- 读取rev-manifest.json 文件以及需要进行css名替换的文件
+    return gulp.src(['asset/rev/**/*.json', 'asset/rev/dev.html'])   //- 读取rev-manifest.json 文件以及需要进行css名替换的文件
         .pipe(revCollector())                        //- 执行文件内css名的替换
         .pipe(gulp.dest('../'));                     //- 替换后的文件输出的目录
 
@@ -120,3 +120,7 @@ gulp.task('dev', ['clean'], function(){
 gulp.task('default', ['dev','watch']);
 
 gulp.task('build', ['online','watchol']);
+
+
+//gulp dev 测试使用,代码 成功后复制到online文件里去用online编译上线
+//gulp online 上线使用
