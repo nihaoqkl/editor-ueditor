@@ -45,10 +45,45 @@ gulp.task('less', function () {
         .pipe(livereload());
 });
 
+gulp.task('gorsejsmin', function () {
+    //return gulp.src(['asset/js/gorse.js','asset/js/ueditor.all.min.js'])
+    return gulp.src(['asset/js/gorse.js'])
+        .pipe(uglify())
+        .pipe(rev())
+        .pipe(gulp.dest('../wxqq/js'))
+        .pipe( rev.manifest() )
+        .pipe( gulp.dest( 'asset/rev/js' ) )
+        .pipe(livereload());
+});
+
+gulp.task('gorseless', function () {
+    return gulp.src(['asset/css/gorse-enter.less'])
+        .pipe(less())
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: true, //是否美化属性值 默认：true 像这样：
+            //-webkit-transform: rotate(45deg);
+            //        transform: rotate(45deg);
+            remove:true //是否去掉不必要的前缀 默认：true
+        }))
+        .pipe(cssmin())
+        .pipe(rev())
+        .pipe(gulp.dest('../wxqq/css'))
+        .pipe( rev.manifest() )
+        .pipe( gulp.dest( 'asset/rev/css' ) )
+        .pipe(livereload());
+});
+
 gulp.task('rev',['html'], function() {
     return gulp.src(['asset/rev/**/*.json', 'asset/rev/dev.html'])   //- 读取rev-manifest.json 文件以及需要进行css名替换的文件
         .pipe(revCollector())                        //- 执行文件内css名的替换
         .pipe(gulp.dest('../'));                     //- 替换后的文件输出的目录
+
+});
+gulp.task('gorserev',['gorsehtml'], function() {
+    return gulp.src(['asset/rev/**/*.json', 'asset/rev/gorse.html'])   //- 读取rev-manifest.json 文件以及需要进行css名替换的文件
+        .pipe(revCollector())                        //- 执行文件内css名的替换
+        .pipe(gulp.dest('../wxqq'));                     //- 替换后的文件输出的目录
 
 });
 gulp.task('olrev',['olhtml'], function() {
@@ -71,6 +106,24 @@ gulp.task('html',['less','jsmin'], function () {
     };
 
     return gulp.src('asset/html/wxqq.html')
+        .pipe(htmlmin(options))
+        .pipe(gulp.dest('asset/rev'))
+        .pipe(livereload());
+});
+
+gulp.task('gorsehtml',['gorseless','gorsejsmin'], function () {
+    var options = {
+        removeComments: true,//清除HTML注释
+        collapseWhitespace: true,//压缩HTML
+        collapseBooleanAttributes: true,//省略布尔属性的值 <input checked="true"/> ==> <input />
+        removeEmptyAttributes: true,//删除所有空格作属性值 <input id="" /> ==> <input />
+        removeScriptTypeAttributes: true,//删除<script>的type="text/javascript"
+        removeStyleLinkTypeAttributes: true,//删除<style>和<link>的type="text/css"
+        minifyJS: true,//压缩页面JS
+        minifyCSS: true//压缩页面CSS
+    };
+
+    return gulp.src('asset/html/gorse.html')
         .pipe(htmlmin(options))
         .pipe(gulp.dest('asset/rev'))
         .pipe(livereload());
@@ -115,6 +168,10 @@ gulp.task('online', ['clean'], function(){
 
 gulp.task('dev', ['clean'], function(){
     return gulp.start('rev');
+});
+
+gulp.task('gorse', ['clean'], function(){
+    return gulp.start('gorserev');
 });
 
 gulp.task('default', ['dev','watch']);
