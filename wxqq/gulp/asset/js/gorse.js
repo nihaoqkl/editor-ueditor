@@ -136,10 +136,10 @@ var modalCommon={
 function getTpls(type){
     $('#base .block-list').html('');
     $('#base .block-list').append('<li id="tplLoading"><img src="/static/new/images/circle_ball.gif"></li>');
-    $.get('/index.php/Home/New/getTpls',function(data){
+    $.get('/index.php/Home/Gorse/getTpls',function(data){
         $('#base .block-list').html(data);
         $('#base .block-list li').hide();
-        $('#base .block-list').find('.wxqq-tpl1').show();
+        $('#base .block-list').find('.wxqq-sid-6').show();
         $('#tplLoading').remove();
 
     });
@@ -345,9 +345,9 @@ function tplBaseFilter(filterobj){
     $('#base .block-list li').hide();
 
     if(filterobj.sid == '0') {
-        $('#base .block-list li').find('wxqq-pid-'+filterobj.pid).show();
+        $('#base .block-list').find('.wxqq-pid-'+filterobj.pid).show();
     } else {
-        $('#base .block-list li').find('wxqq-sid-'+filterobj.sid).show();
+        $('#base .block-list').find('.wxqq-sid-'+filterobj.sid).show();
     }
 
 }
@@ -392,14 +392,9 @@ $(function(){
     //选项卡
     $('a[data-toggle="tab"]').on('click',function (e) {
 
-        //如果不是外层的选项卡去掉第一个的active
-        if($(this).parent().hasClass('outerLi')) {
-            $('.outerNav').eq(0).removeClass('active in');
-        } else {
+        if($(this).parents('#js-get-assets').size() >= 1 && !$('#assets').hasClass('active')){
             $('#assets').addClass('active in');
-            $(this).parents('.outerLi').addClass('active in');
-            $('#assets').find('.tab-pane').removeClass('active in');
-
+            $(this).parents('#js-get-assets').addClass('active in');
         }
 
         $(this).tab('show');

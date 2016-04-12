@@ -38,20 +38,34 @@ function getContent(){
     }
 
     //替换微信cdn前缀
-    //html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\"/g,cdnReplace);
-    //html = html.replace(/src=\"http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\"/g,cdnReplace);
-    html = html.replace(/src=\"http:\/\/remote\.wx135\.com\/oss\/view\?d=(.+?)\"/g,cdnReplace);
+    html = html.replace(/src=\"http:\/\/www\.weixinquanquan\.com\/wxrd\?d=(.+?)\"/g,cdnReplace);
 
     function cdnReplace2(){
         return 'url(' + decodeURIComponent(arguments[1]) + ')';
     }
 
     //替换微信cdn前缀
-    //html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&w=1200&url=(.+?)\)/g,cdnReplace2);
-    //html = html.replace(/url\(http:\/\/img03\.store\.sogou\.com\/net\/a\/04\/link\?appid=100520031&amp;w=1200&amp;url=(.+?)\)/g,cdnReplace2);
-    html = html.replace(/url\(http:\/\/remote\.wx135\.com\/oss\/view\?d=(.+?)\)/g,cdnReplace2);
+    html = html.replace(/url\(http:\/\/www.\.weixinquanquan\.com\/wxrd\?d=(.+?)\)/g,cdnReplace2);
 
-    return html.replace(/(<p>\s*<br\s*\/>\s*<\/p>){2,}/ig,'<p><br><\/p>');
+    //替换微信cdn前缀
+    $html =$(html);
+
+    $html.find('.replace').each(function(i,v){
+        var that = $(v);
+        var re = RegExp(that.data('ttk'),'gi');
+        if(that.hasClass('replace-bg')) {
+            that.replaceWith( html.replace(re , that.data('wxurl')) );
+        }
+        if(that.hasClass('replace-src') && that.attr('src') == that.data('ttk') ) {
+            that.replaceWith( that.attr( 'src',that.data('wxurl') ) );
+        }
+
+    });
+
+    html = $html.html();
+
+    //return html.replace(/(<p>\s*<br\s*\/>\s*<\/p>){2,}/ig,'<p><br><\/p>');
+    return html.replace(/(<p>\s*<br\s*\/>\s*<\/p>){1,}/ig,'');
 }
 function resize(e){
     $('#edui1_iframeholder').height($(window).height()-137);
