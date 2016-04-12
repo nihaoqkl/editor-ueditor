@@ -11,6 +11,11 @@ var wxqqEditor=null;
 var client = new ZeroClipboard( document.getElementById("copyAllWxqqEditor") );
 var wxqq_tool_bar_copy_client = new ZeroClipboard( document.getElementById("wxqq_tool_bar_copy") );
 function appendHtml(html){
+
+    //todo
+    $html = $('<div>'+html+'</div>');
+    $html.find('img').each();
+
     wxqqEditor.execCommand('insertHtml', html);
 }
 function appendSymbol(obj){
@@ -33,39 +38,47 @@ function getContent(){
 
     var html = wxqqEditor.getContent();
 
-    function cdnReplace(){
-        return 'src="' + decodeURIComponent(arguments[1]) + '"';
-    }
+    //function cdnReplace(){
+    //    return 'src="' + decodeURIComponent(arguments[1]) + '"';
+    //}
+    //
+    ////替换微信cdn前缀
+    //html = html.replace(/src=\"http:\/\/www\.weixinquanquan\.com\/wxrd\?d=(.+?)\"/g,cdnReplace);
+    //
+    //function cdnReplace2(){
+    //    return 'url(' + decodeURIComponent(arguments[1]) + ')';
+    //}
+    //
+    ////替换微信cdn前缀
+    //html = html.replace(/url\(http:\/\/www.\.weixinquanquan\.com\/wxrd\?d=(.+?)\)/g,cdnReplace2);
 
     //替换微信cdn前缀
-    html = html.replace(/src=\"http:\/\/www\.weixinquanquan\.com\/wxrd\?d=(.+?)\"/g,cdnReplace);
-
-    function cdnReplace2(){
-        return 'url(' + decodeURIComponent(arguments[1]) + ')';
-    }
-
-    //替换微信cdn前缀
-    html = html.replace(/url\(http:\/\/www.\.weixinquanquan\.com\/wxrd\?d=(.+?)\)/g,cdnReplace2);
-
-    //替换微信cdn前缀
-    $html =$(html);
+    $html =$('<div>' +html + '</div>');
 
     $html.find('.replace').each(function(i,v){
         var that = $(v);
-        var re = RegExp(that.data('ttk'),'gi');
+        var myhtml = that.prop('outerHTML');
+        var re = new RegExp(that.data('ttk'),'gi');
         if(that.hasClass('replace-bg')) {
-            that.replaceWith( html.replace(re , that.data('wxurl')) );
+            myhtml =  myhtml.replace(re , that.data('wxurl')) ;
         }
-        if(that.hasClass('replace-src') && that.attr('src') == that.data('ttk') ) {
-            that.replaceWith( that.attr( 'src',that.data('wxurl') ) );
+        var $tmp = $(myhtml);
+
+        if($tmp.hasClass('replace-src') && $tmp.attr('src') == $tmp.data('ttk') ) {
+            $tmp.attr( 'src',$tmp.data('wxurl') );
         }
+
+        $tmp.insertBefore(that);
+
+        that.remove();
 
     });
 
     html = $html.html();
 
-    //return html.replace(/(<p>\s*<br\s*\/>\s*<\/p>){2,}/ig,'<p><br><\/p>');
-    return html.replace(/(<p>\s*<br\s*\/>\s*<\/p>){1,}/ig,'');
+    html = html.replace(/(<p>\s*<br\s*\/{0,1}>\s*<\/p>){1,}/ig,'');
+
+    return html;
 }
 function resize(e){
     $('#edui1_iframeholder').height($(window).height()-137);
