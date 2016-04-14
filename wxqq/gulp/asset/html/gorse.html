@@ -5685,7 +5685,20 @@
                 <form action="" class="form-horizontal editorBox" style="background-color:transparent;position: relative;" role="form" target="_blank" id="WxMsgViewForm" method="post" accept-charset="utf-8">
                     <div id="image-preview"></div>
                     <script id="editorContent" type="text/plain">{$info['code']}</script>
-                    <div id="wxqq_tool_bar">
+                    <div id="wxqq_tool_bar" style="display:none;">
+                        <div class="wxqq_tool_width_modify_content" style="display:none;width:200px;">
+                            <div class="wxqq_tool_width_modify">
+                                <span class="text" style="" title="调整左右分栏宽度比例">调整宽度比例</span>
+                                <div class="complete" style="width: 200px">100%</div>
+                                <div class="marker"></div>
+                            </div>
+                            <div class="wxqq_tool_width_modify_bar">
+                                <span title="左浮动" id="wxqq_tool_width_modify_left"> 左浮动 </span>
+                                <span title="居中" id="wxqq_tool_width_modify_center"> 居中 </span>
+                                <span title="右浮动" id="wxqq_tool_width_modify_right"> 右浮动</span>
+                                <span title="清除" id="wxqq_tool_width_modify_clear"> 清除</span>
+                            </div>
+                        </div>
                         <div class="wxqq_tool_bar_content">
                             <span title="复制" id="wxqq_tool_bar_copy"><i class="fa fa-copy"></i></span>
                             <span title="删除" id="wxqq_tool_bar_del"><i class="fa fa-trash"></i></span>

@@ -4,6 +4,7 @@
 var wxqqEditor=null;
 var winHeight = 1000;
 var editorHeight = 1000;
+var selectNode=null;
 var client = new ZeroClipboard( document.getElementById("copyAllWxqqEditor") );
 var wxqq_tool_bar_copy_client = new ZeroClipboard( document.getElementById("wxqq_tool_bar_copy") );
 
@@ -193,6 +194,24 @@ function changeColorEditor(color){
 
 //浮动快捷工具条
 
+//是否需要显示宽度调节器
+function WidthModify($node){
+    if($node.size() == 0 ) {
+        $('#wxqq_tool_bar .wxqq_tool_width_modify_content').hide();
+    } else {
+        var percent = ($node.data('width-percent') || '100%').replace('%','');
+        $('#wxqq_tool_bar .wxqq_tool_width_modify .complete').css({width: ( 200 * (percent / 100) ) +'px'});
+        if(percent >= 14) {
+            $('#wxqq_tool_bar .wxqq_tool_width_modify .complete').text(percent + '%');
+        } else {
+            $('#wxqq_tool_bar .wxqq_tool_width_modify .complete').text('');
+        }
+        $('#wxqq_tool_bar .wxqq_tool_width_modify .marker').css({left: (( 200 * (percent / 100) ) - 10) +'px'});
+
+        $('#wxqq_tool_bar .wxqq_tool_width_modify_content').show();
+    }
+}
+
 // 删除样式周围的外边框
 function hideWrap (){
     // 判断是否存在外边框,有的话，就删除
@@ -211,13 +230,18 @@ function hideWrap (){
 // 在样式最外层插入虚线边框
 function insertWrap (event){
     // 获取捕捉到的样式
-    var select_node = $(event.target).closest('.wxqq');
-    if(select_node.length == 0){
+    selectNode = $(event.target);
+    var select_node = selectNode.closest('.wxqq');
+
+    var select_width_node = selectNode.closest('.wxqq-width-modify');
+
+    if(select_node.size() == 0){
         hideWrap();
     }
 
     // 判断是否在样式内点击
     if(select_node.parent().attr('id')!='wxqqWrap' && select_node.length>0){
+
         hideWrap();
 
         var wraphtml = '<section id="wxqqWrap" style="border: dashed 1px #00bbec; padding: 5px;"></section>';
@@ -225,8 +249,9 @@ function insertWrap (event){
         var wxqqWrap = select_node.wrap(wraphtml).parent();
         var off_top = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
         var off_right = $(wxqqEditor.document).width() - (wxqqWrap.offset().left + wxqqWrap.width());
+        WidthModify(select_width_node);
         $('#wxqq_tool_bar').show();
-        $('#wxqq_tool_bar').css({top:off_top+70,right:off_right});
+        $('#wxqq_tool_bar').css({top:off_top+72,right:off_right});
         wxqq_tool_bar_copy_client.off( "copy" ); //取消所有的注册事件
         wxqq_tool_bar_copy_client.on( "copy", function( event ) {
             event.clipboardData.setData( "text/html", wxqqWrap.html());
@@ -276,6 +301,7 @@ function styleToolBar (){
             insertWrap(event);
         }
     });
+
 }
 //浮动快捷工具条 end
 
@@ -857,6 +883,105 @@ $(function(){
         // 统计技术
         // style_click($(this).data('id'));
 
+    });
+
+
+    //宽度调整注册事件
+    var modify_flag = false;
+    $('.wxqq_tool_width_modify').on('mousedown','.marker',function(e){
+        modify_flag = true;
+        e.preventDefault();
+    });
+    $('.wxqq_tool_width_modify').on('mousemove',function(e){
+
+        var currentNode = selectNode.closest('.wxqq-width-modify');
+        if(modify_flag && currentNode.size() >= 1) {
+            var offset = $(this).offset();
+            var relativeX = (e.pageX - offset.left);
+            if( relativeX > 10) {
+
+                var percent = (relativeX / 200 * 100).toFixed(0);
+                currentNode.data('width-percent',percent  + '%');
+                currentNode.css('width',percent  + '%');
+
+                if(percent >= 14) {
+                    $('.wxqq_tool_width_modify .complete').css({width: relativeX +'px'}).text( percent  + '%');
+                } else {
+                    $('.wxqq_tool_width_modify .complete').css({width: relativeX +'px'}).text('');
+                }
+                $('.wxqq_tool_width_modify .marker').css({left: relativeX - 10 +'px'});
+            }
+        }
+
+        e.preventDefault();
+
+    });
+    $('#wxqq_tool_bar').on('mouseup', function(e){
+
+        if(modify_flag) {
+
+            var current_top = selectNode.closest('.wxqq').offset().top + selectNode.closest('.wxqq').height() - $(wxqqEditor.document).scrollTop();
+            $('#wxqq_tool_bar').css('top',current_top + 60);
+
+            modify_flag = false;
+        }
+
+        e.preventDefault();
+    });
+
+    //宽度的node的位置调整
+    $('#wxqq_tool_width_modify_left').on('click',function (){
+        var currentNode = selectNode.closest('.wxqq-width-modify');
+        if(currentNode.size() >= 1) {
+            currentNode.css({float:'left'});
+            if(!currentNode.next().hasClass('wxqq-clear')) {
+                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentNode);
+            }
+
+            if(currentNode.data('marginAuto') != '1') {
+                currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
+                currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            }
+        }
+    });
+    $('#wxqq_tool_width_modify_right').on('click',function (){
+        var currentNode = selectNode.closest('.wxqq-width-modify');
+        if(currentNode.size() >= 1) {
+            currentNode.css({float:'right'});
+            if(!currentNode.next().hasClass('wxqq-clear')) {
+                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentNode);
+            }
+
+            if(currentNode.data('marginAuto') != '1') {
+                currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
+                currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            }
+        }
+    });
+    $('#wxqq_tool_width_modify_center').on('click',function (){
+        var currentNode = selectNode.closest('.wxqq-width-modify');
+        if(currentNode.size() >= 1) {
+
+            currentNode.data('marginAuto', '1');
+            currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
+            currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+
+            currentNode.css({float:'none'});
+            currentNode.siblings('.wxqq-clear').remove();
+            currentNode.css({
+                margin: (currentNode.css('marginTop')?currentNode.css('marginTop'):'0px') + ' auto ' + (currentNode.css('marginBottom')?currentNode.css('marginBottom'):'0px') + ' auto'
+            });
+        }
+    });
+    $('#wxqq_tool_width_modify_clear').on('click',function (){
+        var currentNode = selectNode.closest('.wxqq-width-modify');
+        if(currentNode.size() >= 1) {
+            currentNode.css({float:'none'});
+            currentNode.siblings('.wxqq-clear').remove();
+            currentNode.css({
+                margin: (currentNode.css('marginTop')?currentNode.css('marginTop'):'0px') + ' ' + (currentNode.data('marginRight')?currentNode.data('marginRight'):'0px') + ' ' + (currentNode.css('marginBottom')?currentNode.css('marginBottom'):'0px') + ' ' + (currentNode.data('marginLeft')?currentNode.data('marginLeft'):'0px')
+            });
+        }
     });
 
     //加载所有的模版
