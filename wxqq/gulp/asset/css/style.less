@@ -381,6 +381,8 @@ ol.sync-article-list li.placeholder:before {position: absolute;
   -moz-user-select: none;
   user-select: none;
 }
+
+/** 宽度  **/
 #wxqq_tool_bar .wxqq_tool_width_modify{
   height: 16px !important;
   width: auto;
@@ -427,6 +429,56 @@ ol.sync-article-list li.placeholder:before {position: absolute;
   font-size:12px;
   cursor:pointer;
 }
+
+/** rotate 翻转  **/
+#wxqq_tool_bar .wxqq_tool_rotate_modify{
+  height: 16px !important;
+  width: auto;
+  position: relative;
+  background-color: #e6e6e6;
+  //margin-bottom: 5px;
+}
+#wxqq_tool_bar .wxqq_tool_rotate_modify .text{
+  float:right;
+  z-index: 5;
+  color: #333;
+  line-height: 16px;
+  font-size: 10px;
+}
+#wxqq_tool_bar .wxqq_tool_rotate_modify .complete{
+  height: 100%;
+  width: auto;
+  color:#333;
+  font-size:10px;
+  line-height:16px;
+  text-align:center;
+  background-color: #fff;
+  z-index: 2;
+}
+#wxqq_tool_bar .wxqq_tool_rotate_modify .marker{
+  height: 16px;
+  width: 12px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 100px;
+  background-color: #318DA5;
+  z-index: 3;
+}
+#wxqq_tool_bar .wxqq_tool_rotate_modify_bar{
+  margin-bottom : 5px;
+  border: 1px solid #fff;
+  border-top:none;
+}
+#wxqq_tool_bar .wxqq_tool_rotate_modify_bar span{
+  display: inline-block;
+  padding:0 4px;
+  color:#fff;
+  font-size:12px;
+  cursor:pointer;
+}
+
+
 #wxqq_tool_bar .wxqq_tool_bar_content{
   float: right;
   border-radius: 5px;

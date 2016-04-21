@@ -309,6 +309,30 @@ function WidthModify($node){
     }
 }
 
+//是否需要显示翻转调节器
+function RotateModify($node){
+    if($node.size() == 0 ) {
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify_content').hide();
+    } else {
+        var rotatez = ($node.data('rotatez') || 0);
+
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify .complete').text(rotatez);
+
+        var left = 100;
+
+        if(rotatez >= 0 ) {
+            left = 100 + (100 / 180 * rotatez);
+        } else {
+            left = 100 - (100 / 180 * rotatez);
+        }
+
+
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify .marker').css({left: left +'px'});
+
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify_content').show();
+    }
+}
+
 // 删除样式周围的外边框
 function hideWrap (){
     // 判断是否存在外边框,有的话，就删除
@@ -331,6 +355,7 @@ function insertWrap (event){
     var select_node = selectNode.closest('.wxqq');
 
     var select_width_node = selectNode.closest('.wxqq-width-modify');
+    var select_rotate_node = selectNode.closest('.wxqq');
 
     if(select_node.size() == 0){
         hideWrap();
@@ -347,6 +372,7 @@ function insertWrap (event){
         var off_top = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
         var off_right = $(wxqqEditor.document).width() - (wxqqWrap.offset().left + wxqqWrap.width());
         WidthModify(select_width_node);
+        RotateModify(select_rotate_node);
         $('#wxqq_tool_bar').show();
         $('#wxqq_tool_bar').css({top:off_top+72,right:off_right});
         wxqq_tool_bar_copy_client.off( "copy" ); //取消所有的注册事件
@@ -1015,22 +1041,22 @@ $(function(){
     });
 
     //宽度调整注册事件
-    var modify_flag = false;
+    var width_modify_flag = false;
     $('.wxqq_tool_width_modify').on('mousedown','.marker',function(e){
-        modify_flag = true;
+        width_modify_flag = true;
         e.preventDefault();
     });
     $('.wxqq_tool_width_modify').on('mousemove',function(e){
 
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(modify_flag && currentNode.size() >= 1) {
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(width_modify_flag && currentWidthNode.size() >= 1) {
             var offset = $(this).offset();
             var relativeX = (e.pageX - offset.left);
             if( relativeX > 10) {
 
                 var percent = (relativeX / 200 * 100).toFixed(0);
-                currentNode.data('width-percent',percent  + '%');
-                currentNode.css('width',percent  + '%');
+                currentWidthNode.data('width-percent',percent  + '%');
+                currentWidthNode.css('width',percent  + '%');
 
                 if(percent >= 14) {
                     $('.wxqq_tool_width_modify .complete').css({width: relativeX +'px'}).text( percent  + '%');
@@ -1044,14 +1070,19 @@ $(function(){
         e.preventDefault();
 
     });
+
+    //判定位置变化调整浮动工具位置
     $('#wxqq_tool_bar').on('mouseup', function(e){
 
-        if(modify_flag) {
+        if(width_modify_flag) {
 
             var current_top = selectNode.closest('.wxqq').offset().top + selectNode.closest('.wxqq').height() - $(wxqqEditor.document).scrollTop();
             $('#wxqq_tool_bar').css('top',current_top + 60);
 
-            modify_flag = false;
+            width_modify_flag = false;
+        }
+        if(rotate_modify_flag) {
+            rotate_modify_flag = false;
         }
 
         e.preventDefault();
@@ -1059,58 +1090,132 @@ $(function(){
 
     //宽度的node的位置调整
     $('#wxqq_tool_width_modify_left').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
-            currentNode.css({float:'left'});
-            if(!currentNode.next().hasClass('wxqq-clear')) {
-                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentNode);
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
+            currentWidthNode.css({float:'left'});
+            if(!currentWidthNode.next().hasClass('wxqq-clear')) {
+                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentWidthNode);
             }
 
-            if(currentNode.data('marginAuto') != '1') {
-                currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
-                currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            if(currentWidthNode.data('marginAuto') != '1') {
+                currentWidthNode.data('marginLeft', (currentWidthNode.css('marginLeft')?currentWidthNode.css('marginLeft'):'0px') );
+                currentWidthNode.data('marginRight', (currentWidthNode.css('marginRight')?currentWidthNode.css('marginRight'):'0px') );
             }
         }
     });
     $('#wxqq_tool_width_modify_right').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
-            currentNode.css({float:'right'});
-            if(!currentNode.next().hasClass('wxqq-clear')) {
-                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentNode);
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
+            currentWidthNode.css({float:'right'});
+            if(!currentWidthNode.next().hasClass('wxqq-clear')) {
+                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentWidthNode);
             }
 
-            if(currentNode.data('marginAuto') != '1') {
-                currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
-                currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            if(currentWidthNode.data('marginAuto') != '1') {
+                currentWidthNode.data('marginLeft', (currentWidthNode.css('marginLeft')?currentWidthNode.css('marginLeft'):'0px') );
+                currentWidthNode.data('marginRight', (currentWidthNode.css('marginRight')?currentWidthNode.css('marginRight'):'0px') );
             }
         }
     });
     $('#wxqq_tool_width_modify_center').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
 
-            currentNode.data('marginAuto', '1');
-            currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
-            currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            currentWidthNode.data('marginAuto', '1');
+            currentWidthNode.data('marginLeft', (currentWidthNode.css('marginLeft')?currentWidthNode.css('marginLeft'):'0px') );
+            currentWidthNode.data('marginRight', (currentWidthNode.css('marginRight')?currentWidthNode.css('marginRight'):'0px') );
 
-            currentNode.css({float:'none'});
-            currentNode.siblings('.wxqq-clear').remove();
-            currentNode.css({
-                margin: (currentNode.css('marginTop')?currentNode.css('marginTop'):'0px') + ' auto ' + (currentNode.css('marginBottom')?currentNode.css('marginBottom'):'0px') + ' auto'
+            currentWidthNode.css({float:'none'});
+            currentWidthNode.siblings('.wxqq-clear').remove();
+            currentWidthNode.css({
+                margin: (currentWidthNode.css('marginTop')?currentWidthNode.css('marginTop'):'0px') + ' auto ' + (currentWidthNode.css('marginBottom')?currentWidthNode.css('marginBottom'):'0px') + ' auto'
             });
         }
     });
     $('#wxqq_tool_width_modify_clear').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
-            currentNode.css({float:'none'});
-            currentNode.siblings('.wxqq-clear').remove();
-            currentNode.css({
-                margin: (currentNode.css('marginTop')?currentNode.css('marginTop'):'0px') + ' ' + (currentNode.data('marginRight')?currentNode.data('marginRight'):'0px') + ' ' + (currentNode.css('marginBottom')?currentNode.css('marginBottom'):'0px') + ' ' + (currentNode.data('marginLeft')?currentNode.data('marginLeft'):'0px')
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
+            currentWidthNode.css({float:'none'});
+            currentWidthNode.siblings('.wxqq-clear').remove();
+            currentWidthNode.css({
+                margin: (currentWidthNode.css('marginTop')?currentWidthNode.css('marginTop'):'0px') + ' ' + (currentWidthNode.data('marginRight')?currentWidthNode.data('marginRight'):'0px') + ' ' + (currentWidthNode.css('marginBottom')?currentWidthNode.css('marginBottom'):'0px') + ' ' + (currentWidthNode.data('marginLeft')?currentWidthNode.data('marginLeft'):'0px')
             });
         }
     });
+
+
+
+    //rotatez翻转调整注册事件
+    var rotate_modify_flag = false;
+    $('.wxqq_tool_rotate_modify').on('mousedown','.marker',function(e){
+        rotate_modify_flag = true;
+        e.preventDefault();
+    });
+    $('.wxqq_tool_rotate_modify').on('mousemove',function(e){
+
+        var currentRotateNode = selectNode.closest('.wxqq');
+        if(rotate_modify_flag && currentRotateNode.size() >= 1) {
+            var offset = $(this).offset();
+            var relativeX = (e.pageX - offset.left);
+            var rotatez = 0;
+            if( relativeX == 100) {
+                rotatez = 0;
+
+                $('.wxqq_tool_rotate_modify .complete').css({width: relativeX +'px'}).text( 0 );
+                $('.wxqq_tool_rotate_modify .marker').css({left: relativeX +'px'});
+            }
+            if( relativeX > 100) {
+
+                rotatez = Math.ceil(180 / 100 * (relativeX -100 ));
+
+                if(rotatez <= 180) {
+                    $('.wxqq_tool_rotate_modify .complete').css({width: relativeX +'px'}).text( rotatez );
+
+                    $('.wxqq_tool_rotate_modify .marker').css({left: relativeX - 10 +'px'});
+                } else {
+                    rotatez = 180;
+                }
+
+            }
+            if( relativeX < 100) {
+                rotatez = '-' + Math.ceil(180 / 100 * (100 - relativeX ));
+
+                if(parseInt(rotatez) >= -180 ){
+                    $('.wxqq_tool_rotate_modify .complete').css({width: relativeX +'px'}).text( rotatez );
+                    $('.wxqq_tool_rotate_modify .marker').css({left: relativeX +'px'});
+                } else {
+                    rotatez = -180;
+                }
+
+            }
+
+            currentRotateNode.data('rotatez', rotatez);
+
+            currentRotateNode.css({ '-webkit-transform': 'rotateZ(' + rotatez+'deg)'});
+            currentRotateNode.css({ '-moz-transform': 'rotateZ(' + rotatez+'deg)'});
+            currentRotateNode.css({ '-o-transform': 'rotateZ(' + rotatez+'deg)'});
+            currentRotateNode.css({ 'transform': 'rotateZ(' + rotatez+'deg)'});
+        }
+
+        e.preventDefault();
+
+    });
+
+
+    $('.wxqq_tool_rotate_modify_btn').on('click',function (){
+        var currentRotateNode = selectNode.closest('.wxqq');
+        var rotatez = $(this).data('rotatez');
+        if(currentRotateNode.size() >= 1) {
+
+            currentRotateNode.data('rotatez',rotatez);
+
+            currentRotateNode.css({ '-webkit-transform': 'rotateZ(' + rotatez+'deg)'});
+            currentRotateNode.css({ '-moz-transform': 'rotateZ(' + rotatez+'deg)'});
+            currentRotateNode.css({ '-o-transform': 'rotateZ(' + rotatez+'deg)'});
+            currentRotateNode.css({ 'transform': 'rotateZ(' + rotatez+'deg)'});
+        }
+    });
+
 
 
     //加载所有的模版
