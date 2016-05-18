@@ -47,7 +47,7 @@ gulp.task('less', function () {
 
 gulp.task('gorsejsmin', function () {
     //return gulp.src(['asset/js/gorse.js','asset/js/ueditor.all.min.js'])
-    return gulp.src(['asset/js/gorse.js'])
+    return gulp.src(['asset/js/gorse.js','asset/js/ueditor.all.min.js'])
         .pipe(uglify())
         .pipe(rev())
         .pipe(gulp.dest('../wxqq/js'))

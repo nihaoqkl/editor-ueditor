@@ -317,6 +317,8 @@ wxqqEditor=UE.getEditor('editorContent',{
             "removeformat",'formatmatch',"autotypeset","|",
             'link','unlink',"source"]
     ],
+    serverUrl:'/index.php/Home/Gorse/uectl',
+    iframeCssUrl:'/static/ueditor/themes/gorse.css',
     //initialFrameWidth:500,
     initialFrameHeight: editorHeight,
     autoHeightEnabled:false,

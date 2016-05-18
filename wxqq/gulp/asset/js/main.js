@@ -75,9 +75,32 @@ function getContent(){
 
     });
 
+    //处理旋转的问题 代码1 貌似只要是操作dom树就是会自动替换成transform的
+    //$html.find('.wxqq').each(function(i,v){
+    //    var that = $(v);
+    //    var tranformcss = that.css('transform');
+    //    var strcsstext = v.style.cssText;
+    //    console.log(strcsstext);
+    //    var newtranformcss = '';
+    //    var re = new RegExp(tranformcss,'gi');
+    //    if(/rotatez/i.test(tranformcss)) {
+    //        console.log(/rotatez/i.test(tranformcss));
+    //        newtranformcss = tranformcss + ';-webkit-'+tranformcss+ ';-moz-'+tranformcss+ ';-o-'+tranformcss +';' ;
+    //        console.log(newtranformcss);
+    //        v.style.cssText =  strcsstext.replace(re , newtranformcss) ;
+    //    }
+    //});
+
     html = $html.html();
 
-    html = html.replace(/(<p>\s*<br\s*\/{0,1}>\s*<\/p>){1,}/ig,'');
+    //处理旋转的问题  代码2
+    if(/rotatez/i.test(html)) {
+        var re = new RegExp('rotatez\\(.+?\\)','gi');
+        var newtranformcss = "$&" + ';-webkit-'+"$&"+ ';-moz-'+"$&"+ ';-o-'+"$&" +';' ;
+        html = html.replace(re , newtranformcss) ;
+    }
+
+    html = html.replace(/(<p>\s*<br\s*\/{0,1}>\s*<\/p>){2,}/ig,'');
 
     return html;
 }
@@ -320,12 +343,7 @@ function RotateModify($node){
 
         var left = 100;
 
-        if(rotatez >= 0 ) {
-            left = 100 + (100 / 180 * rotatez);
-        } else {
-            left = 100 - (100 / 180 * rotatez);
-        }
-
+        left = 100 + (100 / 180 * rotatez);
 
         $('#wxqq_tool_bar .wxqq_tool_rotate_modify .marker').css({left: left +'px'});
 
@@ -400,6 +418,19 @@ function insertWrap (event){
         // 后插入空行
         $('#wxqq_tool_bar_isAfter').on('click', function (){
             wxqqWrap.after('<p><br /></p>');
+            wxqqEditor.focus(true);         //设置编辑器的光标到文档底部
+        });
+
+        // 前插入不被删除的空行
+        $('#wxqq_tool_bar_isBefore_br').on('click', function (){
+            wxqqWrap.before('<p>&nbsp;</p>');
+            var currentTop = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
+            $('#wxqq_tool_bar').css('top',currentTop + 47);
+        });
+
+        // 后插入不被删除的空行
+        $('#wxqq_tool_bar_isAfter_br').on('click', function (){
+            wxqqWrap.after('<p>&nbsp;</p>');
             wxqqEditor.focus(true);         //设置编辑器的光标到文档底部
         });
 
@@ -1190,10 +1221,6 @@ $(function(){
             }
 
             currentRotateNode.data('rotatez', rotatez);
-
-            currentRotateNode.css({ '-webkit-transform': 'rotateZ(' + rotatez+'deg)'});
-            currentRotateNode.css({ '-moz-transform': 'rotateZ(' + rotatez+'deg)'});
-            currentRotateNode.css({ '-o-transform': 'rotateZ(' + rotatez+'deg)'});
             currentRotateNode.css({ 'transform': 'rotateZ(' + rotatez+'deg)'});
         }
 
@@ -1209,9 +1236,6 @@ $(function(){
 
             currentRotateNode.data('rotatez',rotatez);
 
-            currentRotateNode.css({ '-webkit-transform': 'rotateZ(' + rotatez+'deg)'});
-            currentRotateNode.css({ '-moz-transform': 'rotateZ(' + rotatez+'deg)'});
-            currentRotateNode.css({ '-o-transform': 'rotateZ(' + rotatez+'deg)'});
             currentRotateNode.css({ 'transform': 'rotateZ(' + rotatez+'deg)'});
         }
     });
