@@ -192,6 +192,30 @@ function changeColorEditor(color){
 }
 
 
+//初始化编辑器
+wxqqEditor=UE.getEditor('editorContent',{
+    toolbars: [
+        ["undo","redo","|",
+            "bold","italic","underline","forecolor","backcolor","fontsize","|",
+            "justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|",
+            "insertimage",'insertvideo',"horizontal", 'spechars',"|",
+            "removeformat",'formatmatch',"autotypeset","|",
+            'link','unlink',"source"]
+    ],
+    serverUrl:'/index.php/Home/Gorse/uectl',
+    iframeCssUrl:'/static/ueditor/themes/gorse.css',
+    //initialFrameWidth:500,
+    initialFrameHeight: editorHeight,
+    autoHeightEnabled:false,
+    elementPathEnabled:false, //是否启用元素路径，默认是显示
+    enableAutoSave:false, //关闭本地自动保存
+    saveInterval:5000000, //关闭本地自动保存
+    autoFloatEnabled:true, //是否保持toolbar的位置不动，默认true
+    wordCount:false //是否开启字数统计
+//        allowDivTransToP:false
+});
+
+
 //浮动快捷工具条
 
 //是否需要显示宽度调节器
@@ -209,6 +233,25 @@ function WidthModify($node){
         $('#wxqq_tool_bar .wxqq_tool_width_modify .marker').css({left: (( 200 * (percent / 100) ) - 10) +'px'});
 
         $('#wxqq_tool_bar .wxqq_tool_width_modify_content').show();
+    }
+}
+
+//是否需要显示翻转调节器
+function RotateModify($node){
+    if($node.size() == 0 ) {
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify_content').hide();
+    } else {
+        var rotatez = ($node.data('rotatez') || 0);
+
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify .complete').text(rotatez);
+
+        var left = 100;
+
+        left = 100 + (100 / 180 * rotatez);
+
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify .marker').css({left: left +'px'});
+
+        $('#wxqq_tool_bar .wxqq_tool_rotate_modify_content').show();
     }
 }
 
@@ -234,6 +277,7 @@ function insertWrap (event){
     var select_node = selectNode.closest('.wxqq');
 
     var select_width_node = selectNode.closest('.wxqq-width-modify');
+    var select_rotate_node = selectNode.closest('.wxqq');
 
     if(select_node.size() == 0){
         hideWrap();
@@ -250,6 +294,7 @@ function insertWrap (event){
         var off_top = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
         var off_right = $(wxqqEditor.document).width() - (wxqqWrap.offset().left + wxqqWrap.width());
         WidthModify(select_width_node);
+        RotateModify(select_rotate_node);
         $('#wxqq_tool_bar').show();
         $('#wxqq_tool_bar').css({top:off_top+72,right:off_right});
         wxqq_tool_bar_copy_client.off( "copy" ); //取消所有的注册事件
@@ -280,6 +325,19 @@ function insertWrap (event){
             wxqqEditor.focus(true);         //设置编辑器的光标到文档底部
         });
 
+        // 前插入不被删除的空行
+        $('#wxqq_tool_bar_isBefore_br').on('click', function (){
+            wxqqWrap.before('<p>&nbsp;</p>');
+            var currentTop = wxqqWrap.offset().top + wxqqWrap.height() - $(wxqqEditor.document).scrollTop();
+            $('#wxqq_tool_bar').css('top',currentTop + 47);
+        });
+
+        // 后插入不被删除的空行
+        $('#wxqq_tool_bar_isAfter_br').on('click', function (){
+            wxqqWrap.after('<p>&nbsp;</p>');
+            wxqqEditor.focus(true);         //设置编辑器的光标到文档底部
+        });
+
         // 当滚轮变动时，动态改变工具条的位置
         $(wxqqEditor.document).on('mousewheel',function (){
             if($('#wxqq_tool_bar').css('display')!='none'){
@@ -304,31 +362,6 @@ function styleToolBar (){
 
 }
 //浮动快捷工具条 end
-
-
-
-//初始化编辑器
-wxqqEditor=UE.getEditor('editorContent',{
-    toolbars: [
-        ["undo","redo","|",
-            "bold","italic","underline","forecolor","backcolor","fontsize","|",
-            "justifyleft","justifycenter","justifyright",'justifyjustify', "indent","rowspacingtop",'rowspacingbottom',"lineheight","|",
-            "insertimage",'insertvideo',"horizontal", 'spechars',"|",
-            "removeformat",'formatmatch',"autotypeset","|",
-            'link','unlink',"source"]
-    ],
-    serverUrl:'/index.php/Home/Gorse/uectl',
-    iframeCssUrl:'/static/ueditor/themes/gorse.css',
-    //initialFrameWidth:500,
-    initialFrameHeight: editorHeight,
-    autoHeightEnabled:false,
-    elementPathEnabled:false, //是否启用元素路径，默认是显示
-    enableAutoSave:false, //关闭本地自动保存
-    saveInterval:5000000, //关闭本地自动保存
-    autoFloatEnabled:true, //是否保持toolbar的位置不动，默认true
-    wordCount:false //是否开启字数统计
-//        allowDivTransToP:false
-});
 
 function autoHeight(){
     winHeight = $(window).height();
@@ -432,6 +465,95 @@ $(function(){
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
 
+    //行业
+    $('#scene .filter').on('click',function(e){
+        var $this = $(this);
+        $this.addClass('active').siblings().removeClass('active');
+        $('#scene .block-list li').hide();
+        $('#scene .block-list').find('.wxqq-scene-pid-' + $this.data('sence-id')).show();
+        e.preventDefault();
+    });
+    $(document).on('click','#scene .block-list li',function(e){
+
+        if($(this).hasClass('ignore')){
+            return false;
+        }
+
+        var style_item = $(this).find('.wxqq'); //第一级的
+        var html = $(this).html();
+
+        if(style_item.size()){
+            wxqqEditor.execCommand('insertHtml', html + "<p><br/></p>");
+        } else {
+            wxqqEditor.execCommand('insertHtml', "<section class=\"wxqq\">" + html + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
+        }
+
+        // 统计技术
+        // style_click($(this).data('id'));
+
+    });
+
+    //节日
+    $('#festival .filter').on('click',function(e){
+        var $this = $(this);
+        $this.addClass('active').siblings().removeClass('active');
+        $('#scene .block-list li').hide();
+        $('#scene .block-list').find('.wxqq-festival-pid-' + $this.data('festival-id')).show();
+        e.preventDefault();
+    });
+    $(document).on('click','#festival .block-list li',function(e){
+
+        if($(this).hasClass('ignore')){
+            return false;
+        }
+
+        var style_item = $(this).find('.wxqq'); //第一级的
+        var html = $(this).html();
+
+        if(style_item.size()){
+            wxqqEditor.execCommand('insertHtml', html + "<p><br/></p>");
+        } else {
+            wxqqEditor.execCommand('insertHtml', "<section class=\"wxqq\">" + html + "<section style=\"display: block; width: 0; height: 0; clear: both;\"></section></section><p><br/></p>");
+        }
+
+        // 统计技术
+        // style_click($(this).data('id'));
+
+    });
+
+    //加点料
+    $('.btn-mind').on('click',function(){
+        modalCommon.open({type:'id',content:'mindModal'},{
+            'title':'脑洞大开(给推文最后加上字谜，脑经急转弯等)',
+            'content':
+            '<div class="container-fuild" style="margin-bottom:8px;">'+
+            '<div class="row">'+
+            '<div class="col-xs-12">'+
+            '<button class="btn btn-success changeMind pull-right">换一批哦</button>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '<div class="container-fuild">'+
+            '<div class="mindContent row">'+
+            '</div>'+
+            '</div>'
+        },function(selector){
+            $(selector).on('click','.mindInsert',function(){
+                var that=$(this);
+                appendMind(that.parents('.mindOne').find('.question').html());
+                modalCommon.close(selector);
+            });
+            $(selector).on('click','.changeMind',function(){
+                $.get('/index.php/Home/New/getMind?r='+Math.random()*100000,function(data){
+                    $(selector).find('.mindContent').html(data);
+                });
+            });
+            $.get('/index.php/Home/New/getMind?r='+Math.random()*100000,function(data){
+                $(selector).find('.mindContent').html(data);
+            });
+        });
+    });
+
 
     //右侧的快捷按钮
     $('#clearWxqqEditor').on('click',function(){
@@ -443,7 +565,7 @@ $(function(){
     $('#previewEditor').on('click',function(){
         $('#previewBox').html(wxqqEditor.getContent());
         $('#preview-msg').modal('show');
-    })
+    });
     client.on( "copy", function( event ) {
         event.clipboardData.setData( "text/html", getContent());
         $.toaster({ message : '请在微信后台ctrl+v即可', title : '复制成功', priority : 'success', timeout:90000 });
@@ -648,89 +770,85 @@ $(function(){
 
 
     //右侧的快速颜色操作
-    $('#custom-color-text').colorPicker({
-        customBG: '#222',
-        size:2,
-        readOnly: false,
-        mode:'hsv-h',
-        init: function(elm, colors) { // colors is a different instance (not connected to colorPicker)
-            elm.style.backgroundColor = elm.value;
-            elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';
+    $('.color-wrap').ColorPicker({
+        flat: true,
+        color: '#222',
+        onChange: function(hsb, hex, rgb) {
+
+            var color = '#' + hex;
+
+                if($('#replace-color-nav').prop('checked')){ //左侧导航
+                    $('.block-list').find('.wxqq-bg').css({
+                        backgroundColor: color
+                    });
+                    $('.block-list').find('.wxqq-color').css({
+                        color: color
+                    });
+                    $('.block-list').find('.wxqq-borderTopColor').css({
+                        borderTopColor: color
+                    });
+                    $('.block-list').find('.wxqq-borderLeftColor').css({
+                        borderLeftColor: color
+                    });
+                    $('.block-list').find('.wxqq-borderRightColor').css({
+                        borderRightColor: color
+                    });
+                    $('.block-list').find('.wxqq-borderBottomColor').css({
+                        borderBottomColor: color
+                    });
+                }
+
+                if($('#replace-color-select').prop('checked')){ //选中
+                    var _range=wxqqEditor.selection.getRange(),
+                        anchorNode=wxqqEditor.selection.getStart();
+
+                    if(anchorNode.nodeType!=1){ anchorNode=anchorNode.parentNode;}
+                    //字体
+                    if($(anchorNode).hasClass('wxqq-color')){
+                        $(anchorNode).css({color:color});
+                    } else {
+                        $(anchorNode).closest('.wxqq').find('.wxqq-color').css({color:color});
+                    }
+                    //背景
+                    if($(anchorNode).hasClass('wxqq-bg')){
+                        $(anchorNode).css({backgroundColor:color});
+                    } else {
+                        $(anchorNode).closest('.wxqq').find('.wxqq-bg').css({backgroundColor:color});
+                    }
+
+                    //border颜色
+                    if($(anchorNode).hasClass('wxqq-borderTopColor')){
+                        $(anchorNode).css({borderTopColor:color});
+                    } else {
+                        $(anchorNode).closest('.wxqq').find('.wxqq-borderTopColor').css({borderTopColor:color});
+                    }
+                    if($(anchorNode).hasClass('wxqq-borderLeftColor')){
+                        $(anchorNode).css({borderLeftColor:color});
+                    } else {
+                        $(anchorNode).closest('.wxqq').find('.wxqq-borderLeftColor').css({borderLeftColor:color});
+                    }
+                    if($(anchorNode).hasClass('wxqq-borderRightColor')){
+                        $(anchorNode).css({borderRightColor:color});
+                    } else {
+                        $(anchorNode).closest('.wxqq').find('.wxqq-borderRightColor').css({borderRightColor:color});
+                    }
+                    if($(anchorNode).hasClass('wxqq-borderBottomColor')){
+                        $(anchorNode).css({borderBottomColor:color});
+                    } else {
+                        $(anchorNode).closest('.wxqq').find('.wxqq-borderBottomColor').css({borderBottomColor:color});
+                    }
+                    //border end颜色
+
+                }
+
+                if($('#replace-color-edit').prop('checked')){ //编辑器全部
+                    changeColorEditor(color);
+                }
+
         },
-        displayCallback:function(colors, mode,options){
-
-            var color = '#'+colors.HEX;
-
-            if($('#replace-color-nav').prop('checked')){ //左侧导航
-                $('.editor-template-list').find('.wxqq-bg').css({
-                    backgroundColor:'#'+colors.HEX
-                });
-                $('.editor-template-list').find('.wxqq-color').css({
-                    color:'#'+colors.HEX
-                });
-                $('.editor-template-list').find('.wxqq-borderTopColor').css({
-                    borderTopColor:'#'+colors.HEX
-                });
-                $('.editor-template-list').find('.wxqq-borderLeftColor').css({
-                    borderLeftColor:'#'+colors.HEX
-                });
-                $('.editor-template-list').find('.wxqq-borderRightColor').css({
-                    borderRightColor:'#'+colors.HEX
-                });
-                $('.editor-template-list').find('.wxqq-borderBottomColor').css({
-                    borderBottomColor:'#'+colors.HEX
-                });
-            }
-
-            if($('#replace-color-select').prop('checked')){ //选中
-                var _range=wxqqEditor.selection.getRange(),
-                    anchorNode=wxqqEditor.selection.getStart();
-
-                if(anchorNode.nodeType!=1){ anchorNode=anchorNode.parentNode;}
-                //字体
-                if($(anchorNode).hasClass('wxqq-color')){
-                    $(anchorNode).css({color:color});
-                } else {
-                    $(anchorNode).closest('.wxqq').find('.wxqq-color').css({color:color});
-                }
-                //背景
-                if($(anchorNode).hasClass('wxqq-bg')){
-                    $(anchorNode).css({backgroundColor:color});
-                } else {
-                    $(anchorNode).closest('.wxqq').find('.wxqq-bg').css({backgroundColor:color});
-                }
-
-                //border颜色
-                if($(anchorNode).hasClass('wxqq-borderTopColor')){
-                    $(anchorNode).css({borderTopColor:color});
-                } else {
-                    $(anchorNode).closest('.wxqq').find('.wxqq-borderTopColor').css({borderTopColor:color});
-                }
-                if($(anchorNode).hasClass('wxqq-borderLeftColor')){
-                    $(anchorNode).css({borderLeftColor:color});
-                } else {
-                    $(anchorNode).closest('.wxqq').find('.wxqq-borderLeftColor').css({borderLeftColor:color});
-                }
-                if($(anchorNode).hasClass('wxqq-borderRightColor')){
-                    $(anchorNode).css({borderRightColor:color});
-                } else {
-                    $(anchorNode).closest('.wxqq').find('.wxqq-borderRightColor').css({borderRightColor:color});
-                }
-                if($(anchorNode).hasClass('wxqq-borderBottomColor')){
-                    $(anchorNode).css({borderBottomColor:color});
-                } else {
-                    $(anchorNode).closest('.wxqq').find('.wxqq-borderBottomColor').css({borderBottomColor:color});
-                }
-                //border end颜色
-
-            }
-
-            if($('#replace-color-edit').prop('checked')){ //编辑器全部
-                changeColorEditor(color);
-            }
-        }
-    }).each(function(idx, elm) {
-        // $(elm).css({'background-color': this.value})
+        onSubmit: function(hsb, hex, rgb) {
+            $('body').css('backgroundColor', '#' + hex);
+        },
     });
 
     $('.color-swatch').on('click',function(){
@@ -738,22 +856,22 @@ $(function(){
         var color=$(this).css('background-color');
 
         if($('#replace-color-nav').prop('checked')){ //左侧导航
-            $('.editor-template-list').find('.wxqq-bg').css({
+            $('.block-list').find('.wxqq-bg').css({
                 backgroundColor:color
             });
-            $('.editor-template-list').find('.wxqq-color').css({
+            $('.block-list').find('.wxqq-color').css({
                 color:color
             });
-            $('.editor-template-list').find('.wxqq-borderTopColor').css({
+            $('.block-list').find('.wxqq-borderTopColor').css({
                 borderTopColor:color
             });
-            $('.editor-template-list').find('.wxqq-borderLeftColor').css({
+            $('.block-list').find('.wxqq-borderLeftColor').css({
                 borderLeftColor:color
             });
-            $('.editor-template-list').find('.wxqq-borderRightColor').css({
+            $('.block-list').find('.wxqq-borderRightColor').css({
                 borderRightColor:color
             });
-            $('.editor-template-list').find('.wxqq-borderBottomColor').css({
+            $('.block-list').find('.wxqq-borderBottomColor').css({
                 borderBottomColor:color
             });
         }
@@ -888,23 +1006,24 @@ $(function(){
     });
 
 
+
     //宽度调整注册事件
-    var modify_flag = false;
+    var width_modify_flag = false;
     $('.wxqq_tool_width_modify').on('mousedown','.marker',function(e){
-        modify_flag = true;
+        width_modify_flag = true;
         e.preventDefault();
     });
     $('.wxqq_tool_width_modify').on('mousemove',function(e){
 
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(modify_flag && currentNode.size() >= 1) {
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(width_modify_flag && currentWidthNode.size() >= 1) {
             var offset = $(this).offset();
             var relativeX = (e.pageX - offset.left);
             if( relativeX > 10) {
 
                 var percent = (relativeX / 200 * 100).toFixed(0);
-                currentNode.data('width-percent',percent  + '%');
-                currentNode.css('width',percent  + '%');
+                currentWidthNode.data('width-percent',percent  + '%');
+                currentWidthNode.css('width',percent  + '%');
 
                 if(percent >= 14) {
                     $('.wxqq_tool_width_modify .complete').css({width: relativeX +'px'}).text( percent  + '%');
@@ -918,14 +1037,19 @@ $(function(){
         e.preventDefault();
 
     });
+
+    //判定位置变化调整浮动工具位置
     $('#wxqq_tool_bar').on('mouseup', function(e){
 
-        if(modify_flag) {
+        if(width_modify_flag) {
 
             var current_top = selectNode.closest('.wxqq').offset().top + selectNode.closest('.wxqq').height() - $(wxqqEditor.document).scrollTop();
             $('#wxqq_tool_bar').css('top',current_top + 60);
 
-            modify_flag = false;
+            width_modify_flag = false;
+        }
+        if(rotate_modify_flag) {
+            rotate_modify_flag = false;
         }
 
         e.preventDefault();
@@ -933,56 +1057,122 @@ $(function(){
 
     //宽度的node的位置调整
     $('#wxqq_tool_width_modify_left').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
-            currentNode.css({float:'left'});
-            if(!currentNode.next().hasClass('wxqq-clear')) {
-                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentNode);
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
+            currentWidthNode.css({float:'left'});
+            if(!currentWidthNode.next().hasClass('wxqq-clear')) {
+                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentWidthNode);
             }
 
-            if(currentNode.data('marginAuto') != '1') {
-                currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
-                currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            if(currentWidthNode.data('marginAuto') != '1') {
+                currentWidthNode.data('marginLeft', (currentWidthNode.css('marginLeft')?currentWidthNode.css('marginLeft'):'0px') );
+                currentWidthNode.data('marginRight', (currentWidthNode.css('marginRight')?currentWidthNode.css('marginRight'):'0px') );
             }
         }
     });
     $('#wxqq_tool_width_modify_right').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
-            currentNode.css({float:'right'});
-            if(!currentNode.next().hasClass('wxqq-clear')) {
-                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentNode);
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
+            currentWidthNode.css({float:'right'});
+            if(!currentWidthNode.next().hasClass('wxqq-clear')) {
+                $('<section style="clear:both" class="wxqq-clear"></section>').insertAfter(currentWidthNode);
             }
 
-            if(currentNode.data('marginAuto') != '1') {
-                currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
-                currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            if(currentWidthNode.data('marginAuto') != '1') {
+                currentWidthNode.data('marginLeft', (currentWidthNode.css('marginLeft')?currentWidthNode.css('marginLeft'):'0px') );
+                currentWidthNode.data('marginRight', (currentWidthNode.css('marginRight')?currentWidthNode.css('marginRight'):'0px') );
             }
         }
     });
     $('#wxqq_tool_width_modify_center').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
 
-            currentNode.data('marginAuto', '1');
-            currentNode.data('marginLeft', (currentNode.css('marginLeft')?currentNode.css('marginLeft'):'0px') );
-            currentNode.data('marginRight', (currentNode.css('marginRight')?currentNode.css('marginRight'):'0px') );
+            currentWidthNode.data('marginAuto', '1');
+            currentWidthNode.data('marginLeft', (currentWidthNode.css('marginLeft')?currentWidthNode.css('marginLeft'):'0px') );
+            currentWidthNode.data('marginRight', (currentWidthNode.css('marginRight')?currentWidthNode.css('marginRight'):'0px') );
 
-            currentNode.css({float:'none'});
-            currentNode.siblings('.wxqq-clear').remove();
-            currentNode.css({
-                margin: (currentNode.css('marginTop')?currentNode.css('marginTop'):'0px') + ' auto ' + (currentNode.css('marginBottom')?currentNode.css('marginBottom'):'0px') + ' auto'
+            currentWidthNode.css({float:'none'});
+            currentWidthNode.siblings('.wxqq-clear').remove();
+            currentWidthNode.css({
+                margin: (currentWidthNode.css('marginTop')?currentWidthNode.css('marginTop'):'0px') + ' auto ' + (currentWidthNode.css('marginBottom')?currentWidthNode.css('marginBottom'):'0px') + ' auto'
             });
         }
     });
     $('#wxqq_tool_width_modify_clear').on('click',function (){
-        var currentNode = selectNode.closest('.wxqq-width-modify');
-        if(currentNode.size() >= 1) {
-            currentNode.css({float:'none'});
-            currentNode.siblings('.wxqq-clear').remove();
-            currentNode.css({
-                margin: (currentNode.css('marginTop')?currentNode.css('marginTop'):'0px') + ' ' + (currentNode.data('marginRight')?currentNode.data('marginRight'):'0px') + ' ' + (currentNode.css('marginBottom')?currentNode.css('marginBottom'):'0px') + ' ' + (currentNode.data('marginLeft')?currentNode.data('marginLeft'):'0px')
+        var currentWidthNode = selectNode.closest('.wxqq-width-modify');
+        if(currentWidthNode.size() >= 1) {
+            currentWidthNode.css({float:'none'});
+            currentWidthNode.siblings('.wxqq-clear').remove();
+            currentWidthNode.css({
+                margin: (currentWidthNode.css('marginTop')?currentWidthNode.css('marginTop'):'0px') + ' ' + (currentWidthNode.data('marginRight')?currentWidthNode.data('marginRight'):'0px') + ' ' + (currentWidthNode.css('marginBottom')?currentWidthNode.css('marginBottom'):'0px') + ' ' + (currentWidthNode.data('marginLeft')?currentWidthNode.data('marginLeft'):'0px')
             });
+        }
+    });
+
+
+
+    //rotatez翻转调整注册事件
+    var rotate_modify_flag = false;
+    $('.wxqq_tool_rotate_modify').on('mousedown','.marker',function(e){
+        rotate_modify_flag = true;
+        e.preventDefault();
+    });
+    $('.wxqq_tool_rotate_modify').on('mousemove',function(e){
+
+        var currentRotateNode = selectNode.closest('.wxqq');
+        if(rotate_modify_flag && currentRotateNode.size() >= 1) {
+            var offset = $(this).offset();
+            var relativeX = (e.pageX - offset.left);
+            var rotatez = 0;
+            if( relativeX == 100) {
+                rotatez = 0;
+
+                $('.wxqq_tool_rotate_modify .complete').css({width: relativeX +'px'}).text( 0 );
+                $('.wxqq_tool_rotate_modify .marker').css({left: relativeX +'px'});
+            }
+            if( relativeX > 100) {
+
+                rotatez = Math.ceil(180 / 100 * (relativeX -100 ));
+
+                if(rotatez <= 180) {
+                    $('.wxqq_tool_rotate_modify .complete').css({width: relativeX +'px'}).text( rotatez );
+
+                    $('.wxqq_tool_rotate_modify .marker').css({left: relativeX - 10 +'px'});
+                } else {
+                    rotatez = 180;
+                }
+
+            }
+            if( relativeX < 100) {
+                rotatez = '-' + Math.ceil(180 / 100 * (100 - relativeX ));
+
+                if(parseInt(rotatez) >= -180 ){
+                    $('.wxqq_tool_rotate_modify .complete').css({width: relativeX +'px'}).text( rotatez );
+                    $('.wxqq_tool_rotate_modify .marker').css({left: relativeX +'px'});
+                } else {
+                    rotatez = -180;
+                }
+
+            }
+
+            currentRotateNode.data('rotatez', rotatez);
+            currentRotateNode.css({ 'transform': 'rotateZ(' + rotatez+'deg)'});
+        }
+
+        e.preventDefault();
+
+    });
+
+
+    $('.wxqq_tool_rotate_modify_btn').on('click',function (){
+        var currentRotateNode = selectNode.closest('.wxqq');
+        var rotatez = $(this).data('rotatez');
+        if(currentRotateNode.size() >= 1) {
+
+            currentRotateNode.data('rotatez',rotatez);
+
+            currentRotateNode.css({ 'transform': 'rotateZ(' + rotatez+'deg)'});
         }
     });
 
